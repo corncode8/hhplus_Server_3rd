@@ -26,5 +26,5 @@
 
 
 
-###ERD
+### ERD
 ![hhplus_3rd_erd](https://github.com/corncode8/hhplus_tdd_3rd/assets/127717982/28687902-1f1a-455d-8e2c-827d9b03a705)
