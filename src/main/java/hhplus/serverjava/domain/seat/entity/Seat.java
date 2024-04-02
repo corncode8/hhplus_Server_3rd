@@ -25,6 +25,9 @@ public class Seat {
     @Column(nullable = false, length = 20)
     private String seatSection;
 
+    @Column(nullable = false)
+    private int price;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "concert_id")
     private Concert concert;

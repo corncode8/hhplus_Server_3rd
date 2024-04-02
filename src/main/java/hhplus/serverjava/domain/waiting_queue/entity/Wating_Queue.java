@@ -18,15 +18,9 @@ public class Wating_Queue extends BaseEntity {
     @Column(name = "wating_queue_id", nullable = false, updatable = false)
     private Long id;
 
-    @Column(name = "token", nullable = false, updatable = false)
-    private String token;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
     protected State state;
-
-    @Column(columnDefinition = "TIMESTAMP", name = "estmatedAt")
-    private LocalDateTime estmatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
