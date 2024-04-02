@@ -34,11 +34,11 @@
 
 
 ### 시퀀스 다이어그램
-![콘서트 예약 서비스 시퀀스다이어그램 drawio](https://github.com/corncode8/hhplus_tdd_3rd/assets/127717982/a6a38d84-642e-42b5-8569-d5ce5049f30b)
+![콘서트 예약 서비스 시퀀스 다이어그램](https://github.com/corncode8/hhplus_Server_3rd/assets/127717982/a6d5eb55-eaa3-4ed2-af33-0a0a5c88bbe8)
 
 
 ### ERD
-![hhplus_3rd_erd](https://github.com/corncode8/hhplus_tdd_3rd/assets/127717982/fe7c6906-6a2e-4e88-b41c-c7978e03ca72)
+![hhplus_3rd_erd](https://github.com/corncode8/hhplus_Server_3rd/assets/127717982/69dd9ca0-2dd4-453e-8d25-a6e09267cf6d)
 
 
 ### API 명세
@@ -72,7 +72,7 @@
 잔액 충전 API <br/>
 | 메서드 | URL | 기능 |
 |--------|-----------|-----------|
-| POST    |/api/{userId}/charge  | 잔액 충전|
+| PATCH    |/api/{userId}/charge  | 잔액 충전|
 
 잔액 조회 API <br/>
 | 메서드 | URL | 기능 |
