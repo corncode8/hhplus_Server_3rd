@@ -1,6 +1,5 @@
 package hhplus.serverjava.api.domain.dto.response.user;
 
-import hhplus.serverjava.domain.waiting_queue.entity.Wating_Queue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,8 +18,5 @@ public class GetUserRes {
 
     // 예상 시간
     private LocalDateTime expectedTime;
-
-
-    private Wating_Queue.State state;
 
 }

@@ -25,7 +25,6 @@ public class JwtServiceImpl implements JwtService{
     private String JWT_SECRET_KEY;
 
     // JWT 생성
-    // TODO: 유저의 대기열을 관리할 수 있는 정보 ( 대기 순서 or 잔여 시간 등 ) 추가하기
     @Override
     public String createJwt(Long userId){
         Date now = new Date();

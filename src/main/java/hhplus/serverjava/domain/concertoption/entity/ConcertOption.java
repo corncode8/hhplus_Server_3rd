@@ -1,6 +1,5 @@
-package hhplus.serverjava.domain.concert.entity;
+package hhplus.serverjava.domain.concertoption.entity;
 
-import hhplus.serverjava.common.entity.BaseEntity;
 import hhplus.serverjava.domain.seat.entity.Seat;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -14,22 +13,22 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Concert extends BaseEntity {
+public class ConcertOption {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "concert_id", nullable = false, updatable = false)
+    @Column(name = "concertOption_id", nullable = false, updatable = false)
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private LocalDateTime startedAt;
+
+    @Column(nullable = false)
+    private LocalDateTime endedAt;
 
     @Column(nullable = false)
     private int seatsNum;
 
-    @Column(nullable = false, name = "endedAt")
-    private LocalDateTime endedAt;
-
-    @OneToMany(mappedBy = "concert")
+    @OneToMany(mappedBy = "concertOption")
     private List<Seat> seatList = new ArrayList<>();
 
 }

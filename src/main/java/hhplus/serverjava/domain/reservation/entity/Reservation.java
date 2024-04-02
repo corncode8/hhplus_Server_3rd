@@ -20,12 +20,24 @@ public class Reservation extends BaseEntity {
     @Column(name = "reservation_id", nullable = false, updatable = false)
     private Long id;
 
-    @Column(columnDefinition = "TIMESTAMP", nullable = false)
-    private LocalDateTime expiredAt;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
-    protected State state;
+    protected State state = State.RESERVED;
+
+    @Column(nullable = false)
+    private String concertName;
+
+    @Column(nullable = false, length = 50)
+    private String concertArtist;
+
+    @Column(nullable = false)
+    private LocalDateTime concertAt;
+
+    @Column(nullable = false, length = 10)
+    private String seatNum;
+
+    @Column(nullable = false)
+    private int reservedAmount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
