@@ -52,17 +52,17 @@
 대기열 확인 API <br/>
 | 메서드 | URL | 기능 |
 |--------|-----------|-----------|
-| GET    |/api  | 대기열 정보 확인|
+| GET    |/api/check  | 대기열 정보 확인|
 
 예약 가능한 날짜 조회 API <br/>
 | 메서드 | URL | 기능 |
 |--------|-----------|-----------|
-| GET    |/api/booking/list/time  | 예약 가능 날짜 조회|
+| GET    |/api/booking/{concertId}/list/time  | 예약 가능 날짜 조회|
 
 예약 가능한 좌석 정보 조회 API <br/>
 | 메서드 | URL | 기능 |
 |--------|-----------|-----------|
-| GET    |/api/booking/list/seats  | 예약 가능 좌석 조회|
+| GET    |/api/booking/{concertId}/list/seats  | 예약 가능 좌석 조회|
 
 좌석 예약 API <br/>
 | 메서드 | URL | 기능 |
@@ -72,22 +72,22 @@
 잔액 충전 API <br/>
 | 메서드 | URL | 기능 |
 |--------|-----------|-----------|
-| POST    |/api/charge  | 잔액 충전|
+| POST    |/api/{userId}/charge  | 잔액 충전|
 
 잔액 조회 API <br/>
 | 메서드 | URL | 기능 |
 |--------|-----------| -----------|
-| GET    |/api/pointhistory  | 잔액 조회|
+| GET    |/api/{userId}  | 잔액 조회|
 
 잔액 리스트 조회 API <br/>
 | 메서드 | URL | 기능 |
 |--------|-----------| -----------|
-| GET    |/api/pointhistory/list  | 잔액 List 조회|
+| GET    |/api/{userId}/histories  | 잔액 List 조회|
 
 결제 API <br/>
 | 메서드 | URL | 기능 |
 |--------|-----------| -----------|
-| POST    |/api/payment  | 결제|
+| POST    |/api/{reservationId}/payment  | 결제|
 
 
 
