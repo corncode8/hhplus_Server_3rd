@@ -1,6 +1,5 @@
 package hhplus.serverjava.api.domain;
 
-import hhplus.serverjava.api.domain.dto.request.payment.PostPayReq;
 import hhplus.serverjava.api.domain.dto.response.payment.PostPayRes;
 import hhplus.serverjava.common.response.BaseResponse;
 import lombok.RequiredArgsConstructor;
