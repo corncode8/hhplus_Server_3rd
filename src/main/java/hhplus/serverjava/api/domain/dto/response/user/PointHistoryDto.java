@@ -1,7 +1,6 @@
 package hhplus.serverjava.api.domain.dto.response.user;
 
 import hhplus.serverjava.domain.pointhistory.entity.PointHistory;
-import hhplus.serverjava.domain.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
