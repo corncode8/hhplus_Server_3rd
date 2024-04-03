@@ -171,7 +171,13 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
     "result": {
         "concertName": "MAKTUB Concert",
         "reservationDate": "2024-03-01",
-        "reservationSeat": "2"
+        "reservationSeats": [
+            "1",
+            "2",
+            "5",
+            "9",
+            "16"
+        ]
     }
 }
 ```
