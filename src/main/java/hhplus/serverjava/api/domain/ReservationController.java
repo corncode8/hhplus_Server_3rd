@@ -1,6 +1,5 @@
 package hhplus.serverjava.api.domain;
 
-import hhplus.serverjava.api.domain.dto.request.reservation.GetSeatsReq;
 import hhplus.serverjava.api.domain.dto.request.reservation.PostReservationReq;
 import hhplus.serverjava.api.domain.dto.response.reservation.GetDateRes;
 import hhplus.serverjava.api.domain.dto.response.reservation.PostReservationRes;
@@ -10,11 +9,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import static hhplus.serverjava.common.response.BaseResponseStatus.*;
 
 
 @Slf4j
@@ -28,16 +26,17 @@ public class ReservationController {
      * [GET] /api/booking/{concertId}/list/time
      * @return BaseResponse<GetDateRes>
      */
+    @GetMapping("/booking/{concertId}/list/time")
     public BaseResponse<GetDateRes> getAvailableDates(@PathVariable("concertId") Long concertId) {
 
 
         // 예약 가능한 날짜 return
-        LocalDateTime localDate = LocalDateTime.now().plusDays(5);
-        LocalDateTime localDate1 = LocalDateTime.now().plusDays(6);
-        LocalDateTime localDate2 = LocalDateTime.now().plusYears(90);
+        LocalDate localDate = LocalDate.now().plusDays(5);
+        LocalDate localDate1 = LocalDate.now().plusDays(6);
+        LocalDate localDate2 = LocalDate.now().plusYears(90);
 
 
-        List<LocalDateTime> localDateList = new ArrayList<>();
+        List<LocalDate> localDateList = new ArrayList<>();
 
         localDateList.add(localDate);
         localDateList.add(localDate1);
@@ -50,24 +49,21 @@ public class ReservationController {
 
     /**
      * 예약 가능한 좌석 정보 조회 API
-     * [GET] /api/booking/{concertId}/list/seats
+     * [GET] /api/booking/{concertId}/dates/{date}/list/seats
      * @return BaseResponse<GetSeatsRes>
      */
+    @GetMapping("/booking/{concertId}/dates/{date}/list/seats")
     public BaseResponse<GetSeatsRes> getAvailableSeats(@PathVariable("concertId") Long concertId,
-                                                       @RequestBody GetSeatsReq getSeatsReq) {
-
-        if (getSeatsReq.getConcertDate() == null) {
-            return new BaseResponse<>(CONCERT_EMPTY_DATE);
-        }
+                                                       @PathVariable("date") String concertDate) {
 
         // 예약 가능한 좌석 정보 return
         List<String> mockList = new ArrayList<>();
 
-        mockList.add("2d");
-        mockList.add("3d");
-        mockList.add("4d");
-        mockList.add("2c");
-        mockList.add("5c");
+        mockList.add("1");
+        mockList.add("2");
+        mockList.add("5");
+        mockList.add("9");
+        mockList.add("16");
 
 
         GetSeatsRes getSeatsRes = new GetSeatsRes(mockList);
@@ -84,16 +80,14 @@ public class ReservationController {
     public BaseResponse<PostReservationRes> bookingConcert(@PathVariable("concertId") Long concertId,
                                                            @RequestBody PostReservationReq request) {
 
-        // 콘서트 예약
+        // 좌석 예약
 
         String username = "Justin Mock";
 
         String concertName = "MAKTUB Concert";
 
-        request.setConcertAt(LocalDateTime.now());
-        request.setSeat("SSSSSSSSSSSSSSSSS");
 
-        PostReservationRes result = new PostReservationRes(username, concertId, concertName,
+        PostReservationRes result = new PostReservationRes( concertName,
                 request.getConcertAt(), request.getSeat());
 
         return new BaseResponse<>(result);

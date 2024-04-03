@@ -38,12 +38,12 @@ public class UserController {
 
         // 유저 생성 + 토큰 발급
 
-        Long userId = 1L;
+        String token = "wer7w-edt-w5g-dsrgdrg-testToken";
         Long listNum = 1L;
         LocalDateTime expectedAt = LocalDateTime.now();
 
 
-        PostUserRes postUserRes = new PostUserRes(userId, listNum, expectedAt);
+        PostUserRes postUserRes = new PostUserRes(token, listNum, expectedAt);
 
         return new BaseResponse<>(postUserRes);
     }
@@ -69,14 +69,14 @@ public class UserController {
 
     /**
      * 잔액 충전 API
-     * [POST] /api/{userId}/charge
+     * [PATCH] /api/{userId}/charge
      * @return BaseResponse<UserPoint>
      */
-    @PostMapping("/{userId}/charge")
-    public BaseResponse<UserPoint> chargePoint(@PathVariable("userId") Long userId, Long amount) {
+    @PatchMapping("/{userId}/charge")
+    public BaseResponse<UserPoint> chargePoint(@PathVariable("userId") Long userId,@RequestBody Long amount) {
 
 
-        UserPoint userPoint = new UserPoint(userId, amount);
+        UserPoint userPoint = new UserPoint(userId, 50000L);
 
         return new BaseResponse<>(userPoint);
     }

@@ -13,12 +13,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class PostReservationRes {
 
-    private String username;
-
-    private Long concertId;
     private String concertName;
 
-    private LocalDateTime reservationDate;
+    private String reservationDate;
     private String reservationSeat;
 
 }

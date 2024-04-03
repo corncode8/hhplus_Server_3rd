@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class PostReservationReq {
 
     // 콘서트 날짜 시간
-    private LocalDateTime concertAt;
+    private String concertAt;
 
     // 콘서트 좌석
     private String seat;

@@ -20,7 +20,7 @@ public class PaymentController {
      * @return BaseResponse<UserPoint>
      */
     @PostMapping("/{reservationId}/payment")
-    public BaseResponse<PostPayRes> point(@PathVariable("reservationId")Long reservationId, int payAmount) {
+    public BaseResponse<PostPayRes> point(@PathVariable("reservationId")Long reservationId, @RequestBody int payAmount) {
 
         Long payId = 1L;
 

@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class PostUserRes {
 
-    private Long userId;
+    // 토큰
+    private String token;
 
     // 예상 대기 번호
     private Long listNum;
