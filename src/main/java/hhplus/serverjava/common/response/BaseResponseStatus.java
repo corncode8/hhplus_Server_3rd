@@ -19,10 +19,18 @@ public enum BaseResponseStatus {
     /**
      * 400 : Request, Response 오류
      */
-    USERS_EMPTY_NAME(false, HttpStatus.BAD_REQUEST.value(), "이름을 입력해주세요."),
-    CONCERT_EMPTY_DATE(false, HttpStatus.BAD_REQUEST.value(), "콘서트 날짜를 입력해주세요."),
+    EMPTY_NAME_USER(false, HttpStatus.BAD_REQUEST.value(), "이름을 입력해주세요."),
+    NOT_FIND_USER(false,HttpStatus.NOT_FOUND.value(),"일치하는 유저가 없습니다."),
+
     EMPTY_JWT(false, HttpStatus.UNAUTHORIZED.value(), "JWT를 입력해주세요."),
     INVALID_JWT(false, HttpStatus.UNAUTHORIZED.value(), "유효하지 않은 JWT입니다."),
+
+
+    CONCERT_EMPTY_DATE(false, HttpStatus.BAD_REQUEST.value(), "콘서트 날짜를 입력해주세요."),
+
+    INVALID_SEAT(false, HttpStatus.UNAUTHORIZED.value(), "유효하지 않은 좌석 입니다."),
+    EMPTY_SEAT_RESERVATION(false, HttpStatus.BAD_REQUEST.value(), "예약 가능한 좌석이 없습니다."),
+
 
 
     /**

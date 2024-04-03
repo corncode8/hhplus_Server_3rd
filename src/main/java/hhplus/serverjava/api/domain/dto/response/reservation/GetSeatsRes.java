@@ -1,5 +1,6 @@
 package hhplus.serverjava.api.domain.dto.response.reservation;
 
+import hhplus.serverjava.domain.seat.entity.Seat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,5 +16,5 @@ import java.util.List;
 public class GetSeatsRes {
 
     // Mock API용 List
-    List<String> availableSeatsList = new ArrayList<>();
+    List<Seat> availableSeatsList = new ArrayList<>();
 }

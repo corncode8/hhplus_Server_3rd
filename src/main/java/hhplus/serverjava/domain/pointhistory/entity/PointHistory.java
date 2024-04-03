@@ -3,6 +3,7 @@ package hhplus.serverjava.domain.pointhistory.entity;
 import hhplus.serverjava.common.entity.BaseEntity;
 import hhplus.serverjava.domain.user.entity.User;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,12 +18,12 @@ public class PointHistory extends BaseEntity {
     @Column(name = "pointhistory_id", nullable = false, updatable = false)
     private Long id;
 
+    @Column(nullable = false)
+    private Long amount;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
     protected State state;
-
-    @Column(nullable = false)
-    private Long amount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -30,5 +31,13 @@ public class PointHistory extends BaseEntity {
 
     public enum State{
         CHARGE, USE
+    }
+
+    @Builder
+    public PointHistory(Long id, User user, State state, Long amount) {
+        this.id = id;
+        this.user = user;
+        this.state = state;
+        this.amount = amount;
     }
 }

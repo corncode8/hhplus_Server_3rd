@@ -5,14 +5,15 @@ import hhplus.serverjava.api.domain.dto.response.user.GetUserRes;
 import hhplus.serverjava.api.domain.dto.response.user.PointHistoryDto;
 import hhplus.serverjava.api.domain.dto.response.user.PostUserRes;
 import hhplus.serverjava.api.domain.dto.response.user.UserPoint;
+import hhplus.serverjava.api.domain.usecase.point.GetPointHistoryUseCase;
+import hhplus.serverjava.api.domain.usecase.point.GetUserPointUseCase;
+import hhplus.serverjava.api.domain.usecase.point.UserPointModifyUseCase;
 import hhplus.serverjava.common.response.BaseResponse;
-import hhplus.serverjava.domain.pointhistory.entity.PointHistory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import static hhplus.serverjava.common.response.BaseResponseStatus.*;
@@ -22,6 +23,10 @@ import static hhplus.serverjava.common.response.BaseResponseStatus.*;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class UserController {
+
+    private GetPointHistoryUseCase pointHistoryUseCase;
+    private GetUserPointUseCase getUserPointUseCase;
+    private UserPointModifyUseCase userPointModifyUseCase;
 
     /**
      * 토큰 발급 API
@@ -33,7 +38,7 @@ public class UserController {
         // postUserReq 유효성 검사
 
         if (postUserReq.getUsername().isEmpty()) {
-            return new BaseResponse<>(USERS_EMPTY_NAME);
+            return new BaseResponse<>(EMPTY_NAME_USER);
         }
 
         // 유저 생성 + 토큰 발급
@@ -75,10 +80,9 @@ public class UserController {
     @PatchMapping("/{userId}/charge")
     public BaseResponse<UserPoint> chargePoint(@PathVariable("userId") Long userId,@RequestBody Long amount) {
 
+        UserPoint charge = userPointModifyUseCase.charge(userId, amount);
 
-        UserPoint userPoint = new UserPoint(userId, 50000L);
-
-        return new BaseResponse<>(userPoint);
+        return new BaseResponse<>(charge);
     }
 
 
@@ -90,10 +94,9 @@ public class UserController {
     @GetMapping("/{userId}")
     public BaseResponse<UserPoint> point(@PathVariable("userId")Long userId) {
 
+        UserPoint execute = getUserPointUseCase.execute(userId);
 
-        UserPoint userPoint = new UserPoint(userId, 65050L);
-
-        return new BaseResponse<>(userPoint);
+        return new BaseResponse<>(execute);
     }
 
 
@@ -105,17 +108,8 @@ public class UserController {
     @GetMapping("/{userId}/histories")
     public BaseResponse<List<PointHistoryDto>> pointHistory(@PathVariable("userId")Long userId) {
 
-        List<PointHistoryDto> pointHistoryDtoList = new ArrayList<>();
+        List<PointHistoryDto> execute = pointHistoryUseCase.execute(userId);
 
-        Long id = 1L;
-        PointHistory.State state = PointHistory.State.CHARGE;
-        Long amount = 500L;
-        LocalDateTime time = LocalDateTime.now();
-
-        PointHistoryDto pointHistory = new PointHistoryDto(id, userId, state, amount, time);
-
-        pointHistoryDtoList.add(pointHistory);
-
-        return new BaseResponse<>(pointHistoryDtoList);
+        return new BaseResponse<>(execute);
     }
 }

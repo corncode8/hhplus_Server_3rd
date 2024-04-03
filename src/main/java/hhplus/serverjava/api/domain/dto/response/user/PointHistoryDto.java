@@ -1,5 +1,7 @@
 package hhplus.serverjava.api.domain.dto.response.user;
 
+import hhplus.serverjava.domain.pointhistory.entity.PointHistory;
+import hhplus.serverjava.domain.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,4 +22,12 @@ public class PointHistoryDto {
     private State state;
     private Long amount;
     private LocalDateTime time;
+
+    public PointHistory toEntity() {
+        return PointHistory.builder()
+                .id(this.id)
+                .amount(this.id)
+                .state(this.state)
+                .build();
+    }
 }
