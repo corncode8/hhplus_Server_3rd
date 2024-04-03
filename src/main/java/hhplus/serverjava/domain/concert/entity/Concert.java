@@ -1,6 +1,7 @@
 package hhplus.serverjava.domain.concert.entity;
 
 import hhplus.serverjava.common.entity.BaseEntity;
+import hhplus.serverjava.domain.concertoption.entity.ConcertOption;
 import hhplus.serverjava.domain.seat.entity.Seat;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -28,6 +29,9 @@ public class Concert extends BaseEntity {
 
     @Column(nullable = false, name = "endedAt")
     private LocalDateTime endedAt;
+
+    @OneToOne(mappedBy = "concert")
+    private ConcertOption concertOption;
 
     @OneToMany(mappedBy = "concert")
     private List<Seat> seatList = new ArrayList<>();

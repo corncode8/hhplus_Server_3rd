@@ -1,7 +1,6 @@
 package hhplus.serverjava.domain.user.infrastructure;
 
 import hhplus.serverjava.common.exceptions.BaseException;
-import hhplus.serverjava.common.response.BaseResponseStatus;
 import hhplus.serverjava.domain.user.entity.User;
 import hhplus.serverjava.domain.user.repository.UserStoreRepository;
 import lombok.RequiredArgsConstructor;
