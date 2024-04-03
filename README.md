@@ -152,7 +152,14 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
 ```
 {
     "concertAt": "2024-03-01",
-    "seat": "2"
+    "reservationAmount": 50000,
+    "seatNumbers": [
+            "1",
+            "2",
+            "5",
+            "9",
+            "16"
+        ]
 }
 ```
 - response body
