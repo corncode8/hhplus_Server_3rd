@@ -89,6 +89,7 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
 }
 ```
 
+#### 예약 기능
 예약 가능한 날짜 조회 API <br/>
 | 메서드 | URL |
 |--------|-----------|
@@ -168,6 +169,7 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
 }
 ```
 
+#### 포인트 기능
 잔액 충전 API <br/>
 | 메서드 | URL |
 |--------|-----------|
@@ -230,6 +232,7 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
 }
 ```
 
+#### 결제 기능
 결제 API <br/>
 | 메서드 | URL |
 |--------|-----------|
