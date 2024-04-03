@@ -153,13 +153,7 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
 {
     "concertAt": "2024-03-01",
     "reservationAmount": 50000,
-    "seatNumbers": [
-            "1",
-            "2",
-            "5",
-            "9",
-            "16"
-        ]
+    "seatNumber": 2
 }
 ```
 - response body
@@ -171,13 +165,7 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
     "result": {
         "concertName": "MAKTUB Concert",
         "reservationDate": "2024-03-01",
-        "reservationSeats": [
-            "1",
-            "2",
-            "5",
-            "9",
-            "16"
-        ]
+        "reservationSeat": 2
     }
 }
 ```
