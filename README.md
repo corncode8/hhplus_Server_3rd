@@ -45,49 +45,215 @@
 
 #### 유저 대기열 토큰 기능
 토큰 생성 API <br/>
-| 메서드 | URL | 기능 |
-|--------|-----------|-----------|
-| POST    |/api/getToken  | 토큰 생성|
+| 메서드 | URL |
+|--------|-----------|
+| POST    |/api/getToken  |
+- request body
+```
+{
+    "username":"testUser"
+}
+```
+- response body
+```
+{
+    "isSuccess": true,
+    "code": 200,
+    "message": "요청에 성공하였습니다.",
+    "result": {
+        "token": "wer7w-edt-w5g-dsrgdrg-testToken",
+        "listNum": 1,
+        "expectedTime": "2024-04-03T13:19:03.6565297"
+    }
+}
+```
 
 대기열 확인 API <br/>
-| 메서드 | URL | 기능 |
-|--------|-----------|-----------|
-| GET    |/api/check  | 대기열 정보 확인|
+| 메서드 | URL |
+|--------|-----------|
+| GET    |/api/check  |
+- request header
+```
+token="wer7w-edt-w5g-dsrgdrg-testToken"
+```
+- response body
+```
+{
+    "isSuccess": true,
+    "code": 200,
+    "message": "요청에 성공하였습니다.",
+    "result": {
+        "listNum": 1,
+        "expectedTime": "2024-04-03T13:20:55.1693036"
+    }
+}
+```
 
 예약 가능한 날짜 조회 API <br/>
-| 메서드 | URL | 기능 |
-|--------|-----------|-----------|
-| GET    |/api/booking/{concertId}/list/time  | 예약 가능 날짜 조회|
+| 메서드 | URL |
+|--------|-----------|
+| GET    |/api/booking/{concertId}/list/time  |
+- request header
+```
+token="wer7w-edt-w5g-dsrgdrg-testToken"
+```
+- response body
+```
+{
+    "isSuccess": true,
+    "code": 200,
+    "message": "요청에 성공하였습니다.",
+    "result": {
+        "availableDates": [
+            "2024-04-08",
+            "2024-04-09",
+            "2114-04-03"
+        ]
+    }
+}
+```
 
 예약 가능한 좌석 정보 조회 API <br/>
-| 메서드 | URL | 기능 |
-|--------|-----------|-----------|
-| GET    |/api/booking/{concertId}/list/seats  | 예약 가능 좌석 조회|
+| 메서드 | URL |
+|--------|-----------|
+| GET    |/booking/{concertId}/dates/{date}/list/seats |
+- request header
+```
+token="wer7w-edt-w5g-dsrgdrg-testToken"
+```
+- response body
+```
+{
+    "isSuccess": true,
+    "code": 200,
+    "message": "요청에 성공하였습니다.",
+    "result": {
+        "availableSeatsList": [
+            "1",
+            "2",
+            "5",
+            "9",
+            "16"
+        ]
+    }
+}
+```
 
 좌석 예약 API <br/>
-| 메서드 | URL | 기능 |
-|--------|-----------|-----------|
-| POST    |/api/booking/{concertId}/seat  | 좌석 예약|
+| 메서드 | URL |
+|--------|-----------|
+| POST    |/api/booking/{concertId}/seat  |
+- request header
+```
+token="wer7w-edt-w5g-dsrgdrg-testToken"
+```
+- request body
+```
+{
+    "concertAt": "2024-03-01",
+    "seat": "2"
+}
+```
+- response body
+```
+{
+    "isSuccess": true,
+    "code": 200,
+    "message": "요청에 성공하였습니다.",
+    "result": {
+        "concertName": "MAKTUB Concert",
+        "reservationDate": "2024-03-01",
+        "reservationSeat": "2"
+    }
+}
+```
 
 잔액 충전 API <br/>
-| 메서드 | URL | 기능 |
-|--------|-----------|-----------|
-| PATCH    |/api/{userId}/charge  | 잔액 충전|
+| 메서드 | URL |
+|--------|-----------|
+| PATCH    |/api/{userId}/charge  |
+- request body
+```
+{
+    "amount": 50000
+}
+```
+- response body
+```
+{
+    "isSuccess": true,
+    "code": 200,
+    "message": "요청에 성공하였습니다.",
+    "result": {
+        "userId": 1,
+        "point": 50000
+    }
+}
+```
 
 잔액 조회 API <br/>
-| 메서드 | URL | 기능 |
-|--------|-----------| -----------|
-| GET    |/api/{userId}  | 잔액 조회|
+| 메서드 | URL |
+|--------|-----------|
+| GET    |/api/{userId}  |
+- response body
+```
+{
+    "isSuccess": true,
+    "code": 200,
+    "message": "요청에 성공하였습니다.",
+    "result": {
+        "userId": 1,
+        "point": 65050
+    }
+}
+```
 
 잔액 리스트 조회 API <br/>
-| 메서드 | URL | 기능 |
-|--------|-----------| -----------|
-| GET    |/api/{userId}/histories  | 잔액 List 조회|
+| 메서드 | URL |
+|--------|-----------|
+| GET    |/api/{userId}/histories  |
+- response body
+```
+{
+    "isSuccess": true,
+    "code": 200,
+    "message": "요청에 성공하였습니다.",
+    "result": [
+        {
+            "id": 1,
+            "userId": 1,
+            "state": "CHARGE",
+            "amount": 500,
+            "time": "2024-04-03T13:28:37.4315016"
+        }
+    ]
+}
+```
 
 결제 API <br/>
-| 메서드 | URL | 기능 |
-|--------|-----------| -----------|
-| POST    |/api/{reservationId}/payment  | 결제|
+| 메서드 | URL |
+|--------|-----------|
+| POST    |/api/{reservationId}/payment  |
+- request body
+```
+{
+    "payAmount": 50000
+}
+```
+- response body
+```
+{
+    "isSuccess": true,
+    "code": 200,
+    "message": "요청에 성공하였습니다.",
+    "result": {
+        "id": 1,
+        "reservationId": 1,
+        "payAmount": 50000,
+        "payAt": "2024-04-03T13:30:24.4380995"
+    }
+}
+```
 
 
 
