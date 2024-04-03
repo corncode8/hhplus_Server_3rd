@@ -4,6 +4,7 @@ import hhplus.serverjava.domain.concert.entity.Concert;
 import hhplus.serverjava.domain.concertoption.entity.ConcertOption;
 import hhplus.serverjava.domain.reservation.entity.Reservation;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,9 +24,6 @@ public class Seat {
 
     @Column(nullable = false)
     private int seatNum;
-
-    @Column(nullable = false, length = 20)
-    private String seatSection;
 
     @Column(nullable = false)
     private int price;
@@ -50,5 +48,12 @@ public class Seat {
 
     public enum State {
         AVAILABLE, RESERVED
+    }
+
+    @Builder
+    public Seat(Long id, int seatNum, int price) {
+        this.id = id;
+        this.seatNum = seatNum;
+        this.price = price;
     }
 }
