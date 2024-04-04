@@ -38,7 +38,7 @@
 
 
 ### ERD
-[![hhplus_3rd_erd](https://github.com/corncode8/hhplus_Server_3rd/assets/127717982/07299aca-1f78-432d-b7f4-7645d8e3b72c)](https://github.com/corncode8/hhplus_Server_3rd/blob/main/hhplus_3rd_erd.png?raw=true)
+[[![hhplus_3rd_erd](https://github.com/corncode8/hhplus_Server_3rd/assets/127717982/07299aca-1f78-432d-b7f4-7645d8e3b72c)](https://github.com/corncode8/hhplus_Server_3rd/blob/main/hhplus_3rd_erd.png?raw=true)](https://github.com/corncode8/hhplus_Server_3rd/blob/main/hhplus_3rd_erd.png?raw=true)
 
 
 ### API 명세
