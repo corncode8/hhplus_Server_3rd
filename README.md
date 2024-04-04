@@ -34,11 +34,11 @@
 
 
 ### 시퀀스 다이어그램
-![콘서트 예약 서비스 시퀀스 다이어그램](https://github.com/corncode8/hhplus_Server_3rd/assets/127717982/a6d5eb55-eaa3-4ed2-af33-0a0a5c88bbe8)
+![콘서트 예약 서비스 시퀀스 다이어그램 drawio](https://github.com/corncode8/hhplus_Server_3rd/assets/127717982/ce71b0d6-4c0e-4590-b15b-01b2a7a3b061)
 
 
 ### ERD
-![hhplus_3rd_erd](https://github.com/corncode8/hhplus_Server_3rd/assets/127717982/403f6054-b244-4c83-8cc7-76593b3f7b78)
+![hhplus_3rd_erd](https://github.com/corncode8/hhplus_Server_3rd/assets/127717982/07299aca-1f78-432d-b7f4-7645d8e3b72c)
 
 
 ### API 명세
