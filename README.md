@@ -34,7 +34,6 @@
 
 
 ### ERD
-![hhplus_3rd_erd](https://raw.githubusercontent.com/corncode8/hhplus_Server_3rd/main/hhplus_3rd_erd.png)
 
 ### API 명세
 
