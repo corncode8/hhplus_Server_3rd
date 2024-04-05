@@ -1,7 +1,7 @@
 package hhplus.serverjava.api.usecase.point;
 
-import hhplus.serverjava.api.domain.dto.response.user.UserPoint;
-import hhplus.serverjava.api.domain.usecase.point.UserPointModifyUseCase;
+import hhplus.serverjava.api.dto.response.user.UserPoint;
+import hhplus.serverjava.api.usecase.point.UserPointModifyUseCase;
 import hhplus.serverjava.domain.user.componenets.UserStore;
 import hhplus.serverjava.domain.user.entity.User;
 import org.junit.jupiter.api.DisplayName;

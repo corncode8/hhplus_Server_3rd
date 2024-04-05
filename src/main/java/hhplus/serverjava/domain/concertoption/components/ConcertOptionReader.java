@@ -5,13 +5,15 @@ import hhplus.serverjava.domain.concertoption.repository.ConcertOptionReaderRepo
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class ConcertOptionReader {
 
-    private ConcertOptionReaderRepository concertOptionReaderRepository;
+    private final ConcertOptionReaderRepository concertOptionReaderRepository;
 
-    public ConcertOption findConcertOption(Long concertId) {
+    public List<ConcertOption> findConcertOption(Long concertId) {
         return concertOptionReaderRepository.findConcertOption(concertId);
     }
 }

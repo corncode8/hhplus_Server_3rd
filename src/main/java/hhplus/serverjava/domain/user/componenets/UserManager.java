@@ -10,8 +10,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserManager {
 
-    private UserReaderRepository userReaderRepository;
-    private UserStoreRepository userStoreRepository;
+    private final UserReaderRepository userReaderRepository;
+    private final UserStoreRepository userStoreRepository;
+
 
     public User findUser(Long userId) {
         return userReaderRepository.findUser(userId);
@@ -19,4 +20,5 @@ public class UserManager {
     public User modify(User user) {
         return userStoreRepository.modify(user);
     }
+
 }

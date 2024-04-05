@@ -12,9 +12,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SeatReader {
 
-    private SeatReaderRepository seatReaderRepository;
+    private final SeatReaderRepository seatReaderRepository;
 
     public List<Seat> findAvailableSeats(Long concertId, LocalDate targetDate, Seat.State state) {
         return seatReaderRepository.findAvailableSeats(concertId, targetDate, state);
+    }
+
+
+    public Seat findAvailableSeat(Long concertId, LocalDate targetDate, Seat.State state, int seatNum) {
+        return seatReaderRepository.findAvailableSeat(concertId, targetDate, state, seatNum);
     }
 }

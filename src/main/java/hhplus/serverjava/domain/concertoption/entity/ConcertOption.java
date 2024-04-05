@@ -22,11 +22,7 @@ public class ConcertOption {
     @Column(name = "concertOption_id", nullable = false, updatable = false)
     private Long id;
 
-    @Column(nullable = false)
-    private LocalDate startedAt;
-
-    @Column(nullable = false)
-    private LocalDate endedAt;
+    private LocalDateTime concertAt;
 
     @Column(nullable = false)
     private int seatsNum;
@@ -39,11 +35,9 @@ public class ConcertOption {
     private List<Seat> seatList = new ArrayList<>();
 
     @Builder
-    public ConcertOption(Long id, LocalDate startedAt, LocalDate endedAt, int seatsNum) {
+    public ConcertOption(Long id, LocalDateTime concertAt, int seatsNum) {
         this.id = id;
-        this.startedAt = startedAt;
-        this.endedAt = endedAt;
+        this.concertAt = concertAt;
         this.seatsNum = seatsNum;
-
     }
 }

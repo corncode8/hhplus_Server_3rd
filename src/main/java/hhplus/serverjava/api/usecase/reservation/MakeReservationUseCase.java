@@ -1,0 +1,61 @@
+package hhplus.serverjava.api.usecase.reservation;
+
+import hhplus.serverjava.api.dto.response.reservation.PostReservationRes;
+import hhplus.serverjava.api.util.exceptions.BaseException;
+import hhplus.serverjava.domain.concert.components.ConcertReader;
+import hhplus.serverjava.domain.concert.entity.Concert;
+import hhplus.serverjava.domain.reservation.components.ReservationStore;
+import hhplus.serverjava.domain.reservation.entity.Reservation;
+import hhplus.serverjava.domain.seat.components.SeatReader;
+import hhplus.serverjava.domain.seat.entity.Seat;
+import hhplus.serverjava.domain.user.entity.User;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.OptimisticLockException;
+import java.time.LocalDate;
+
+import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;
+
+
+@Service
+@Transactional
+@RequiredArgsConstructor
+public class MakeReservationUseCase {
+
+    private final ConcertReader concertReader;
+    private final SeatReader seatReader;
+    private final ReservationStore reservationStore;
+
+    // 좌석 예약
+    public PostReservationRes makeReservation(User user, Long concertOptionId, LocalDate targetDate, int seatNum, int reservedAmount) {
+
+        try {
+            // 낙관적 락 적용
+            Seat seat = seatReader.findAvailableSeat(concertOptionId, targetDate, Seat.State.AVAILABLE, seatNum);
+
+            seat.setReserved();
+            seat.setExpiredAt();
+
+            // findConcert
+            Concert concert = concertReader.findConcert(concertOptionId);
+
+            Reservation reservation = Reservation.builder()
+                    .user(user)
+                    .seat(seat)
+                    .concertAt(targetDate)
+                    .concertName(concert.getName())
+                    .concertArtist(concert.getArtist())
+                    .reservedAmount(reservedAmount)
+                    .build();
+
+            Reservation store = reservationStore.makeReservation(reservation);
+
+            return new PostReservationRes(store, seat);
+        } catch (OptimisticLockException e) {
+            throw new BaseException(RESERVED_SEAT);
+        }
+    }
+
+}

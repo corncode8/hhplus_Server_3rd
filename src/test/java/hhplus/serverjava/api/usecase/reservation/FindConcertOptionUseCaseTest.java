@@ -1,7 +1,7 @@
 package hhplus.serverjava.api.usecase.reservation;
 
-import hhplus.serverjava.api.domain.dto.response.reservation.GetDateRes;
-import hhplus.serverjava.api.domain.usecase.concert.FindConcertOptionUseCase;
+import hhplus.serverjava.api.dto.response.reservation.GetDateRes;
+import hhplus.serverjava.api.usecase.concert.FindConcertOptionUseCase;
 import hhplus.serverjava.domain.concertoption.components.ConcertOptionReader;
 import hhplus.serverjava.domain.concertoption.entity.ConcertOption;
 import org.junit.jupiter.api.DisplayName;

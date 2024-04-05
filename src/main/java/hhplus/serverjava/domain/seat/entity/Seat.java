@@ -35,6 +35,9 @@ public class Seat {
     @Column(nullable = false)
     private LocalDateTime expiredAt;
 
+    @Version
+    private Long version;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "concertOption_id")
     private ConcertOption concertOption;
@@ -55,5 +58,16 @@ public class Seat {
         this.id = id;
         this.seatNum = seatNum;
         this.price = price;
+    }
+
+    public void setReserved() {
+        this.state = State.RESERVED;
+    }
+    public void setAvailable() {
+        this.state = State.AVAILABLE;
+    }
+
+    public void setExpiredAt() {
+        this.expiredAt = LocalDateTime.now().plusMinutes(5);
     }
 }

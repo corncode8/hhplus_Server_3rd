@@ -1,6 +1,6 @@
 package hhplus.serverjava.domain.pointhistory.entity;
 
-import hhplus.serverjava.common.entity.BaseEntity;
+import hhplus.serverjava.domain.common.entity.BaseEntity;
 import hhplus.serverjava.domain.user.entity.User;
 import lombok.AccessLevel;
 import lombok.Builder;

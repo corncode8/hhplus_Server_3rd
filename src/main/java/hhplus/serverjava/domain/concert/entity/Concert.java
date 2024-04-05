@@ -1,14 +1,14 @@
 package hhplus.serverjava.domain.concert.entity;
 
-import hhplus.serverjava.common.entity.BaseEntity;
+import hhplus.serverjava.domain.common.entity.BaseEntity;
 import hhplus.serverjava.domain.concertoption.entity.ConcertOption;
 import hhplus.serverjava.domain.seat.entity.Seat;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,16 +24,18 @@ public class Concert extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private int seatsNum;
-
-    @Column(nullable = false, name = "endedAt")
-    private LocalDateTime endedAt;
-
+    @Column(nullable = false, length = 50)
+    private String artist;
     @OneToOne(mappedBy = "concert")
     private ConcertOption concertOption;
 
     @OneToMany(mappedBy = "concert")
     private List<Seat> seatList = new ArrayList<>();
 
+    @Builder
+    public Concert(Long id, String name, String artist) {
+        this.id = id;
+        this.name = name;
+        this.artist = artist;
+    }
 }

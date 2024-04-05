@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserStore {
 
-    private UserStoreRepository userStoreRepository;
+    private final UserStoreRepository userStoreRepository;
 
     public User modify(User user) {
         return userStoreRepository.modify(user);

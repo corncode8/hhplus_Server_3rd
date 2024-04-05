@@ -9,9 +9,10 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserReader {
 
-    private UserReaderRepository userReaderRepository;
+    private final UserReaderRepository userReaderRepository;
 
     public User findUser(Long userId) {
         return userReaderRepository.findUser(userId);
     }
+
 }

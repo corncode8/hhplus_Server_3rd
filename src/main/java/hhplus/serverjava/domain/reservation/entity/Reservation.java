@@ -1,15 +1,16 @@
 package hhplus.serverjava.domain.reservation.entity;
 
-import hhplus.serverjava.common.entity.BaseEntity;
+import hhplus.serverjava.domain.common.entity.BaseEntity;
 import hhplus.serverjava.domain.payment.entity.Payment;
 import hhplus.serverjava.domain.seat.entity.Seat;
 import hhplus.serverjava.domain.user.entity.User;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -31,10 +32,10 @@ public class Reservation extends BaseEntity {
     private String concertArtist;
 
     @Column(nullable = false)
-    private LocalDateTime concertAt;
+    private LocalDate concertAt;
 
-    @Column(nullable = false, length = 10)
-    private String seatNum;
+    @Column(nullable = false)
+    private int seatNum;
 
     @Column(nullable = false)
     private int reservedAmount;
@@ -51,6 +52,21 @@ public class Reservation extends BaseEntity {
     private Payment payment;
 
     public enum State {
-        RESERVED, CANCELLED
+        RESERVED, PAID, CANCELLED
+    }
+
+    public void setCancelled() {
+        this.state = State.CANCELLED;
+    }
+
+    @Builder
+    public Reservation(String concertName, String concertArtist, LocalDate concertAt, int seatNum, int reservedAmount, User user, Seat seat) {
+        this.concertName = concertName;
+        this.concertArtist = concertArtist;
+        this.concertAt = concertAt;
+        this.seatNum = seatNum;
+        this.reservedAmount = reservedAmount;
+        this.user = user;
+        this.seat = seat;
     }
 }

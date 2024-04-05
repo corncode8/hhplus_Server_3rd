@@ -11,7 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PointHistoryManager {
 
-    private PointHistoryReaderRepository pointHistoryReaderRepository;
+    private final PointHistoryReaderRepository pointHistoryReaderRepository;
 
     public List<PointHistory> readList(Long userId) {
         return pointHistoryReaderRepository.readList(userId);
