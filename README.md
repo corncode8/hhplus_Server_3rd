@@ -33,20 +33,16 @@
 - 동시에 여러 사용자가 예약 요청을 했을 때, 좌석이 중복으로 배정 가능하지 않도록 해야함
 
 
-### 시퀀스 다이어그램
-[![콘서트 예약 서비스 시퀀스 다이어그램 drawio](https://github.com/corncode8/hhplus_Server_3rd/assets/127717982/ce71b0d6-4c0e-4590-b15b-01b2a7a3b061)](https://github.com/corncode8/hhplus_Server_3rd/blob/main/Reservation_Service_Sequence.png?raw=true)
-
-
 ### ERD
 ![hhplus_3rd_erd](https://raw.githubusercontent.com/corncode8/hhplus_Server_3rd/main/hhplus_3rd_erd.png)
 
 ### API 명세
 
 #### 유저 대기열 토큰 기능
-토큰 생성 API <br/>
+토큰 발급  API <br/>
 | 메서드 | URL |
 |--------|-----------|
-| POST    |/api/getToken  |
+| GET    |/api/wait  |
 - request body
 ```
 {
@@ -70,7 +66,7 @@
 대기열 확인 API <br/>
 | 메서드 | URL |
 |--------|-----------|
-| GET    |/api/check  |
+| GET    |/api/wait/check  |
 - request header
 ```
 token="wer7w-edt-w5g-dsrgdrg-testToken"
@@ -89,10 +85,34 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
 ```
 
 #### 예약 기능
+콘서트 조회 API <br/>
+| 메서드 | URL |
+|--------|-----------|
+| GET    |/api/concert  |
+- request header
+```
+token="wer7w-edt-w5g-dsrgdrg-testToken"
+```
+- response body
+```
+{
+    "isSuccess": true,
+    "code": 200,
+    "message": "요청에 성공하였습니다.",
+    "result": {
+        "concertInfo": [
+            "concertId": 1,
+            "concertName": "MAKTUB CONCERT",
+            "artist": "MAKTUB"
+        ]
+    }
+}
+```
+
 예약 가능한 날짜 조회 API <br/>
 | 메서드 | URL |
 |--------|-----------|
-| GET    |/api/booking/{concertId}/list/time  |
+| GET    |/api/concert/{concertId}/date  |
 - request header
 ```
 token="wer7w-edt-w5g-dsrgdrg-testToken"
@@ -116,7 +136,7 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
 예약 가능한 좌석 정보 조회 API <br/>
 | 메서드 | URL |
 |--------|-----------|
-| GET    |/booking/{concertId}/dates/{date}/list/seats |
+| GET    |/api/concert/{concertId}/date/{date}/seats |
 - request header
 ```
 token="wer7w-edt-w5g-dsrgdrg-testToken"
@@ -142,7 +162,7 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
 좌석 예약 API <br/>
 | 메서드 | URL |
 |--------|-----------|
-| POST    |/api/booking/{concertId}/seat  |
+| POST    |/api/reservation  |
 - request header
 ```
 token="wer7w-edt-w5g-dsrgdrg-testToken"
@@ -150,6 +170,7 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
 - request body
 ```
 {
+    "concertOptionId": "3",
     "concertAt": "2024-03-01",
     "reservationAmount": 50000,
     "seatNumber": 2
@@ -173,7 +194,7 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
 잔액 충전 API <br/>
 | 메서드 | URL |
 |--------|-----------|
-| PATCH    |/api/{userId}/charge  |
+| PATCH    |/api/point/{userId}/charge  |
 - request body
 ```
 {
@@ -196,7 +217,7 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
 잔액 조회 API <br/>
 | 메서드 | URL |
 |--------|-----------|
-| GET    |/api/{userId}  |
+| GET    |/api/point/{userId}/account  |
 - response body
 ```
 {
@@ -213,7 +234,7 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
 잔액 리스트 조회 API <br/>
 | 메서드 | URL |
 |--------|-----------|
-| GET    |/api/{userId}/histories  |
+| GET    |/api/point/{userId}/histories  |
 - response body
 ```
 {
@@ -236,10 +257,11 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
 결제 API <br/>
 | 메서드 | URL |
 |--------|-----------|
-| POST    |/api/{reservationId}/payment  |
+| POST    |/api/payment  |
 - request body
 ```
 {
+    "reservationId": 1,
     "payAmount": 50000
 }
 ```
