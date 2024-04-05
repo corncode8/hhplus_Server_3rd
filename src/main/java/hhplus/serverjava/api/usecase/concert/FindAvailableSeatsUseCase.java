@@ -1,10 +1,8 @@
 package hhplus.serverjava.api.usecase.concert;
 
-import hhplus.serverjava.api.dto.response.reservation.GetReservationRes;
+
 import hhplus.serverjava.api.dto.response.seat.GetSeatsRes;
-import hhplus.serverjava.api.util.exceptions.BaseException;
 import hhplus.serverjava.domain.concertoption.components.ConcertOptionReader;
-import hhplus.serverjava.domain.concertoption.entity.ConcertOption;
 import hhplus.serverjava.domain.seat.components.SeatReader;
 import hhplus.serverjava.domain.seat.entity.Seat;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;
 
 @Service
 @Transactional

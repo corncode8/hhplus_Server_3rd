@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,20 +36,21 @@ public class FindConcertOptionUseCaseTest {
         Long testConcertId = 1L;
 
         Long optionId = 1L;
-        LocalDate startDate = LocalDate.now();
+        LocalDateTime concertAt = LocalDateTime.now();
 
         Long plusDays = 5L;
-        LocalDate endDate = LocalDate.now().plusDays(plusDays);
         int seatNum = 50;
 
         ConcertOption concertOption = ConcertOption.builder()
                 .id(optionId)
-                .startedAt(startDate)
-                .endedAt(endDate)
+                .concertAt(concertAt)
                 .seatsNum(seatNum)
                 .build();
 
-        when(concertOptionReader.findConcertOption(testConcertId)).thenReturn(concertOption);
+        List<ConcertOption> concertOptionList = new ArrayList<>();
+        concertOptionList.add(concertOption);
+
+        when(concertOptionReader.findConcertOption(testConcertId)).thenReturn(concertOptionList);
 
         List<LocalDate> list = new ArrayList<>();
         for (int i = 0; i < plusDays; i++) {
@@ -61,7 +63,6 @@ public class FindConcertOptionUseCaseTest {
 
         //then
         assertNotNull(result);
-        assertEquals(result.getSeatNum(), seatNum);
         assertEquals(result.getAvailableDates(), list);
     }
 }
