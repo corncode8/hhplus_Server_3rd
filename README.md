@@ -176,6 +176,13 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
 - request body
 ```
 {
+    "concertOptionId": 1,
+    "seatNumber": 1
+}
+```
+- request body
+```
+{
     "concertOptionId": "3",
     "concertAt": "2024-03-01",
     "reservationAmount": 50000,
@@ -189,9 +196,12 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
     "code": 200,
     "message": "요청에 성공하였습니다.",
     "result": {
+        "reservationId": 1,
         "concertName": "MAKTUB Concert",
-        "reservationDate": "2024-03-01",
-        "reservationSeat": 2
+        "concertArtist": "MAKTUB",
+        "concertAt": "2024-03-01",
+        "seatNum": 2,
+        "price": 50000
     }
 }
 ```
