@@ -29,7 +29,7 @@ public class MakeReservationUseCase {
     private final ConcertOptionReader concertOptionReader;
 
     // 좌석 예약
-    public PostReservationRes makeReservation(User user, Long concertOptionId, LocalDateTime targetDate, int seatNum, int reservedAmount) {
+    public PostReservationRes makeReservation(User user, Long concertOptionId, LocalDateTime targetDate, int seatNum) {
 
         try {
             // 낙관적 락 적용
@@ -47,7 +47,7 @@ public class MakeReservationUseCase {
                     .concertAt(targetDate)
                     .concertName(concert.getName())
                     .concertArtist(concert.getArtist())
-                    .reservedPrice(reservedAmount)
+                    .reservedPrice(seat.getPrice())
                     .build();
 
             Reservation store = reservationStore.makeReservation(reservation);

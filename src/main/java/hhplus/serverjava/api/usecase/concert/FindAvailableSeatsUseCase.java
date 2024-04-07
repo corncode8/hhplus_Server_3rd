@@ -22,10 +22,13 @@ public class FindAvailableSeatsUseCase {
     private final SeatReader seatReader;
     private final ConcertOptionReader concertOptionReader;
 
-    // 예약 가능한 좌석 조회 TODO: 수정必
+    // 예약 가능한 좌석 조회
     public GetSeatsRes execute(Long concertId, LocalDateTime targetDate) {
 
+        // 콘서트 조회
         ConcertOption concertOption = concertOptionReader.findConcertOption(concertId, targetDate);
+
+        // 예약 가능한 좌석 조회
         List<Seat> availableSeats = seatReader.findAvailableSeats(concertId, targetDate, Seat.State.AVAILABLE);
 
         return new GetSeatsRes(concertOption.getId(), availableSeats);

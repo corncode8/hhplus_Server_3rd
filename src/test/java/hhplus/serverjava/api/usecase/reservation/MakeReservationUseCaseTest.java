@@ -47,7 +47,7 @@ public class MakeReservationUseCaseTest {
     */
     @DisplayName("낙관적 락 테스트") // TODO: ING
     @Test
-    void optimistic_lock_test() throws InterruptedException, ExecutionException {
+    void optimistic_lock_test() {
         //given
         ExecutorService executor = Executors.newFixedThreadPool(50);    // 50명이라고 가정
         List<CompletableFuture> futures = new ArrayList<>();
@@ -82,7 +82,7 @@ public class MakeReservationUseCaseTest {
 
             CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
                 try {
-                    PostReservationRes result = makeReservationUseCase.makeReservation(user, concertId, targetDate, seatNum, reservedAmount);
+                    PostReservationRes result = makeReservationUseCase.makeReservation(user, concertId, targetDate, seatNum);
                     successCnt.incrementAndGet();
                 } catch (BaseException e) {
                     log.error("BaseException : {}", e);
