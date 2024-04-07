@@ -1,7 +1,6 @@
 package hhplus.serverjava.api.controller;
 
 import hhplus.serverjava.api.dto.request.reservation.PostReservationReq;
-import hhplus.serverjava.api.dto.response.concert.GetConcertRes;
 import hhplus.serverjava.api.dto.response.reservation.GetReservationRes;
 import hhplus.serverjava.api.usecase.concert.FindAvailableSeatsUseCase;
 import hhplus.serverjava.api.usecase.concert.FindConcertOptionUseCase;

@@ -2,7 +2,6 @@ package hhplus.serverjava.api.usecase.reservation;
 
 import hhplus.serverjava.api.dto.response.reservation.PostReservationRes;
 import hhplus.serverjava.api.util.exceptions.BaseException;
-import hhplus.serverjava.domain.concert.components.ConcertReader;
 import hhplus.serverjava.domain.concert.entity.Concert;
 import hhplus.serverjava.domain.concertoption.components.ConcertOptionReader;
 import hhplus.serverjava.domain.reservation.components.ReservationStore;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.OptimisticLockException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;

@@ -2,12 +2,10 @@ package hhplus.serverjava.domain.seat.infrastructure;
 
 import hhplus.serverjava.domain.seat.entity.Seat;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import javax.persistence.LockModeType;
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.util.List;
 

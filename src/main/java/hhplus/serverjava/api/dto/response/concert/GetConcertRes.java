@@ -1,7 +1,6 @@
 package hhplus.serverjava.api.dto.response.concert;
 
 import hhplus.serverjava.domain.concert.entity.Concert;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

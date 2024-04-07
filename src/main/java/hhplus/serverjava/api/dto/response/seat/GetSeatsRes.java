@@ -1,7 +1,6 @@
 package hhplus.serverjava.api.dto.response.seat;
 
 import hhplus.serverjava.domain.seat.entity.Seat;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
