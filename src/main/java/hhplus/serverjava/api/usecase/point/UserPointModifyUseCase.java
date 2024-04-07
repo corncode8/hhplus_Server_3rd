@@ -12,8 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserPointModifyUseCase {
 
-    // TODO: 동시성 이슈
-
     private final UserStore userStore;
 
     // 포인트 충전

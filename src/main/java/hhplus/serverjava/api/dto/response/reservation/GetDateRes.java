@@ -1,5 +1,6 @@
 package hhplus.serverjava.api.dto.response.reservation;
 
+import hhplus.serverjava.domain.concertoption.entity.ConcertOption;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,12 +10,17 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class GetDateRes {
 
     List<LocalDateTime> availableDates;
+
+    public GetDateRes (List<ConcertOption> concertOptionList) {
+        this.availableDates = concertOptionList.stream()
+                .map(concertOption -> concertOption.getConcertAt()).collect(Collectors.toList());
+    }
 }

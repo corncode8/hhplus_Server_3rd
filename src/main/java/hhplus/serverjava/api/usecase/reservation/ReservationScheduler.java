@@ -41,6 +41,5 @@ public class ReservationScheduler {
             reservationStore.save(reservation);
         }
 
-        // TODO:
     }
 }

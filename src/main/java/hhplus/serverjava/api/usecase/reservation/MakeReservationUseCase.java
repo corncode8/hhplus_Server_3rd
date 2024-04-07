@@ -32,7 +32,6 @@ public class MakeReservationUseCase {
     public PostReservationRes makeReservation(User user, Long concertOptionId, LocalDateTime targetDate, int seatNum) {
 
         try {
-            // 낙관적 락 적용
             Seat seat = seatReader.findAvailableSeat(concertOptionId, targetDate, Seat.State.AVAILABLE, seatNum);
 
             seat.setReserved();
