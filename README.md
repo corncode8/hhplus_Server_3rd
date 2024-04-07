@@ -34,7 +34,7 @@
 
 
 ### ERD
-![concert erd](https://github.com/corncode8/hhplus_Server_3rd/blob/main/diagram/erd/hhplus_3rd_erd.png?raw=true)
+![concert erd](https://raw.githubusercontent.com/corncode8/hhplus_Server_3rd/main/diagram/erd/hhplus_3rd_erd.png)
 ### API 명세
 
 #### 유저 대기열 토큰 기능
@@ -153,6 +153,7 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
     "code": 200,
     "message": "요청에 성공하였습니다.",
     "result": {
+        "concertOptionId": 1,
         "availableSeatsList": [
             "1",
             "2",
