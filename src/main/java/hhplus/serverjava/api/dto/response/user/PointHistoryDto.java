@@ -26,7 +26,7 @@ public class PointHistoryDto {
         return PointHistory.builder()
                 .id(this.id)
                 .amount(this.id)
-                .state(this.state)
+                .type(this.state)
                 .build();
     }
 }

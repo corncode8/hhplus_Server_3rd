@@ -27,7 +27,7 @@ public class ConcertOption {
     @Column(nullable = false)
     private int seatsNum;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "concert_id")
     private Concert concert;
 

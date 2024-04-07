@@ -26,8 +26,11 @@ public class Concert extends BaseEntity {
 
     @Column(nullable = false, length = 50)
     private String artist;
-    @OneToOne(mappedBy = "concert")
-    private ConcertOption concertOption;
+
+    private State state = State.SHOWING;
+
+    @OneToMany(mappedBy = "concert")
+    private List<ConcertOption> concertOption = new ArrayList<>();
 
     @OneToMany(mappedBy = "concert")
     private List<Seat> seatList = new ArrayList<>();
@@ -37,5 +40,9 @@ public class Concert extends BaseEntity {
         this.id = id;
         this.name = name;
         this.artist = artist;
+    }
+
+    public enum State {
+        SHOWING, ISOVER
     }
 }

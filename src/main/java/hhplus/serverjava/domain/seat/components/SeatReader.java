@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -14,12 +15,12 @@ public class SeatReader {
 
     private final SeatReaderRepository seatReaderRepository;
 
-    public List<Seat> findAvailableSeats(Long concertId, LocalDate targetDate, Seat.State state) {
+    public List<Seat> findAvailableSeats(Long concertId, LocalDateTime targetDate, Seat.State state) {
         return seatReaderRepository.findAvailableSeats(concertId, targetDate, state);
     }
 
 
-    public Seat findAvailableSeat(Long concertId, LocalDate targetDate, Seat.State state, int seatNum) {
+    public Seat findAvailableSeat(Long concertId, LocalDateTime targetDate, Seat.State state, int seatNum) {
         return seatReaderRepository.findAvailableSeat(concertId, targetDate, state, seatNum);
     }
 }

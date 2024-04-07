@@ -50,7 +50,7 @@ public class FindConcertOptionUseCaseTest {
         List<ConcertOption> concertOptionList = new ArrayList<>();
         concertOptionList.add(concertOption);
 
-        when(concertOptionReader.findConcertOption(testConcertId)).thenReturn(concertOptionList);
+        when(concertOptionReader.findConcertOptionList(testConcertId)).thenReturn(concertOptionList);
 
         List<LocalDate> list = new ArrayList<>();
         for (int i = 0; i < plusDays; i++) {

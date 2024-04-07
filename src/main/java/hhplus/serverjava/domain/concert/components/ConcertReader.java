@@ -5,6 +5,8 @@ import hhplus.serverjava.domain.concert.repository.ConcertReaderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class ConcertReader {
@@ -13,5 +15,9 @@ public class ConcertReader {
 
     public Concert findConcert(Long concertId) {
         return concertReaderRepository.findConcert(concertId);
+    }
+
+    public List<Concert> findConcertList(Concert.State state) {
+        return concertReaderRepository.findConcertList(state);
     }
 }

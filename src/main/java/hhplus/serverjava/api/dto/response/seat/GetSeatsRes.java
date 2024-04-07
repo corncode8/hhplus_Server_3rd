@@ -15,9 +15,11 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class GetSeatsRes {
 
+    private Long concertOptionId;
     private List<Integer> seatList = new ArrayList<>();
 
-    public GetSeatsRes(List<Seat> seatList) {
+    public GetSeatsRes(Long concertOptionId, List<Seat> seatList) {
+        this.concertOptionId = concertOptionId;
         this.seatList =  seatList.stream()
                 .map(seat -> seat.getSeatNum()).collect(Collectors.toList());
     }

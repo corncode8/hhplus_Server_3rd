@@ -36,6 +36,7 @@ public enum BaseResponseStatus {
     FAIL_RESERVAION_SEAT(false, HttpStatus.BAD_REQUEST.value(), "예약에 실패하였습니다."),
 
     INVALID_DATE(false, HttpStatus.BAD_REQUEST.value(), "형식에 맞지 않는 날짜 양식입니다."),
+    EMPTY_CONCERT_OPTION(false, HttpStatus.BAD_REQUEST.value(), "찾을 수 없는 콘서트 일정입니다."),
 
     /**
      * 500 :  Database, Server 오류

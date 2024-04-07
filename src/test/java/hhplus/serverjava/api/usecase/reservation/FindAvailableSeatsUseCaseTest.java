@@ -1,6 +1,5 @@
 package hhplus.serverjava.api.usecase.reservation;
 
-import hhplus.serverjava.api.dto.response.reservation.GetReservationRes;
 import hhplus.serverjava.api.dto.response.seat.GetSeatsRes;
 import hhplus.serverjava.api.usecase.concert.FindAvailableSeatsUseCase;
 import hhplus.serverjava.domain.concertoption.components.ConcertOptionReader;
@@ -40,7 +39,7 @@ public class FindAvailableSeatsUseCaseTest {
     void test() {
         //given
         Long concertId = 1L;
-        LocalDate targetDate = LocalDate.now().plusDays(1);
+        LocalDateTime targetDate = LocalDateTime.now().plusDays(1);
 
         Long optionId = 1L;
         LocalDateTime concertAt = LocalDateTime.now();
@@ -68,7 +67,7 @@ public class FindAvailableSeatsUseCaseTest {
             seatList.add(seat);
         }
 
-        when(concertOptionReader.findConcertOption(optionId)).thenReturn(concertOptionList);
+        when(concertOptionReader.findConcertOptionList(optionId)).thenReturn(concertOptionList);
         when(seatReader.findAvailableSeats(concertId, targetDate, Seat.State.AVAILABLE)).thenReturn(seatList);
 
         //when

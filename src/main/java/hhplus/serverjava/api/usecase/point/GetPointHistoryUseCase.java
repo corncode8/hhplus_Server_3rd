@@ -24,7 +24,7 @@ public class GetPointHistoryUseCase {
                 .map(ph -> new PointHistoryDto(
                         ph.getId(),
                         ph.getUser().getId(),
-                        ph.getState(),
+                        ph.getType(),
                         ph.getAmount(),
                         ph.getCreatedAt()
                 ))

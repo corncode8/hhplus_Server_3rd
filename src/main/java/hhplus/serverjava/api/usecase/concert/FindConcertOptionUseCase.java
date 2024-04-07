@@ -7,12 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
 @Service
@@ -24,7 +20,7 @@ public class FindConcertOptionUseCase {
 
     // 예약 가능 일자 API
     public GetDateRes execute(Long concertId) {
-        List<ConcertOption> concertOption = concertOptionReader.findConcertOption(concertId);
+        List<ConcertOption> concertOption = concertOptionReader.findConcertOptionList(concertId);
 
         GetDateRes getDateRes = new GetDateRes();
 

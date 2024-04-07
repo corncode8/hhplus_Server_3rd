@@ -23,10 +23,10 @@ public class Seat {
     private Long id;
 
     @Column(nullable = false)
-    private int seatNum;
+    private int price;
 
     @Column(nullable = false)
-    private int price;
+    private int seatNum;
 
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false, length = 10)

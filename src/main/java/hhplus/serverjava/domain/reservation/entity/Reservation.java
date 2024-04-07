@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -32,13 +33,13 @@ public class Reservation extends BaseEntity {
     private String concertArtist;
 
     @Column(nullable = false)
-    private LocalDate concertAt;
+    private LocalDateTime concertAt;
 
     @Column(nullable = false)
     private int seatNum;
 
     @Column(nullable = false)
-    private int reservedAmount;
+    private int reservedPrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -60,12 +61,12 @@ public class Reservation extends BaseEntity {
     }
 
     @Builder
-    public Reservation(String concertName, String concertArtist, LocalDate concertAt, int seatNum, int reservedAmount, User user, Seat seat) {
+    public Reservation(String concertName, String concertArtist, LocalDateTime concertAt, int seatNum, int reservedPrice, User user, Seat seat) {
         this.concertName = concertName;
         this.concertArtist = concertArtist;
         this.concertAt = concertAt;
         this.seatNum = seatNum;
-        this.reservedAmount = reservedAmount;
+        this.reservedPrice = reservedPrice;
         this.user = user;
         this.seat = seat;
     }

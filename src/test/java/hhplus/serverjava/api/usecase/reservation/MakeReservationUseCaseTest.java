@@ -4,6 +4,7 @@ import hhplus.serverjava.api.dto.response.reservation.PostReservationRes;
 import hhplus.serverjava.api.util.exceptions.BaseException;
 import hhplus.serverjava.domain.concert.components.ConcertReader;
 import hhplus.serverjava.domain.concert.entity.Concert;
+import hhplus.serverjava.domain.concertoption.components.ConcertOptionReader;
 import hhplus.serverjava.domain.reservation.components.ReservationStore;
 import hhplus.serverjava.domain.seat.components.SeatReader;
 import hhplus.serverjava.domain.seat.entity.Seat;
@@ -15,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.jboss.logging.Logger;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -30,7 +32,7 @@ import static org.mockito.Mockito.when;
 public class MakeReservationUseCaseTest {
 
     @Autowired
-    ConcertReader concertReader;
+    ConcertOptionReader concertOptionReader;
     @Autowired
     SeatReader seatReader;
     @Autowired
@@ -56,7 +58,7 @@ public class MakeReservationUseCaseTest {
 
         int reservedAmount = 50000;
         final Long concertId = 1L;
-        LocalDate targetDate = LocalDate.now().plusDays(1);
+        LocalDateTime targetDate = LocalDateTime.now().plusDays(1);
         Concert concert = Concert.builder()
                 .id(concertId)
                 .name("마크툽 콘서트")
@@ -77,7 +79,7 @@ public class MakeReservationUseCaseTest {
                     .build();
 
             when(seatReader.findAvailableSeat(concertId, targetDate, Seat.State.AVAILABLE, seatNum)).thenReturn(seat);
-            when(concertReader.findConcert(concertId)).thenReturn(concert);
+            when(concertOptionReader.findConcert(concertId)).thenReturn(concert);
 
             CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
                 try {

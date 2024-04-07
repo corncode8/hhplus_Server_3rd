@@ -21,7 +21,7 @@ public class PostReservationRes {
 
     private String concertName;
     private String concertArtist;
-    private LocalDate reservationDate;
+    private LocalDateTime reservationDate;
 
     private int reservationSeat;
     private LocalDateTime expiredAt;
@@ -34,6 +34,6 @@ public class PostReservationRes {
         this.reservationDate = reservation.getConcertAt();
         this.reservationSeat = reservation.getSeatNum();
         this.expiredAt = seat.getExpiredAt();
-        this.reservedAmount = reservation.getReservedAmount();
+        this.reservedAmount = reservation.getReservedPrice();
     }
 }

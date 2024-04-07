@@ -1,7 +1,7 @@
 package hhplus.serverjava.api.controller;
 
 import hhplus.serverjava.api.dto.request.reservation.PostReservationReq;
-import hhplus.serverjava.api.dto.response.reservation.GetConcertRes;
+import hhplus.serverjava.api.dto.response.concert.GetConcertRes;
 import hhplus.serverjava.api.dto.response.reservation.GetReservationRes;
 import hhplus.serverjava.api.usecase.concert.FindAvailableSeatsUseCase;
 import hhplus.serverjava.api.usecase.concert.FindConcertOptionUseCase;
@@ -41,18 +41,19 @@ public class ReservationController {
      * @return BaseResponse<GetDateRes>
      */
     @GetMapping("/concert")
-    public BaseResponse<List<GetConcertRes>> getConcert() {
+    public BaseResponse<List<String>> getConcert() {
 
         // 토큰 검증
 //        isValidatedTokenUseCase.execute(jwtService.getUserId());
 
-        Long concertId = 1L;
+        String concertId = "1";
         String concertName = "MAKTUB CONCERT";
         String artist = "MAKTUB";
-        GetConcertRes concertInfo = new GetConcertRes(concertId, concertName, artist);
 
-        List<GetConcertRes> execute = new ArrayList<>();
-        execute.add(concertInfo);
+        List<String> execute = new ArrayList<>();
+        execute.add(concertId);
+        execute.add(concertName);
+        execute.add(artist);
 
         return new BaseResponse<>(execute);
     }
@@ -79,10 +80,10 @@ public class ReservationController {
 
     /**
      * 예약 가능한 좌석 정보 조회 API
-     * [GET] /api/concert/date/{date}/list/seats
+     * [GET] /api/concert/date/{date}/seats
      * @return BaseResponse<GetSeatsRes>
      */
-    @GetMapping("/concert/date/{date}/list/seats")
+    @GetMapping("/concert/date/{date}/seats")
     public BaseResponse<List<String>> getAvailableSeats(@PathVariable("date") String concertDate) {
 
         // 토큰 검증

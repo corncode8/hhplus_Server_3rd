@@ -4,6 +4,7 @@ import hhplus.serverjava.api.dto.response.reservation.PostReservationRes;
 import hhplus.serverjava.api.util.exceptions.BaseException;
 import hhplus.serverjava.domain.concert.components.ConcertReader;
 import hhplus.serverjava.domain.concert.entity.Concert;
+import hhplus.serverjava.domain.concertoption.components.ConcertOptionReader;
 import hhplus.serverjava.domain.reservation.components.ReservationStore;
 import hhplus.serverjava.domain.reservation.entity.Reservation;
 import hhplus.serverjava.domain.seat.components.SeatReader;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.OptimisticLockException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;
 
@@ -24,12 +26,12 @@ import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;
 @RequiredArgsConstructor
 public class MakeReservationUseCase {
 
-    private final ConcertReader concertReader;
     private final SeatReader seatReader;
     private final ReservationStore reservationStore;
+    private final ConcertOptionReader concertOptionReader;
 
     // 좌석 예약
-    public PostReservationRes makeReservation(User user, Long concertOptionId, LocalDate targetDate, int seatNum, int reservedAmount) {
+    public PostReservationRes makeReservation(User user, Long concertOptionId, LocalDateTime targetDate, int seatNum, int reservedAmount) {
 
         try {
             // 낙관적 락 적용
@@ -39,7 +41,7 @@ public class MakeReservationUseCase {
             seat.setExpiredAt();
 
             // findConcert
-            Concert concert = concertReader.findConcert(concertOptionId);
+            Concert concert = concertOptionReader.findConcert(concertOptionId);
 
             Reservation reservation = Reservation.builder()
                     .user(user)
@@ -47,7 +49,7 @@ public class MakeReservationUseCase {
                     .concertAt(targetDate)
                     .concertName(concert.getName())
                     .concertArtist(concert.getArtist())
-                    .reservedAmount(reservedAmount)
+                    .reservedPrice(reservedAmount)
                     .build();
 
             Reservation store = reservationStore.makeReservation(reservation);

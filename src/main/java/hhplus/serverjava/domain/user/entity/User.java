@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,9 @@ public class User extends BaseEntity {
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false, length = 10)
     private Status status = Status.WAITING;
+
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "user")
     private List<PointHistory> pointHistoryList = new ArrayList<>();

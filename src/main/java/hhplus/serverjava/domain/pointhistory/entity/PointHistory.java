@@ -23,7 +23,7 @@ public class PointHistory extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
-    protected State state;
+    protected State type;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -34,10 +34,10 @@ public class PointHistory extends BaseEntity {
     }
 
     @Builder
-    public PointHistory(Long id, User user, State state, Long amount) {
+    public PointHistory(Long id, User user, State type, Long amount) {
         this.id = id;
         this.user = user;
-        this.state = state;
+        this.type = type;
         this.amount = amount;
     }
 }
