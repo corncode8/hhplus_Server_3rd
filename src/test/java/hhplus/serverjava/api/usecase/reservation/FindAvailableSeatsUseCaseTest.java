@@ -44,12 +44,10 @@ public class FindAvailableSeatsUseCaseTest {
         LocalDateTime concertAt = LocalDateTime.now();
 
         Long plusDays = 5L;
-        int seatNum = 50;
 
         ConcertOption concertOption = ConcertOption.builder()
                 .id(optionId)
                 .concertAt(concertAt)
-                .seatsNum(seatNum)
                 .build();
 
         List<ConcertOption> concertOptionList = new ArrayList<>();

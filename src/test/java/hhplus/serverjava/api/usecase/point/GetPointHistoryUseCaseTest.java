@@ -1,7 +1,6 @@
 package hhplus.serverjava.api.usecase.point;
 
 import hhplus.serverjava.api.dto.response.user.PointHistoryDto;
-import hhplus.serverjava.api.usecase.point.GetPointHistoryUseCase;
 import hhplus.serverjava.domain.pointhistory.components.PointHistoryReader;
 import hhplus.serverjava.domain.pointhistory.entity.PointHistory;
 import hhplus.serverjava.domain.pointhistory.entity.PointHistory.State;
@@ -28,7 +27,7 @@ public class GetPointHistoryUseCaseTest {
     @InjectMocks
     GetPointHistoryUseCase getPointHistoryUseCase;
 
-    @DisplayName("PointHistory Mapper 테스트")
+    @DisplayName("포인트 내역 조회 테스트")
     @Test
     void test() {
         //given

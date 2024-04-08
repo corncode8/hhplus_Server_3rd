@@ -26,7 +26,7 @@ public class GetConcertListUseCaseTest {
     @InjectMocks
     GetConcertListUseCase getConcertListUseCase;
 
-    @DisplayName("테스트")
+    @DisplayName("콘서트 조회 테스트")
     @Test
     void test() {
         //given

@@ -42,10 +42,9 @@ public class MakeReservationUseCaseTest {
     private Logger log = Logger.getLogger(MakeReservationUseCaseTest.class);
 
     /*
-    * 예약 로직 테스트
-    * 낙관적 락
+    * 예약 생성 테스트
     */
-    @DisplayName("낙관적 락 테스트") // TODO: ING
+    @DisplayName("예약 생성 테스트") // TODO: ING
     @Test
     void optimistic_lock_test() {
         //given
@@ -93,7 +92,7 @@ public class MakeReservationUseCaseTest {
         executor.shutdown();
 
         //then
-        System.out.println(successCnt);
+
     }
 
 

@@ -23,9 +23,6 @@ public class ConcertOption {
 
     private LocalDateTime concertAt;
 
-    @Column(nullable = false)
-    private int seatsNum;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "concert_id")
     private Concert concert;
@@ -34,9 +31,8 @@ public class ConcertOption {
     private List<Seat> seatList = new ArrayList<>();
 
     @Builder
-    public ConcertOption(Long id, LocalDateTime concertAt, int seatsNum) {
+    public ConcertOption(Long id, LocalDateTime concertAt) {
         this.id = id;
         this.concertAt = concertAt;
-        this.seatsNum = seatsNum;
     }
 }
