@@ -6,17 +6,24 @@ import hhplus.serverjava.domain.user.repository.UserReaderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;
 
 @Repository
 @RequiredArgsConstructor
 public class UserCoreReaderRepository implements UserReaderRepository {
 
-    private UserJPARepository userJPARepository;
+    private final UserJPARepository userJPARepository;
 
     @Override
     public User findUser(Long userId) {
          return userJPARepository.findById(userId)
                  .orElseThrow(() -> new BaseException(NOT_FIND_USER));
+    }
+
+    @Override
+    public List<User> findUsersByStatus(User.State state) {
+        return userJPARepository.findUsersByStatus(state);
     }
 }

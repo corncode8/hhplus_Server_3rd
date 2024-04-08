@@ -16,7 +16,7 @@ import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;
 @RequiredArgsConstructor
 public class ConcertOptionCoreReaderRepository implements ConcertOptionReaderRepository {
 
-    private ConcertOptionJPARepository concertOptionJPARepository;
+    private final ConcertOptionJPARepository concertOptionJPARepository;
 
     @Override
     public List<ConcertOption> findConcertOptionList(Long concertId) {

@@ -5,6 +5,8 @@ import hhplus.serverjava.domain.user.repository.UserReaderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class UserReader {
@@ -13,6 +15,10 @@ public class UserReader {
 
     public User findUser(Long userId) {
         return userReaderRepository.findUser(userId);
+    }
+
+    public List<User> findUsersByStatus(User.State state) {
+        return userReaderRepository.findUsersByStatus(state);
     }
 
 }

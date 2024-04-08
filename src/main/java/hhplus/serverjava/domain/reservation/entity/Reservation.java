@@ -23,7 +23,7 @@ public class Reservation extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
-    protected State state = State.RESERVED;
+    protected State status = State.RESERVED;
 
     @Column(nullable = false)
     private String concertName;
@@ -56,7 +56,7 @@ public class Reservation extends BaseEntity {
     }
 
     public void setCancelled() {
-        this.state = State.CANCELLED;
+        this.status = State.CANCELLED;
     }
 
     @Builder

@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SeatCoreReaderRepository implements SeatReaderRepository {
 
-    private SeatJPARepository seatJPARepository;
+    private final SeatJPARepository seatJPARepository;
 
     @Override
     public List<Seat> findAvailableSeats(Long concertId, LocalDateTime targetDate, Seat.State state) {

@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ReservationJPARepository extends JpaRepository<Reservation, Long> {
 
-    @Query("select r from Reservation r where r.seat.expiredAt < :now and r.state = 'RESERVED'")
+    @Query("select r from Reservation r where r.seat.expiredAt < :now and r.status = 'RESERVED'")
     List<Reservation> findExpiredReservations(@Param("now")LocalDateTime now);
 
 }

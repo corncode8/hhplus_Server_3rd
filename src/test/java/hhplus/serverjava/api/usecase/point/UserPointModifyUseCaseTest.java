@@ -1,7 +1,7 @@
 package hhplus.serverjava.api.usecase.point;
 
 import hhplus.serverjava.api.dto.response.user.UserPoint;
-import hhplus.serverjava.api.usecase.point.UserPointModifyUseCase;
+import hhplus.serverjava.domain.user.componenets.UserReader;
 import hhplus.serverjava.domain.user.componenets.UserStore;
 import hhplus.serverjava.domain.user.entity.User;
 import org.junit.jupiter.api.DisplayName;
@@ -20,6 +20,8 @@ public class UserPointModifyUseCaseTest {
 
     @Mock
     UserStore userStore;
+    @Mock
+    UserReader userReader;
 
     @InjectMocks
     UserPointModifyUseCase userPointModifyUseCase;
@@ -36,8 +38,8 @@ public class UserPointModifyUseCaseTest {
                 .point(point)
                 .build();
 
-        when(userStore.findUser(userId)).thenReturn(user);
-        when(userStore.modify(user)).thenReturn(user);
+        when(userReader.findUser(userId)).thenReturn(user);
+        when(userStore.save(user)).thenReturn(user);
 
         Long chargePoint = 500L;
         //when

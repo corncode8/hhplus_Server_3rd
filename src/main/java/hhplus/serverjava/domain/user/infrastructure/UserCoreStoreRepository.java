@@ -12,18 +12,11 @@ import static hhplus.serverjava.api.util.response.BaseResponseStatus.NOT_FIND_US
 @RequiredArgsConstructor
 public class UserCoreStoreRepository implements UserStoreRepository {
 
-    private UserJPARepository userJPARepository;
+    private final UserJPARepository userJPARepository;
 
     @Override
-    public User modify(User user) {
-
+    public User save(User user) {
         return userJPARepository.save(user);
-    }
-
-    @Override
-    public User findUser(Long userId) {
-        return userJPARepository.findById(userId)
-                .orElseThrow(() -> new BaseException(NOT_FIND_USER));
     }
 
 }

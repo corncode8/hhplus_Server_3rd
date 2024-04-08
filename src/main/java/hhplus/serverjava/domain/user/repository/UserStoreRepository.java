@@ -4,7 +4,6 @@ import hhplus.serverjava.domain.user.entity.User;
 
 public interface UserStoreRepository {
 
-    User modify(User user);
+    User save(User user);
 
-    User findUser(Long userId);
 }

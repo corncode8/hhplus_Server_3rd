@@ -11,7 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PointHistoryCoreReaderRepository implements PointHistoryReaderRepository {
 
-    private PointHistoryJPARepository pointHistoryJPARepository;
+    private final PointHistoryJPARepository pointHistoryJPARepository;
 
 
     @Override

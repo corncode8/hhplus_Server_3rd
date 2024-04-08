@@ -11,11 +11,8 @@ public class UserStore {
 
     private final UserStoreRepository userStoreRepository;
 
-    public User modify(User user) {
-        return userStoreRepository.modify(user);
+    public User save(User user) {
+        return userStoreRepository.save(user);
     }
 
-    public User findUser(Long userId) {
-        return userStoreRepository.findUser(userId);
-    }
 }

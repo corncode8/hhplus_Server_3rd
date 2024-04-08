@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class ReservationCoreStoreRepository implements ReservationStoreRepository {
 
-    private ReservationJPARepository repository;
+    private final ReservationJPARepository repository;
 
     @Override
     public Reservation makeReservation(Reservation reservation) {

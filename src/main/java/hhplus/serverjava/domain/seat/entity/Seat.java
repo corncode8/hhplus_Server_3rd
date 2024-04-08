@@ -30,7 +30,7 @@ public class Seat {
 
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false, length = 10)
-    private State state = State.AVAILABLE;
+    private State status = State.AVAILABLE;
 
     @Column(nullable = false)
     private LocalDateTime expiredAt;
@@ -61,10 +61,10 @@ public class Seat {
     }
 
     public void setReserved() {
-        this.state = State.RESERVED;
+        this.status = State.RESERVED;
     }
     public void setAvailable() {
-        this.state = State.AVAILABLE;
+        this.status = State.AVAILABLE;
     }
 
     public void setExpiredAt() {

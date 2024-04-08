@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -28,10 +29,10 @@ public class User extends BaseEntity {
 
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false, length = 10)
-    private Status status = Status.WAITING;
+    private State status = State.WAITING;
 
     @Column(nullable = false)
-    private LocalDateTime updatedAt;
+    private LocalDateTime updatedAt = this.getCreatedAt();
 
     @OneToMany(mappedBy = "user")
     private List<PointHistory> pointHistoryList = new ArrayList<>();
@@ -40,12 +41,27 @@ public class User extends BaseEntity {
     private List<Reservation> reservationList = new ArrayList<>();
 
 
-    public enum Status {
+    public enum State {
         WAITING, PROCESSING, DONE
     }
 
     public void setPoint(Long point) {
         this.point = point;
+    }
+
+    public void setWaiting() {
+        this.status = State.WAITING;
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void setProcessing() {
+        this.status = State.PROCESSING;
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void setDone() {
+        this.status = State.DONE;
+        this.updatedAt = LocalDateTime.now();
     }
 
     @Builder

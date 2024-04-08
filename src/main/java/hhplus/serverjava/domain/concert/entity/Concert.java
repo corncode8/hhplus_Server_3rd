@@ -27,7 +27,7 @@ public class Concert extends BaseEntity {
     @Column(nullable = false, length = 50)
     private String artist;
 
-    private State state = State.SHOWING;
+    private State status = State.SHOWING;
 
     @OneToMany(mappedBy = "concert")
     private List<ConcertOption> concertOption = new ArrayList<>();
