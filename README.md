@@ -63,7 +63,7 @@
     }
 }
 ```
-![queue api](https://github.com/corncode8/hhplus_Server_3rd/blob/main/images/sequence_diagram/queue_api.png?raw=true)
+![queue api](https://raw.githubusercontent.com/corncode8/hhplus_Server_3rd/main/images/sequence_diagram/queue_api.png)
 <br/>
 대기열 확인 API <br/>
 | 메서드 | URL |
@@ -87,7 +87,7 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
 ```
 
 #### 예약 기능
-![concert api](https://github.com/corncode8/hhplus_Server_3rd/blob/main/images/sequence_diagram/concert_api.png?raw=true)
+![concert api](https://raw.githubusercontent.com/corncode8/hhplus_Server_3rd/main/images/sequence_diagram/concert_api.png)
 <br/>
 콘서트 조회 API <br/>
 | 메서드 | URL |
@@ -112,7 +112,7 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
     }
 }
 ```
-![date api](https://github.com/corncode8/hhplus_Server_3rd/blob/main/images/sequence_diagram/reservation_date_seat_api.png?raw=true)
+![date api](https://raw.githubusercontent.com/corncode8/hhplus_Server_3rd/main/images/sequence_diagram/reservation_date_seat_api.png)
 <br/>
 예약 가능한 날짜 조회 API <br/>
 | 메서드 | URL |
@@ -164,7 +164,7 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
     }
 }
 ```
-![reservation api](https://github.com/corncode8/hhplus_Server_3rd/blob/main/images/sequence_diagram/reservation_concert_api.png?raw=true)
+![reservation api](https://raw.githubusercontent.com/corncode8/hhplus_Server_3rd/main/images/sequence_diagram/reservation_concert_api.png)
 <br/>
 콘서트 예약 API <br/>
 | 메서드 | URL |
@@ -208,7 +208,7 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
 ```
 
 #### 포인트 기능
-![balance api](https://github.com/corncode8/hhplus_Server_3rd/blob/main/images/sequence_diagram/balance_api.png?raw=true)
+![balance api](https://raw.githubusercontent.com/corncode8/hhplus_Server_3rd/main/images/sequence_diagram/balance_api.png)
 <br/>
 잔액 충전 API <br/>
 | 메서드 | URL |
