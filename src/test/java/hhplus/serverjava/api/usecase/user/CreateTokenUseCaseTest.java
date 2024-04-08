@@ -1,9 +1,8 @@
-package hhplus.serverjava.api.usecase.point;
+package hhplus.serverjava.api.usecase.user;
 
-import hhplus.serverjava.api.dto.response.user.UserPoint;
-import hhplus.serverjava.api.usecase.point.GetUserPointUseCase;
+import hhplus.serverjava.api.dto.response.user.GetTokenRes;
+import hhplus.serverjava.api.util.jwt.JwtService;
 import hhplus.serverjava.domain.user.componenets.UserReader;
-import hhplus.serverjava.domain.user.entity.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,29 +15,33 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class GetUserPointUseCaseTest {
+public class CreateTokenUseCaseTest {
 
     @Mock
     UserReader userReader;
+    @Mock
+    JwtService jwtService;
 
     @InjectMocks
-    GetUserPointUseCase getUserPointUseCase;
+    CreateTokenUseCase createTokenUseCase;
 
-    @DisplayName("UserPoint Mapper 테스트")
+    @DisplayName("토큰 생성 API 테스트")
     @Test
     void test() {
         //given
         Long userId = 1L;
-        Long point = 500L;
-        User user = new User(userId, point);
+        String username = "TestUser";
+        String jwt = "jfnherjkfera-Test-Token";
 
-        when(userReader.findUser(userId)).thenReturn(user);
+        when(jwtService.createJwt(userId)).thenReturn(jwt);
 
         //when
-        UserPoint result = getUserPointUseCase.execute(userId);
+        GetTokenRes result = createTokenUseCase.execute(username);
 
-        //then
+        // then
         assertNotNull(result);
-        assertEquals(point, result.getPoint());
+        assertEquals(jwt, result.getToken());
+
+        // TODO : 대기번호
     }
 }

@@ -33,10 +33,7 @@ public class UserPointModifyUseCaseTest {
         //given
         Long userId = 1L;
         Long point = 200L;
-        User user = User.builder()
-                .id(userId)
-                .point(point)
-                .build();
+        User user = new User(userId, point);
 
         when(userReader.findUser(userId)).thenReturn(user);
         when(userStore.save(user)).thenReturn(user);

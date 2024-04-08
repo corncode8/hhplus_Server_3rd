@@ -17,8 +17,12 @@ public class GetConcertListUseCase {
     // 콘서트 조회 API
     public GetConcertRes execute(Concert.State state) {
 
-        List<Concert> concertList = concertReader.findConcertList(state);
+        List<Concert> concertList = getConcertList(state);
 
         return new GetConcertRes(concertList);
+    }
+
+    private List<Concert> getConcertList(Concert.State state) {
+        return concertReader.findConcertList(state);
     }
 }

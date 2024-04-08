@@ -21,6 +21,8 @@ public enum BaseResponseStatus {
      */
     EMPTY_NAME_USER(false, HttpStatus.BAD_REQUEST.value(), "이름을 입력해주세요."),
     NOT_FIND_USER(false,HttpStatus.NOT_FOUND.value(),"일치하는 유저가 없습니다."),
+    FAIL_NEW_TOKEN(false,HttpStatus.NOT_FOUND.value(),"토큰 생성에 실패했습니다."),
+    FAIL_FIND_QUEUE(false,HttpStatus.NOT_FOUND.value(),"대기열 확인에 실패하였습니다."),
 
     EMPTY_JWT(false, HttpStatus.UNAUTHORIZED.value(), "JWT를 입력해주세요."),
     INVALID_JWT(false, HttpStatus.UNAUTHORIZED.value(), "유효하지 않은 JWT입니다."),

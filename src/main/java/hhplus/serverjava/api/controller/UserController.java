@@ -3,7 +3,7 @@ package hhplus.serverjava.api.controller;
 import hhplus.serverjava.api.dto.request.user.PostUserReq;
 import hhplus.serverjava.api.dto.response.user.GetUserRes;
 import hhplus.serverjava.api.dto.response.user.PointHistoryDto;
-import hhplus.serverjava.api.dto.response.user.PostUserRes;
+import hhplus.serverjava.api.dto.response.user.GetTokenRes;
 import hhplus.serverjava.api.dto.response.user.UserPoint;
 import hhplus.serverjava.api.usecase.point.GetPointHistoryUseCase;
 import hhplus.serverjava.api.usecase.point.GetUserPointUseCase;
@@ -39,19 +39,18 @@ public class UserController {
      * @return BaseResponse<PostUserRes>
      */
     @Operation(summary = "토큰 발급")
-    @PostMapping("/wait")
-    public BaseResponse<PostUserRes> getToken(@RequestBody PostUserReq postUserReq) {
+    @GetMapping("/wait")
+    public BaseResponse<GetTokenRes> getToken(@RequestBody PostUserReq postUserReq) {
 
         // 유저 생성 + 토큰 발급
 
         String token = "wer7w-edt-w5g-dsrgdrg-testToken";
         Long listNum = 1L;
-        LocalDateTime expectedAt = LocalDateTime.now();
 
 
-        PostUserRes postUserRes = new PostUserRes(token, listNum, expectedAt);
+        GetTokenRes getTokenRes = new GetTokenRes(token, listNum);
 
-        return new BaseResponse<>(postUserRes);
+        return new BaseResponse<>(getTokenRes);
     }
 
     /**
@@ -67,8 +66,8 @@ public class UserController {
         // 토큰으로 유저의 현재 대기열 정보 확인
 
         Long listNum = 1L;
-        LocalDateTime expectedAt = LocalDateTime.now();
-        GetUserRes getUserRes = new GetUserRes(listNum, expectedAt);
+
+        GetUserRes getUserRes = new GetUserRes(listNum);
 
         return new BaseResponse<>(getUserRes);
     }

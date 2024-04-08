@@ -26,11 +26,19 @@ public class FindAvailableSeatsUseCase {
     public GetSeatsRes execute(Long concertId, LocalDateTime targetDate) {
 
         // 콘서트 조회
-        ConcertOption concertOption = concertOptionReader.findConcertOption(concertId, targetDate);
+        ConcertOption concertOption = findOption(concertId, targetDate);
 
         // 예약 가능한 좌석 조회
-        List<Seat> availableSeats = seatReader.findAvailableSeats(concertId, targetDate, Seat.State.AVAILABLE);
+        List<Seat> availableSeats = getAvailableSeatList(concertId, targetDate, Seat.State.AVAILABLE);
 
         return new GetSeatsRes(concertOption.getId(), availableSeats);
+    }
+
+    private ConcertOption findOption(Long concertId, LocalDateTime date) {
+        return concertOptionReader.findConcertOption(concertId, date);
+    }
+
+    private List<Seat> getAvailableSeatList(Long concertId, LocalDateTime date, Seat.State state) {
+        return seatReader.findAvailableSeats(concertId, date, state);
     }
 }

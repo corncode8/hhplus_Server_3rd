@@ -18,7 +18,7 @@ public class GetPointHistoryUseCase {
     private final PointHistoryReader pointHistoryReader;
 
     public List<PointHistoryDto> execute(Long userId) {
-        List<PointHistory> pointHistories = pointHistoryReader.readList(userId);
+        List<PointHistory> pointHistories = getPointList(userId);
 
         List<PointHistoryDto> pointHistoryDtos = pointHistories.stream()
                 .map(ph -> new PointHistoryDto(
@@ -31,5 +31,9 @@ public class GetPointHistoryUseCase {
                 .collect(Collectors.toList());
 
         return pointHistoryDtos;
+    }
+
+    private List<PointHistory> getPointList(Long userId) {
+        return pointHistoryReader.readList(userId);
     }
 }

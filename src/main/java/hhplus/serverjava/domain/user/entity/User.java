@@ -26,19 +26,21 @@ public class User extends BaseEntity {
     @Column(name = "point", nullable = false)
     private Long point;
 
+    @Column(nullable = false, length = 100)
+    private String name;
+
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false, length = 10)
     private State status = State.WAITING;
 
     @Column(nullable = false)
-    private LocalDateTime updatedAt = this.getCreatedAt();
+    private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "user")
     private List<PointHistory> pointHistoryList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     private List<Reservation> reservationList = new ArrayList<>();
-
 
     public enum State {
         WAITING, PROCESSING, DONE
@@ -63,9 +65,19 @@ public class User extends BaseEntity {
         this.updatedAt = LocalDateTime.now();
     }
 
-    @Builder
+    public void setUpdatedAt(LocalDateTime dateTime) {
+        this.updatedAt = dateTime;
+    }
+
     public User(Long id, Long point) {
         this.id = id;
         this.point = point;
+    }
+
+    @Builder
+    public User(String name, Long point, LocalDateTime updatedAt) {
+        this.name = name;
+        this.point = point;
+        this.updatedAt = updatedAt;
     }
 }

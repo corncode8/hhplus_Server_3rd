@@ -13,10 +13,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class GetUserRes {
 
-    // 예상 대기 번호
+    // 대기 번호
     private Long listNum;
 
     // 예상 시간
-    private LocalDateTime expectedTime;
+//    private LocalDateTime expectedTime;
 
 }

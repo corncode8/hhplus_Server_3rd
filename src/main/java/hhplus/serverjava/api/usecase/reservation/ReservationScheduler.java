@@ -36,7 +36,7 @@ public class ReservationScheduler {
 
         // 좌석이 만료된 예약 조회
         LocalDateTime now = LocalDateTime.now();
-        List<Reservation> expiredReservaions = reservationReader.findExpiredReservaions(now);
+        List<Reservation> expiredReservaions = getExpiredReservaions(now);
 
         for (Reservation reservation : expiredReservaions) {
             Seat seat = reservation.getSeat();
@@ -49,7 +49,7 @@ public class ReservationScheduler {
         }
 
         // PROCESSING 유저 List
-        List<User> workingUsers = userReader.findUsersByStatus(User.State.PROCESSING);
+        List<User> workingUsers = getUserListByStatus(User.State.PROCESSING);
 
         int expiredUsersNum = 0;
         for (User user : workingUsers) {
@@ -62,7 +62,7 @@ public class ReservationScheduler {
         }
 
         // WAIT 유저 List
-        List<User> waitUsers = userReader.findUsersByStatus(User.State.WAITING);
+        List<User> waitUsers = getUserListByStatus(User.State.WAITING);
 
         // 유저의 status가 변한 시간을 정렬
         waitUsers = waitUsers.stream()
@@ -76,5 +76,13 @@ public class ReservationScheduler {
             userStore.save(user);
         }
 
+    }
+
+    List<User> getUserListByStatus(User.State state) {
+        return userReader.findUsersByStatus(state);
+    }
+
+    private List<Reservation> getExpiredReservaions(LocalDateTime now) {
+        return reservationReader.findExpiredReservaions(now);
     }
 }

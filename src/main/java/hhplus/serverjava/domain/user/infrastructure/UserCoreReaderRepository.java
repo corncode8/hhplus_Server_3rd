@@ -26,4 +26,7 @@ public class UserCoreReaderRepository implements UserReaderRepository {
     public List<User> findUsersByStatus(User.State state) {
         return userJPARepository.findUsersByStatus(state);
     }
+
+
 }
+

@@ -15,7 +15,11 @@ public class GetUserPointUseCase {
     private final UserReader userReader;
 
     public UserPoint execute(Long userId) {
-        User user = userReader.findUser(userId);
+        User user = findUser(userId);
         return new UserPoint(user.getId(), user.getPoint());
+    }
+
+    private User findUser(Long userId) {
+        return userReader.findUser(userId);
     }
 }

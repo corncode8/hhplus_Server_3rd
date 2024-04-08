@@ -20,8 +20,12 @@ public class FindConcertOptionUseCase {
     // 예약 가능 일자 API
     public GetDateRes execute(Long concertId) {
 
-        List<ConcertOption> concertOption = concertOptionReader.findConcertOptionList(concertId);
+        List<ConcertOption> concertOption = getOptionList(concertId);
 
         return new GetDateRes(concertOption);
+    }
+
+    private List<ConcertOption> getOptionList(Long concertId) {
+        return concertOptionReader.findConcertOptionList(concertId);
     }
 }

@@ -18,11 +18,15 @@ public class UserPointModifyUseCase {
 
     // 포인트 충전
     public UserPoint charge(Long userId, Long amount) {
-        User user = userReader.findUser(userId);
+        User user = findUser(userId);
         user.setPoint(user.getPoint() + amount);
 
         User modify = userStore.save(user);
 
         return new UserPoint(modify.getId(), modify.getPoint());
+    }
+
+    private User findUser(Long userId) {
+        return userReader.findUser(userId);
     }
 }

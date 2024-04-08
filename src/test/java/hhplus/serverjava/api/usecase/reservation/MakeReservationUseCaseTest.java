@@ -67,10 +67,8 @@ public class MakeReservationUseCaseTest {
         for (int i = 0; i < 50; i++) {
             int seatNum = i + 1;
 
-            User user = User.builder()
-                    .id(i + 1L)
-                    .point(i + 500L)
-                    .build();
+            User user =new User(i + 1L, i + 500L);
+
             Seat seat = Seat.builder()
                     .id(i + 1L)
                     .price(reservedAmount)

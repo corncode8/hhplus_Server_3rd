@@ -36,10 +36,7 @@ public class GetPointHistoryUseCaseTest {
 
         Long userId = 2L;
         Long point = 0L;
-        User user = User.builder()
-                .id(userId)
-                .point(point)
-                .build();
+        User user = new User(userId, point);
 
         List<PointHistory> list = List.of(new PointHistory[]{
                 new PointHistory(1L, user, State.CHARGE, 500L),
