@@ -38,7 +38,7 @@
 ## API 명세
 
 #### 유저 대기열 토큰 기능
-![token api](https://github.com/corncode8/hhplus_Server_3rd/blob/main/images/sequence_diagram/issue_token_api.png?raw=true)
+![token api](https://raw.githubusercontent.com/corncode8/hhplus_Server_3rd/main/images/sequence_diagram/issue_token_api.png)
 <br/>
 토큰 발급  API <br/>
 | 메서드 | URL |
