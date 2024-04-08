@@ -273,7 +273,7 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
 ```
 
 #### 결제 기능
-![payment api](https://github.com/corncode8/hhplus_Server_3rd/blob/main/images/sequence_diagram/payment_api.png?raw=true)
+![payment api](https://raw.githubusercontent.com/corncode8/hhplus_Server_3rd/main/images/sequence_diagram/payment_api.png)
 <br/>
 결제 API <br/>
 | 메서드 | URL |
