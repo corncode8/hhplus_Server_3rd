@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface ReservationReaderRepository {
 
+    Reservation findReservation(Long reservationId);
     List<Reservation> findExpiredReservaions(LocalDateTime now);
 }

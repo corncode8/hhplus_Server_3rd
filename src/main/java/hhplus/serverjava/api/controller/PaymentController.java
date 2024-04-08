@@ -22,7 +22,7 @@ public class PaymentController {
      * [POST] /api/payment
      * @return BaseResponse<UserPoint>
      */
-    @Operation(summary = "결제 생성")
+    @Operation(summary = "결제")
     @PostMapping("/payment")
     public BaseResponse<PostPayRes> point(@PathVariable("reservationId")Long reservationId, @RequestBody int payAmount) {
 

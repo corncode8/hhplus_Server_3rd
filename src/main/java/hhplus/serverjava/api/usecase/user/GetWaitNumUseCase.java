@@ -40,9 +40,14 @@ public class GetWaitNumUseCase {
     }
 
     private Long getUserNum(List<User> users, Long userId) {
+        // 현재 서비스 이용중인 유저 List
+        // updatedAt 오름차순으로 정렬
         Collections.sort(users, Comparator.comparing(user -> user.getUpdatedAt()));
 
+        // 가장 마지막에 서비스에 입장한 유저
         User recentlyUpdUser = users.get(users.size() -1);
+
+        // 조회하려는 유저의 Id - 가장 마지막에 서비스에 입장한 유저Id = 대기번호
         Long userNum = userId - recentlyUpdUser.getId();
 
         return userNum;
@@ -59,6 +64,7 @@ public class GetWaitNumUseCase {
     }
 
     private List<User> getWaitUserList() {
+        // 현재 서비스를 이용중인 유저 return
         return userReader.findUsersByStatus(User.State.PROCESSING);
     }
 

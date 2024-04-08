@@ -59,10 +59,16 @@ public class CreateTokenUseCase {
     }
 
     private Long getUserNum(Long userId) {
+
+        // 현재 서비스 이용중인 유저 List
         List<User> userUpdAscList = getWaitUserList();
+        // updatedAt 오름차순으로 정렬
         Collections.sort(userUpdAscList, Comparator.comparing(user -> user.getUpdatedAt()));
 
+        // 가장 마지막에 서비스에 입장한 유저
         User recentlyUpdUser = userUpdAscList.get(userUpdAscList.size() -1);
+
+        // 조회하려는 유저의 Id - 가장 마지막에 서비스에 입장한 유저Id = 대기번호
         Long userNum = userId - recentlyUpdUser.getId();
 
         return userNum;

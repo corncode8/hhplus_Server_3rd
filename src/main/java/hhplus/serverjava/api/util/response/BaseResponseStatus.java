@@ -33,6 +33,7 @@ public enum BaseResponseStatus {
 
     INVALID_SEAT(false, HttpStatus.NOT_FOUND.value(), "유효하지 않은 좌석 입니다."),
     INVALID_SEAT_RESERVATION(false, HttpStatus.BAD_REQUEST.value(), "예약 가능한 좌석이 아닙니다."),
+    INVALID_RESERVATION(false, HttpStatus.NOT_FOUND.value(), "일치하는 예약 정보가 없습니다."),
     EMPTY_SEAT_RESERVATION(false, HttpStatus.NOT_FOUND.value(), "예약 가능한 좌석이 없습니다."),
     RESERVED_SEAT(false, HttpStatus.BAD_REQUEST.value(), "예약된 좌석입니다."),
     FAIL_RESERVAION_SEAT(false, HttpStatus.BAD_REQUEST.value(), "예약에 실패하였습니다."),

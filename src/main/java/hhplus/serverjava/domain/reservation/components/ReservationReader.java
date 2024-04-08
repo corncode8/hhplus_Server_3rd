@@ -14,6 +14,10 @@ public class ReservationReader {
 
     private final ReservationReaderRepository reservationReaderRepository;
 
+
+    public Reservation findReservation(Long reservationId) {
+        return reservationReaderRepository.findReservation(reservationId);
+    }
     public List<Reservation> findExpiredReservaions(LocalDateTime now) {
         return reservationReaderRepository.findExpiredReservaions(now);
     }

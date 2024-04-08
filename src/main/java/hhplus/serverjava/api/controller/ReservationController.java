@@ -25,7 +25,7 @@ import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;
 
 
 @Tag(name = "예약 Controller",
-        description = "콘서트 조회 API, 예약 가능한 날짜 조회 API, 예약 가능한 좌석 정보 조회 API, 콘서트 예약 API")
+        description = "콘서트 조회 API, 예약 가능한 날짜 조회 API, 예약 가능한 좌석 조회 API, 콘서트 예약 API")
 @Slf4j
 @RestController
 @RequestMapping("/api")
