@@ -9,9 +9,6 @@ import hhplus.serverjava.api.usecase.point.GetPointHistoryUseCase;
 import hhplus.serverjava.api.usecase.point.GetUserPointUseCase;
 import hhplus.serverjava.api.usecase.point.UserPointModifyUseCase;
 import hhplus.serverjava.api.util.response.BaseResponse;
-import hhplus.serverjava.domain.pointhistory.entity.PointHistory;
-import hhplus.serverjava.domain.pointhistory.entity.PointHistory.State;
-import hhplus.serverjava.domain.user.entity.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +19,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;
 import static hhplus.serverjava.domain.pointhistory.entity.PointHistory.State.*;
 
 @Tag(name = "유저 Controller",
