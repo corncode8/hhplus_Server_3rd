@@ -33,9 +33,9 @@
 - 동시에 여러 사용자가 예약 요청을 했을 때, 좌석이 중복으로 배정 가능하지 않도록 해야함
 
 
-### ERD
+## ERD
 ![concert erd](https://raw.githubusercontent.com/corncode8/hhplus_Server_3rd/main/diagram/erd/hhplus_3rd_erd.png)
-### API 명세
+## API 명세
 
 #### 유저 대기열 토큰 기능
 ![token api](https://github.com/corncode8/hhplus_Server_3rd/blob/main/diagram/sequence_diagram/issue_token_api.png?raw=true)
@@ -301,5 +301,6 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
 }
 ```
 
-
+## Swagger
+![Swagger](https://raw.githubusercontent.com/corncode8/hhplus_Server_3rd/main/images/swagger/Swagger%20API.png)
 
