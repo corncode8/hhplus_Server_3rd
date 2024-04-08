@@ -2,12 +2,15 @@ package hhplus.serverjava.api.controller;
 
 import hhplus.serverjava.api.dto.response.payment.PostPayRes;
 import hhplus.serverjava.api.util.response.BaseResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
+@Tag(name = "결제 Controller", description = "결제 API")
 @Slf4j
 @RestController
 @RequestMapping("/api")
@@ -19,6 +22,7 @@ public class PaymentController {
      * [POST] /api/payment
      * @return BaseResponse<UserPoint>
      */
+    @Operation(summary = "결제 생성")
     @PostMapping("/payment")
     public BaseResponse<PostPayRes> point(@PathVariable("reservationId")Long reservationId, @RequestBody int payAmount) {
 

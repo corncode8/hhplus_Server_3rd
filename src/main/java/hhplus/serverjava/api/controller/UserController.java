@@ -12,6 +12,8 @@ import hhplus.serverjava.api.util.response.BaseResponse;
 import hhplus.serverjava.domain.pointhistory.entity.PointHistory;
 import hhplus.serverjava.domain.pointhistory.entity.PointHistory.State;
 import hhplus.serverjava.domain.user.entity.User;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -23,21 +25,24 @@ import java.util.List;
 import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;
 import static hhplus.serverjava.domain.pointhistory.entity.PointHistory.State.*;
 
+@Tag(name = "유저 Controller",
+        description = "토큰 발급 API, 대기열 확인 API, 잔액 충전 API, 잔액 조회 API, 잔액 리스트 조회 API")
 @Slf4j
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class UserController {
 
-    private GetPointHistoryUseCase pointHistoryUseCase;
-    private GetUserPointUseCase getUserPointUseCase;
-    private UserPointModifyUseCase userPointModifyUseCase;
+    private final GetPointHistoryUseCase pointHistoryUseCase;
+    private final GetUserPointUseCase getUserPointUseCase;
+    private final UserPointModifyUseCase userPointModifyUseCase;
 
     /**
      * 토큰 발급 API
      * [GET] /api/wait
      * @return BaseResponse<PostUserRes>
      */
+    @Operation(summary = "토큰 발급")
     @PostMapping("/wait")
     public BaseResponse<PostUserRes> getToken(@RequestBody PostUserReq postUserReq) {
 
@@ -58,6 +63,7 @@ public class UserController {
      * [GET] /api/wait/check
      * @return BaseResponse<GetUserRes>
      */
+    @Operation(summary = "대기열 확인")
     @GetMapping("/wait/check")
     public BaseResponse<GetUserRes> checkQueue() {
 
@@ -77,6 +83,7 @@ public class UserController {
      * [PATCH] /api/point/{userId}/charge
      * @return BaseResponse<UserPoint>
      */
+    @Operation(summary = "잔액 충전")
     @PatchMapping("/point/{userId}/charge")
     public BaseResponse<UserPoint> chargePoint(@PathVariable("userId") Long userId,@RequestBody Long amount) {
 
@@ -91,6 +98,7 @@ public class UserController {
      * [GET] /api/point/{userId}/account
      * @return BaseResponse<UserPoint>
      */
+    @Operation(summary = "잔액 조회")
     @GetMapping("/point/{userId}/account")
     public BaseResponse<UserPoint> point(@PathVariable("userId")Long userId) {
 
@@ -105,6 +113,7 @@ public class UserController {
      * [GET] /api/point/{userId}/histories
      * @return BaseResponse<List<PointHistoryDto>>
      */
+    @Operation(summary = "잔액 리스트 조회")
     @GetMapping("/point/{userId}/histories")
     public BaseResponse<List<PointHistoryDto>> pointHistory(@PathVariable("userId")Long userId) {
 

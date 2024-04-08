@@ -23,6 +23,6 @@ public class ConcertCoreReaderRepository implements ConcertReaderRepository {
 
     @Override
     public List<Concert> findConcertList(Concert.State state) {
-        return concertJPARepository.findConcertByState(state);
+        return concertJPARepository.findConcertsByStatus(state);
     }
 }

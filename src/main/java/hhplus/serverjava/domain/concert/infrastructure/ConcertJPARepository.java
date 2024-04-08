@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ConcertJPARepository extends JpaRepository<Concert, Long> {
 
-    List<Concert> findConcertByState(Concert.State state);
+    List<Concert> findConcertsByStatus(Concert.State state);
 }

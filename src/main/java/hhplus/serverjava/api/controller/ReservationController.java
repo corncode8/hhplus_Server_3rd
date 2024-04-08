@@ -9,6 +9,8 @@ import hhplus.serverjava.api.usecase.reservation.MakeReservationUseCase;
 import hhplus.serverjava.api.util.exceptions.BaseException;
 import hhplus.serverjava.api.util.jwt.JwtService;
 import hhplus.serverjava.api.util.response.BaseResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -22,23 +24,26 @@ import java.util.List;
 import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;
 
 
+@Tag(name = "예약 Controller",
+        description = "콘서트 조회 API, 예약 가능한 날짜 조회 API, 예약 가능한 좌석 정보 조회 API, 콘서트 예약 API")
 @Slf4j
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class ReservationController {
 
-    private FindConcertOptionUseCase findConcertOptionUseCase;
-    private FindAvailableSeatsUseCase findAvailableSeatsUseCase;
-    private MakeReservationUseCase makeReservationUseCase;
-    private IsValidatedTokenUseCase isValidatedTokenUseCase;
-    private JwtService jwtService;
+    private final FindConcertOptionUseCase findConcertOptionUseCase;
+    private final FindAvailableSeatsUseCase findAvailableSeatsUseCase;
+    private final MakeReservationUseCase makeReservationUseCase;
+    private final IsValidatedTokenUseCase isValidatedTokenUseCase;
+    private final JwtService jwtService;
 
     /**
      * 콘서트 조회 API
      * [GET] /api/concert
      * @return BaseResponse<GetDateRes>
      */
+    @Operation(summary = "콘서트 조회")
     @GetMapping("/concert")
     public BaseResponse<List<String>> getConcert() {
 
@@ -62,6 +67,7 @@ public class ReservationController {
      * [GET] /api/concert/{concertId}/date
      * @return BaseResponse<GetDateRes>
      */
+    @Operation(summary = "예약 가능한 날짜 조회")
     @GetMapping("/concert/{concertId}/date")
     public BaseResponse<List<String>> getAvailableDates(@PathVariable("concertId") Long concertId) {
 
@@ -78,10 +84,11 @@ public class ReservationController {
     }
 
     /**
-     * 예약 가능한 좌석 정보 조회 API
+     * 예약 가능한 좌석 조회 API
      * [GET] /api/concert/date/{date}/seats
      * @return BaseResponse<GetSeatsRes>
      */
+    @Operation(summary = "예약 가능한 좌석 조회")
     @GetMapping("/concert/date/{date}/seats")
     public BaseResponse<List<String>> getAvailableSeats(@PathVariable("date") String concertDate) {
 
@@ -103,9 +110,9 @@ public class ReservationController {
      * [POST] /api/reservation
      * @return BaseResponse<GetSeatsRes>
      */
+    @Operation(summary = "콘서트 예약")
     @PostMapping("/reservaton")
     public BaseResponse<GetReservationRes> bookingConcert(@RequestBody PostReservationReq request) {
-
 
         // 토큰 검증
 //        User user = isValidatedTokenUseCase.execute(jwtService.getUserId());
