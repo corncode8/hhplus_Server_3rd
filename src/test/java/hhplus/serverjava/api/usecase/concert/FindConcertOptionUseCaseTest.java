@@ -1,7 +1,6 @@
 package hhplus.serverjava.api.usecase.concert;
 
 import hhplus.serverjava.api.dto.response.reservation.GetDateRes;
-import hhplus.serverjava.api.usecase.concert.FindConcertOptionUseCase;
 import hhplus.serverjava.domain.concertoption.components.ConcertOptionReader;
 import hhplus.serverjava.domain.concertoption.entity.ConcertOption;
 import org.junit.jupiter.api.DisplayName;
@@ -11,10 +10,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -35,26 +35,25 @@ public class FindConcertOptionUseCaseTest {
     void test() {
         //given
         Long testConcertId = 1L;
+        LocalDateTime testDateTime = LocalDateTime.now();
 
-        Long optionId = 1L;
-        LocalDateTime concertAt = LocalDateTime.now();
-
-        Long plusDays = 5L;
-
-        ConcertOption concertOption = ConcertOption.builder()
-                .id(optionId)
-                .concertAt(concertAt)
-                .build();
+        ConcertOption concertOption1 = new ConcertOption(1L, testDateTime.plusDays(1));
+        ConcertOption concertOption2 = new ConcertOption(2L, testDateTime.plusDays(2));
+        ConcertOption concertOption3 = new ConcertOption(3L, testDateTime.plusDays(3));
 
         List<ConcertOption> concertOptionList = new ArrayList<>();
-        concertOptionList.add(concertOption);
+        concertOptionList.add(concertOption1);
+        concertOptionList.add(concertOption2);
+        concertOptionList.add(concertOption3);
 
         when(concertOptionReader.findConcertOptionList(testConcertId)).thenReturn(concertOptionList);
 
-        List<LocalDate> list = new ArrayList<>();
-        for (int i = 0; i < plusDays; i++) {
-            list.add(LocalDate.now().plusDays(i));
-        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        List<String> list = Arrays.asList(
+                testDateTime.plusDays(1).format(formatter),
+                testDateTime.plusDays(2).format(formatter),
+                testDateTime.plusDays(3).format(formatter)
+        );
 
         //when
         GetDateRes result = findConcertOptionUseCase.execute(testConcertId);

@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,20 +31,22 @@ public class GetConcertListUseCaseTest {
     @Test
     void test() {
         //given
-        List<Concert> concertList = new ArrayList<>();
+        List<Concert> concertList = Arrays.asList(
+                new Concert(1L, "MAKTUB CONCERT", "MAKTUB"),
+                new Concert(2L, "IU CONCERT", "IU"),
+                new Concert(3L, "MAKTUB CONCERT", "MAKTUB"),
+                new Concert(4L, "IU CONCERT", "IU"),
+                new Concert(5L, "MAKTUB CONCERT", "MAKTUB")
+        );
 
-        for (int i = 0; i < 5; i++) {
-            Concert concert = new Concert(i + 1L, "MAKTUB CONCERT", "MAKTUB");
-            concertList.add(concert);
-        }
-
-        when( concertReader.findConcertList(Concert.State.SHOWING)).thenReturn(concertList);
+        when(concertReader.findConcertList(Concert.State.SHOWING)).thenReturn(concertList);
 
         //when
-        GetConcertRes result = getConcertListUseCase.execute(Concert.State.SHOWING);
+        GetConcertRes result = getConcertListUseCase.execute();
 
         //then
         assertNotNull(result);
         assertEquals(result.getConcertInfoList().size(), concertList.size());
+        assertEquals(result.getConcertInfoList().get(1).getConcertName(), concertList.get(1).getName());
     }
 }

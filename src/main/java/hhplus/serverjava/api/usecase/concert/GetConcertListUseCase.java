@@ -15,9 +15,10 @@ public class GetConcertListUseCase {
     private final ConcertReader concertReader;
 
     // 콘서트 조회 API
-    public GetConcertRes execute(Concert.State state) {
+    public GetConcertRes execute() {
 
-        List<Concert> concertList = getConcertList(state);
+        // 현재 상영중인 콘서트 List
+        List<Concert> concertList = getConcertList(Concert.State.SHOWING);
 
         return new GetConcertRes(concertList);
     }

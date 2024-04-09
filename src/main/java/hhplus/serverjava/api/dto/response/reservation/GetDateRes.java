@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,10 +15,11 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class GetDateRes {
 
-    List<LocalDateTime> availableDates;
+    List<String> availableDates;
 
     public GetDateRes (List<ConcertOption> concertOptionList) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         this.availableDates = concertOptionList.stream()
-                .map(concertOption -> concertOption.getConcertAt()).collect(Collectors.toList());
+                .map(concertOption -> concertOption.getConcertAt().format(formatter)).collect(Collectors.toList());
     }
 }
