@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 public class SeatCoreStoreRepository implements SeatStoreRepository {
 
     private final SeatJPARepository seatJPARepository;
+    @Override
     public Seat save(Seat seat) {
         return seatJPARepository.save(seat);
     }

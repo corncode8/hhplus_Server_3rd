@@ -13,10 +13,6 @@ public class ReservationStore {
 
     private final ReservationStoreRepository repository;
 
-    public Reservation makeReservation(Reservation reservation) {
-        return repository.makeReservation(reservation);
-    }
-
     public Reservation save(Reservation reservation) {
         return repository.save(reservation);
     }

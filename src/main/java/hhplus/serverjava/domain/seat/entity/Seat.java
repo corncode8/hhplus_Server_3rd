@@ -32,7 +32,6 @@ public class Seat {
     @Column(nullable = false, length = 10)
     private State status = State.AVAILABLE;
 
-    @Column(nullable = false)
     private LocalDateTime expiredAt;
 
     @Version
@@ -54,10 +53,12 @@ public class Seat {
     }
 
     @Builder
-    public Seat(Long id, int seatNum, int price) {
+    public Seat(Long id, int seatNum, int price, ConcertOption concertOption, Concert concert) {
         this.id = id;
         this.seatNum = seatNum;
         this.price = price;
+        this.concertOption = concertOption;
+        this.concert = concert;
     }
 
     public void setReserved() {

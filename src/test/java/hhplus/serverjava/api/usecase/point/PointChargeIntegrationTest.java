@@ -36,7 +36,7 @@ public class PointChargeIntegrationTest {
     private UserPointChargeUseCase userPointChargeUseCase;
 
     /*
-    * 테스트 시나리오 ( 낙관적 락 동시성 테스트 )
+    * 테스트 시나리오 ( 비관적 락 동시성 테스트 )
     * 포인트를 0원 가지고 있는 유저가 55555원 충전 5번을 동시에 요청 -> (55555 * 5)원충전 성공
     */
     @DisplayName("포인트 충전 동시성 테스트")

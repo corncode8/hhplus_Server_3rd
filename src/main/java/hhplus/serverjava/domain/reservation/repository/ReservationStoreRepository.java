@@ -8,7 +8,5 @@ import java.util.List;
 
 public interface ReservationStoreRepository {
 
-    Reservation makeReservation(Reservation reservation);
-
     Reservation save(Reservation reservation);
 }

@@ -13,11 +13,6 @@ public class ReservationCoreStoreRepository implements ReservationStoreRepositor
     private final ReservationJPARepository repository;
 
     @Override
-    public Reservation makeReservation(Reservation reservation) {
-        return repository.save(reservation);
-    }
-
-    @Override
     public Reservation save(Reservation reservation) {
         return repository.save(reservation);
     }

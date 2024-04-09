@@ -30,6 +30,9 @@ public class ConcertOption {
     @OneToMany(mappedBy = "concertOption")
     private List<Seat> seatList = new ArrayList<>();
 
+    public void setConcert(Concert concert) {
+        this.concert = concert;
+    }
     @Builder
     public ConcertOption(Long id, LocalDateTime concertAt) {
         this.id = id;

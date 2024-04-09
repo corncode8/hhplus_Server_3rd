@@ -51,14 +51,20 @@ public class ReservationScheduler {
         // PROCESSING 유저 List
         List<User> workingUsers = getUserListByStatus(User.State.PROCESSING);
 
-        int expiredUsersNum = 0;
+        int plusUsersNum = 0;
         for (User user : workingUsers) {
             // 서비스에 입장한 후 10분이 지나도록 예약도 안하고 있다면 내보내줌
             if (now.isAfter(user.getUpdatedAt().plusMinutes(10))) {
                 user.setDone();
                 userStore.save(user);
-                expiredUsersNum++;
+                plusUsersNum++;
             }
+        }
+
+        // 서비스를 이용중인 유저가 100명보다 적다면
+        if (workingUsers.size() < 100) {
+            int num = 100 - workingUsers.size();
+            plusUsersNum += num;
         }
 
         // WAIT 유저 List
@@ -69,13 +75,12 @@ public class ReservationScheduler {
                 .sorted(Comparator.comparing(user -> user.getUpdatedAt()))
                 .collect(Collectors.toList());
 
-        // expiredUsersNum의 수만큼 status를 Processing으로 변경
-        for (int i = 0; i < Math.min(expiredUsersNum, waitUsers.size()); i++) {
+        // plusUsersNum의 수만큼 status를 Processing으로 변경
+        for (int i = 0; i < Math.min(plusUsersNum, waitUsers.size()); i++) {
             User user = waitUsers.get(i);
             user.setProcessing();
             userStore.save(user);
         }
-
     }
 
     List<User> getUserListByStatus(User.State state) {

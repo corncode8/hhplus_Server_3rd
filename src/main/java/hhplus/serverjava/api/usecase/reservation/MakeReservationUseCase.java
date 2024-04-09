@@ -32,7 +32,7 @@ public class MakeReservationUseCase {
     public PostReservationRes makeReservation(User user, Long concertOptionId, LocalDateTime targetDate, int seatNum) {
 
         try {
-            Seat seat = seatReader.findAvailableSeat(concertOptionId, targetDate, Seat.State.AVAILABLE, seatNum);
+            Seat seat = findAvailableSeat(concertOptionId, targetDate, Seat.State.AVAILABLE, seatNum);
 
             seat.setReserved();
             seat.setExpiredAt();
@@ -40,21 +40,26 @@ public class MakeReservationUseCase {
             // findConcert
             Concert concert = concertOptionReader.findConcert(concertOptionId);
 
+            // 예약 생성
             Reservation reservation = Reservation.builder()
                     .user(user)
                     .seat(seat)
                     .concertAt(targetDate)
+                    .seatNum(seat.getSeatNum())
                     .concertName(concert.getName())
                     .concertArtist(concert.getArtist())
                     .reservedPrice(seat.getPrice())
                     .build();
 
-            Reservation store = reservationStore.makeReservation(reservation);
+            reservationStore.save(reservation);
 
-            return new PostReservationRes(store, seat);
+            return new PostReservationRes(reservation, seat);
         } catch (OptimisticLockException e) {
             throw new BaseException(RESERVED_SEAT);
         }
     }
 
+    private Seat findAvailableSeat(Long concertOptionId, LocalDateTime time, Seat.State state, int seatNum) {
+        return seatReader.findAvailableSeat(concertOptionId, time, state, seatNum);
+    }
 }

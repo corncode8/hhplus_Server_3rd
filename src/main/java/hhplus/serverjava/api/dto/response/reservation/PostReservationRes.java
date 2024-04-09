@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 @Getter
@@ -20,19 +21,21 @@ public class PostReservationRes {
 
     private String concertName;
     private String concertArtist;
-    private LocalDateTime reservationDate;
+    private String  reservationDate;
 
     private int reservationSeat;
-    private LocalDateTime expiredAt;
+    private String  expiredAt;
     private int reservedAmount;
 
     public PostReservationRes(Reservation reservation, Seat seat) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
         this.reservationId = reservation.getId();
         this.concertName = reservation.getConcertName();
         this.concertArtist = reservation.getConcertArtist();
-        this.reservationDate = reservation.getConcertAt();
+        this.reservationDate = reservation.getConcertAt().format(formatter);
         this.reservationSeat = reservation.getSeatNum();
-        this.expiredAt = seat.getExpiredAt();
+        this.expiredAt = seat.getExpiredAt().format(formatter);
         this.reservedAmount = reservation.getReservedPrice();
     }
 }
