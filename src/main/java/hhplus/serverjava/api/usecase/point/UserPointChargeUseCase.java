@@ -2,7 +2,6 @@ package hhplus.serverjava.api.usecase.point;
 
 import hhplus.serverjava.api.dto.response.user.UserPoint;
 import hhplus.serverjava.domain.user.componenets.UserReader;
-import hhplus.serverjava.domain.user.componenets.UserStore;
 import hhplus.serverjava.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,22 +10,21 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class UserPointModifyUseCase {
+public class UserPointChargeUseCase {
 
-    private final UserStore userStore;
     private final UserReader userReader;
 
     // 포인트 충전
     public UserPoint charge(Long userId, Long amount) {
-        User user = findUser(userId);
-        user.setPoint(user.getPoint() + amount);
 
-        User modify = userStore.save(user);
+        // 비관적 락 적용
+        User user = findUserWithLock(userId);
+        user.sumPoint(amount);
 
-        return new UserPoint(modify.getId(), modify.getPoint());
+        return new UserPoint(user.getId(), user.getPoint());
     }
 
-    private User findUser(Long userId) {
-        return userReader.findUser(userId);
+    private User findUserWithLock(Long userId) {
+        return userReader.findByIdWithLock(userId);
     }
 }

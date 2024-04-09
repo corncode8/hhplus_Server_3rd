@@ -1,6 +1,7 @@
-package hhplus.serverjava.api.usecase.point;
+package hhplus.serverjava.api.usecase.point.mock;
 
 import hhplus.serverjava.api.dto.response.user.PointHistoryDto;
+import hhplus.serverjava.api.usecase.point.GetPointHistoryUseCase;
 import hhplus.serverjava.domain.pointhistory.components.PointHistoryReader;
 import hhplus.serverjava.domain.pointhistory.entity.PointHistory;
 import hhplus.serverjava.domain.pointhistory.entity.PointHistory.State;
@@ -31,7 +32,6 @@ public class GetPointHistoryUseCaseTest {
     @Test
     void test() {
         //given
-        Long id = 1L;
 
         Long userId = 2L;
         Long point = 0L;

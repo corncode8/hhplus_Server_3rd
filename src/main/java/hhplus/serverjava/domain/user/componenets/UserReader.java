@@ -17,6 +17,10 @@ public class UserReader {
         return userReaderRepository.findUser(userId);
     }
 
+    public User findByIdWithLock(Long id) {
+        return userReaderRepository.findByIdWithLock(id);
+    }
+
     public List<User> findUsersByStatus(User.State state) {
         return userReaderRepository.findUsersByStatus(state);
     }

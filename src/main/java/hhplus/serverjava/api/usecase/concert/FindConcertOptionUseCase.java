@@ -20,6 +20,7 @@ public class FindConcertOptionUseCase {
     // 예약 가능 일자 API
     public GetDateRes execute(Long concertId) {
 
+        // concertId로 콘서트 옵션 List 반환
         List<ConcertOption> concertOption = getOptionList(concertId);
 
         return new GetDateRes(concertOption);

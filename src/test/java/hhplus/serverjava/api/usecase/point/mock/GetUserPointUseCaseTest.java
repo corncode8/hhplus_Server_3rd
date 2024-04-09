@@ -1,8 +1,8 @@
-package hhplus.serverjava.api.usecase.point;
+package hhplus.serverjava.api.usecase.point.mock;
 
 import hhplus.serverjava.api.dto.response.user.UserPoint;
+import hhplus.serverjava.api.usecase.point.GetUserPointUseCase;
 import hhplus.serverjava.domain.user.componenets.UserReader;
-import hhplus.serverjava.domain.user.componenets.UserStore;
 import hhplus.serverjava.domain.user.entity.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,34 +16,29 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class UserPointModifyUseCaseTest {
+public class GetUserPointUseCaseTest {
 
-    @Mock
-    UserStore userStore;
     @Mock
     UserReader userReader;
 
     @InjectMocks
-    UserPointModifyUseCase userPointModifyUseCase;
+    GetUserPointUseCase getUserPointUseCase;
 
-
-    @DisplayName("포인트 충전 테스트")
+    @DisplayName("유저 포인트 조회 테스트")
     @Test
     void test() {
         //given
         Long userId = 1L;
-        Long point = 200L;
+        Long point = 500L;
         User user = new User(userId, point);
 
         when(userReader.findUser(userId)).thenReturn(user);
-        when(userStore.save(user)).thenReturn(user);
 
-        Long chargePoint = 500L;
         //when
-        UserPoint result = userPointModifyUseCase.charge(userId, chargePoint);
+        UserPoint result = getUserPointUseCase.execute(userId);
 
         //then
         assertNotNull(result);
-        assertEquals(result.getPoint(), point + chargePoint);
+        assertEquals(point, result.getPoint());
     }
 }

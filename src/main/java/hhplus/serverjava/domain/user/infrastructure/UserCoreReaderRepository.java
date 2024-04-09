@@ -23,6 +23,11 @@ public class UserCoreReaderRepository implements UserReaderRepository {
     }
 
     @Override
+    public User findByIdWithLock(Long id) {
+        return userJPARepository.findByIdWithLock(id);
+    }
+
+    @Override
     public List<User> findUsersByStatus(User.State state) {
         return userJPARepository.findUsersByStatus(state);
     }

@@ -25,7 +25,7 @@ public class FindAvailableSeatsUseCase {
     // 예약 가능한 좌석 조회
     public GetSeatsRes execute(Long concertId, LocalDateTime targetDate) {
 
-        // 콘서트 조회
+        // 콘서트 옵션 조회
         ConcertOption concertOption = findOption(concertId, targetDate);
 
         // 예약 가능한 좌석 조회

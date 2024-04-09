@@ -7,7 +7,7 @@ import hhplus.serverjava.api.dto.response.user.GetTokenRes;
 import hhplus.serverjava.api.dto.response.user.UserPoint;
 import hhplus.serverjava.api.usecase.point.GetPointHistoryUseCase;
 import hhplus.serverjava.api.usecase.point.GetUserPointUseCase;
-import hhplus.serverjava.api.usecase.point.UserPointModifyUseCase;
+import hhplus.serverjava.api.usecase.point.UserPointChargeUseCase;
 import hhplus.serverjava.api.util.response.BaseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,7 +31,7 @@ public class UserController {
 
     private final GetPointHistoryUseCase pointHistoryUseCase;
     private final GetUserPointUseCase getUserPointUseCase;
-    private final UserPointModifyUseCase userPointModifyUseCase;
+    private final UserPointChargeUseCase userPointChargeUseCase;
 
     /**
      * 토큰 발급 API

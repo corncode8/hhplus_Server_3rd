@@ -1,4 +1,4 @@
-package hhplus.serverjava.api.usecase.reservation;
+package hhplus.serverjava.api.usecase.concert;
 
 import hhplus.serverjava.api.dto.response.seat.GetSeatsRes;
 import hhplus.serverjava.api.usecase.concert.FindAvailableSeatsUseCase;
@@ -41,17 +41,13 @@ public class FindAvailableSeatsUseCaseTest {
         LocalDateTime targetDate = LocalDateTime.now().plusDays(1);
 
         Long optionId = 1L;
-        LocalDateTime concertAt = LocalDateTime.now();
-
-        Long plusDays = 5L;
+        LocalDateTime concertAt = LocalDateTime.now().plusDays(1);
 
         ConcertOption concertOption = ConcertOption.builder()
                 .id(optionId)
                 .concertAt(concertAt)
                 .build();
 
-        List<ConcertOption> concertOptionList = new ArrayList<>();
-        concertOptionList.add(concertOption);
         List<Seat> seatList = new ArrayList<>();
 
         for (int i = 0; i < 50; i++) {
@@ -64,7 +60,7 @@ public class FindAvailableSeatsUseCaseTest {
             seatList.add(seat);
         }
 
-        when(concertOptionReader.findConcertOptionList(optionId)).thenReturn(concertOptionList);
+        when(concertOptionReader.findConcertOption(optionId, targetDate)).thenReturn(concertOption);
         when(seatReader.findAvailableSeats(concertId, targetDate, Seat.State.AVAILABLE)).thenReturn(seatList);
 
         //when
@@ -72,6 +68,8 @@ public class FindAvailableSeatsUseCaseTest {
 
         //then
         assertNotNull(result);
+
+        // 예약 가능한 좌석 equals 검증
         assertEquals(result.getSeatList(), seatList.stream().map(seat -> seat.getSeatNum()).collect(Collectors.toList()));
     }
 }
