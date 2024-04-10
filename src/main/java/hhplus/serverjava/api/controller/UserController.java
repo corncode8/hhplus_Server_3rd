@@ -63,7 +63,7 @@ public class UserController {
     public BaseResponse<GetUserRes> checkQueue() {
 
 
-        // 토큰으로 유저의 현재 대기열 정보 확인
+        // 유저의 현재 대기열 정보 확인
 
         Long listNum = 1L;
 

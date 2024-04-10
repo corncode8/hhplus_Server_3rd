@@ -47,9 +47,6 @@ public class ReservationController {
     @GetMapping("/concert")
     public BaseResponse<List<String>> getConcert() {
 
-        // 토큰 검증
-//        isValidatedTokenUseCase.execute(jwtService.getUserId());
-
         String concertId = "1";
         String concertName = "MAKTUB CONCERT";
         String artist = "MAKTUB";
@@ -71,9 +68,6 @@ public class ReservationController {
     @GetMapping("/concert/{concertId}/date")
     public BaseResponse<List<String>> getAvailableDates(@PathVariable("concertId") Long concertId) {
 
-        // 토큰 검증
-//        isValidatedTokenUseCase.execute(jwtService.getUserId());
-
         List<String> execute = new ArrayList<>();
         execute.add("2024-04-08");
         execute.add("2024-04-09");
@@ -91,9 +85,6 @@ public class ReservationController {
     @Operation(summary = "예약 가능한 좌석 조회")
     @GetMapping("/concert/date/{date}/seats")
     public BaseResponse<List<String>> getAvailableSeats(@PathVariable("date") String concertDate) {
-
-        // 토큰 검증
-//        isValidatedTokenUseCase.execute(jwtService.getUserId());
 
         List<String> execute = new ArrayList<>();
         execute.add("1");
@@ -113,9 +104,6 @@ public class ReservationController {
     @Operation(summary = "콘서트 예약")
     @PostMapping("/reservaton")
     public BaseResponse<GetReservationRes> bookingConcert(@RequestBody PostReservationReq request) {
-
-        // 토큰 검증
-//        User user = isValidatedTokenUseCase.execute(jwtService.getUserId());
 
         GetReservationRes execute = new GetReservationRes(1L, "MAKTUB CONCERT", "MAKTUB",
                 LocalDateTime.now().plusDays(1), 5, 50000L);

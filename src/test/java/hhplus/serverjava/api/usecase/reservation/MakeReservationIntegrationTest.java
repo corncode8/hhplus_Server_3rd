@@ -49,7 +49,7 @@ public class MakeReservationIntegrationTest {
 
 
     /*
-    * 테스트 시나리오 ( 낙관적 락 동시성 테스트 )
+    * 테스트 시나리오 ( 동시성 테스트 )
     * 5명이 동시에 좌석 예약 -> 한명만 성공 나머지는 실패
     */
     @DisplayName("예약 낙관적 락 테스트")
@@ -66,7 +66,6 @@ public class MakeReservationIntegrationTest {
                 saveTestUser(),
                 saveTestUser()
         );
-
 
         Concert concert = saveTestConcert();
 

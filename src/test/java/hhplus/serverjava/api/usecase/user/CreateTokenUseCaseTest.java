@@ -42,6 +42,5 @@ public class CreateTokenUseCaseTest {
         assertNotNull(result);
         assertEquals(jwt, result.getToken());
 
-        // TODO : 대기번호
     }
 }

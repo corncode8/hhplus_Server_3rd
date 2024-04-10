@@ -30,7 +30,7 @@ public class PaymentUseCaseTest {
     @InjectMocks
     PaymentUseCase paymentUseCase;
 
-    @DisplayName("테스트")
+    @DisplayName("결제 테스트")
     @Test
     void test() {
         //given
