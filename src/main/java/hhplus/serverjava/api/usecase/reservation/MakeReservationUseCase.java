@@ -10,6 +10,7 @@ import hhplus.serverjava.domain.seat.components.SeatReader;
 import hhplus.serverjava.domain.seat.entity.Seat;
 import hhplus.serverjava.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,8 +20,8 @@ import java.time.LocalDateTime;
 import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;
 
 
+@Slf4j
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class MakeReservationUseCase {
 
@@ -29,7 +30,8 @@ public class MakeReservationUseCase {
     private final ConcertOptionReader concertOptionReader;
 
     // 좌석 예약
-    public PostReservationRes makeReservation(User user, Long concertOptionId, LocalDateTime targetDate, int seatNum) {
+    @Transactional
+    public PostReservationRes makeReservation(User user, Long concertOptionId, LocalDateTime targetDate, int seatNum){
 
         try {
             Seat seat = findAvailableSeat(concertOptionId, targetDate, Seat.State.AVAILABLE, seatNum);
@@ -59,7 +61,8 @@ public class MakeReservationUseCase {
         }
     }
 
-    private Seat findAvailableSeat(Long concertOptionId, LocalDateTime time, Seat.State state, int seatNum) {
+    @Transactional(readOnly = true)
+    public Seat findAvailableSeat(Long concertOptionId, LocalDateTime time, Seat.State state, int seatNum) {
         return seatReader.findAvailableSeat(concertOptionId, time, state, seatNum);
     }
 }

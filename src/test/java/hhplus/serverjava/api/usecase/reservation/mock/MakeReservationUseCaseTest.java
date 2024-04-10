@@ -42,7 +42,7 @@ public class MakeReservationUseCaseTest {
     */
     @DisplayName("예약 생성 테스트")
     @Test
-    void test() {
+    void test() throws InterruptedException{
         //given
         Long testId = 1L;
         int testSeatNum = 10;

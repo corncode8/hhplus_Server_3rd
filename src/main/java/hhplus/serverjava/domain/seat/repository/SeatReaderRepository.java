@@ -9,5 +9,7 @@ public interface SeatReaderRepository {
 
     List<Seat> findAvailableSeats(Long concertId, LocalDateTime targetDate, Seat.State state);
 
-    Seat findAvailableSeat(Long concertId, LocalDateTime targetDate, Seat.State state, int seatNum);
+    Seat findAvailableSeat(Long concertOptionId, LocalDateTime targetDate, Seat.State state, int seatNum);
+
+    Seat findSeatById(Long seatId);
 }

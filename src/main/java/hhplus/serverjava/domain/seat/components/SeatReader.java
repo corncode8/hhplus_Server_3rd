@@ -19,7 +19,11 @@ public class SeatReader {
     }
 
 
-    public Seat findAvailableSeat(Long concertId, LocalDateTime targetDate, Seat.State state, int seatNum) {
-        return seatReaderRepository.findAvailableSeat(concertId, targetDate, state, seatNum);
+    public Seat findAvailableSeat(Long concertOptionId, LocalDateTime targetDate, Seat.State state, int seatNum) {
+        return seatReaderRepository.findAvailableSeat(concertOptionId, targetDate, state, seatNum);
+    }
+
+    public Seat findSeatById(Long seatId) {
+        return seatReaderRepository.findSeatById(seatId);
     }
 }

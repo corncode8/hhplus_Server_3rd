@@ -4,6 +4,7 @@ import hhplus.serverjava.api.util.exceptions.BaseException;
 import hhplus.serverjava.domain.seat.entity.Seat;
 import hhplus.serverjava.domain.seat.repository.SeatReaderRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;
 
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class SeatCoreReaderRepository implements SeatReaderRepository {
@@ -23,12 +25,19 @@ public class SeatCoreReaderRepository implements SeatReaderRepository {
     }
 
     @Override
-    public Seat findAvailableSeat(Long concertId, LocalDateTime targetDate, Seat.State state, int seatNum) {
-        Seat availableSeat = seatJPARepository.findAvailableSeat(concertId, targetDate, state, seatNum);
+    public Seat findAvailableSeat(Long concertOptionId, LocalDateTime targetDate, Seat.State state, int seatNum) {
+        Seat availableSeat = seatJPARepository.findAvailableSeat(concertOptionId, targetDate, state, seatNum);
 
         if (availableSeat == null) {
             throw new BaseException(EMPTY_SEAT_RESERVATION);
         }
+
         return availableSeat;
+    }
+
+    @Override
+    public Seat findSeatById(Long seatId) {
+        return seatJPARepository.findById(seatId)
+                .orElseThrow(() -> new BaseException(INVALID_SEAT));
     }
 }

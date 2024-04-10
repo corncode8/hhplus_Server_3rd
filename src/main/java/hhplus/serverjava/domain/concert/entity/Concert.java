@@ -45,4 +45,8 @@ public class Concert extends BaseEntity {
     public enum State {
         SHOWING, ISOVER
     }
+
+    public void addSeatList(Seat seat) {
+        this.seatList.add(seat);
+    }
 }

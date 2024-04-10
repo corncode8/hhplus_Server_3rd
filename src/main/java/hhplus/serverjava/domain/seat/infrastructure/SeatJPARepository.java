@@ -16,6 +16,7 @@ public interface SeatJPARepository extends JpaRepository<Seat, Long> {
             "and s.status = :state")
     List<Seat> findAvailableSeats(@Param("concertId") Long concertId, @Param("targetDate") LocalDateTime targetDate,
                                   @Param("state")Seat.State state);
+
     @Query("select s from Seat s where s.concertOption.id = :concertOptionId " +
             "and s.concertOption.concertAt = :targetDate " +
             "and s.status = :state " +

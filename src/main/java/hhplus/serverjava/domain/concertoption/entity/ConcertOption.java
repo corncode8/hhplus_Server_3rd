@@ -33,6 +33,10 @@ public class ConcertOption {
     public void setConcert(Concert concert) {
         this.concert = concert;
     }
+
+    public void addSeatList(Seat seat) {
+        this.seatList.add(seat);
+    }
     @Builder
     public ConcertOption(Long id, LocalDateTime concertAt) {
         this.id = id;
