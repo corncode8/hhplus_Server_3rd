@@ -4,7 +4,6 @@ import hhplus.serverjava.api.dto.response.reservation.PostReservationRes;
 import hhplus.serverjava.api.usecase.reservation.MakeReservationUseCase;
 import hhplus.serverjava.domain.concert.entity.Concert;
 import hhplus.serverjava.domain.concertoption.components.ConcertOptionReader;
-import hhplus.serverjava.domain.reservation.components.ReservationStore;
 import hhplus.serverjava.domain.seat.components.SeatReader;
 import hhplus.serverjava.domain.seat.entity.Seat;
 import hhplus.serverjava.domain.user.entity.User;
@@ -42,7 +41,7 @@ public class MakeReservationUseCaseTest {
     */
     @DisplayName("예약 생성 테스트")
     @Test
-    void test() throws InterruptedException{
+    void test(){
         //given
         Long testId = 1L;
         int testSeatNum = 10;

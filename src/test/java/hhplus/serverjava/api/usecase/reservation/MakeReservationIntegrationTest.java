@@ -1,7 +1,6 @@
 package hhplus.serverjava.api.usecase.reservation;
 
 import hhplus.serverjava.api.usecase.reservation.mock.MakeReservationUseCaseTest;
-import hhplus.serverjava.api.util.exceptions.BaseException;
 import hhplus.serverjava.domain.concert.components.ConcertStore;
 import hhplus.serverjava.domain.concert.entity.Concert;
 import hhplus.serverjava.domain.concertoption.components.ConcertOptionStore;
@@ -9,7 +8,6 @@ import hhplus.serverjava.domain.concertoption.entity.ConcertOption;
 import hhplus.serverjava.domain.seat.components.SeatReader;
 import hhplus.serverjava.domain.seat.components.SeatStore;
 import hhplus.serverjava.domain.seat.entity.Seat;
-import hhplus.serverjava.domain.seat.infrastructure.SeatJPARepository;
 import hhplus.serverjava.domain.user.componenets.UserStore;
 import hhplus.serverjava.domain.user.entity.User;
 import org.jboss.logging.Logger;
@@ -17,7 +15,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDateTime;
