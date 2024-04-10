@@ -37,6 +37,9 @@
 ![concert erd](https://raw.githubusercontent.com/corncode8/hhplus_Server_3rd/main/images/erd/hhplus_3rd_erd.png)
 ## API 명세
 
+## Swagger
+![Swagger](https://raw.githubusercontent.com/corncode8/hhplus_Server_3rd/main/images/swagger/Swagger%20API.png)
+
 #### 유저 대기열 토큰 기능
 ![token api](https://raw.githubusercontent.com/corncode8/hhplus_Server_3rd/main/images/sequence_diagram/issue_token_api.png)
 <br/>
@@ -301,6 +304,5 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
 }
 ```
 
-## Swagger
-![Swagger](https://raw.githubusercontent.com/corncode8/hhplus_Server_3rd/main/images/swagger/Swagger%20API.png)
+
 
