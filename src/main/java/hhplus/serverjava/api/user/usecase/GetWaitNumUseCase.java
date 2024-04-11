@@ -24,52 +24,16 @@ public class GetWaitNumUseCase {
 
     public GetUserRes execute(Long userId) {
 
+        User user = userReader.findUser(userId);
+
+        // 현재 서비스를 이용중인 유저
+        List<User> userList = userReader.findUsersByStatus(User.State.PROCESSING);
+
         // 대기번호 확인
-        List<User> userList = getWaitUserList();
-        Long userNum = getUserNum(userList, userId);
-
-        // PROCESSING 유저가 100명 미만일 경우 PROCESSING으로 변경
-        if (setUserProcessing(userList)) {
-            User user = findUser(userId);
-
-            user.setProcessing();
-            userStore.save(user);
-        }
+        // PROCESSING 유저가 90명 미만일 경우 PROCESSING으로 변경
+        Long userNum = userStore.getUserNum(user, userList);
 
         return new GetUserRes(userNum);
     }
 
-    // 여기도 비즈니스 로직으로 내리기 + if문 없애기
-    private Long getUserNum(List<User> users, Long userId) {
-        // 현재 서비스 이용중인 유저 List
-        // updatedAt 오름차순으로 정렬
-        Collections.sort(users, Comparator.comparing(user -> user.getUpdatedAt()));
-
-        // 가장 마지막에 서비스에 입장한 유저
-        User recentlyUpdUser = users.get(users.size() -1);
-
-        // 조회하려는 유저의 Id - 가장 마지막에 서비스에 입장한 유저Id = 대기번호
-        Long userNum = userId - recentlyUpdUser.getId();
-
-        return userNum;
-    }
-    // 이것도 내려
-    private Boolean setUserProcessing(List<User> users) {
-
-        // 서비스를 이용중인 유저가 100명보다 많다면 false
-        if (users.size() > 100) {
-            return false;
-        }
-
-        return true;
-    }
-
-    private List<User> getWaitUserList() {
-        // 현재 서비스를 이용중인 유저 return
-        return userReader.findUsersByStatus(User.State.PROCESSING);
-    }
-
-    private User findUser(Long userId) {
-        return userReader.findUser(userId);
-    }
 }

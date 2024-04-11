@@ -73,4 +73,11 @@ public class Reservation extends BaseEntity {
         this.user = user;
         this.seat = seat;
     }
+
+    public Reservation(String concertName, String concertArtist, LocalDateTime concertAt, Seat seat) {
+        this.concertName = concertName;
+        this.concertArtist = concertArtist;
+        this.concertAt = concertAt;
+        this.seat = seat;
+    }
 }

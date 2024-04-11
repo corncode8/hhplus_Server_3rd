@@ -46,7 +46,7 @@ public class GetPointHistoryUseCaseTest {
         when(pointHistoryReader.readList(userId)).thenReturn(list);
 
         //when
-        List<PointHistoryDto> result = getPointHistoryUseCase.execute(userId);
+        PointHistoryDto result = getPointHistoryUseCase.execute(userId);
 
         //then
         assertNotNull(result);

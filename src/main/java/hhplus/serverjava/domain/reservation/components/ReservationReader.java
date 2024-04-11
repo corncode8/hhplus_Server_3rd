@@ -3,12 +3,12 @@ package hhplus.serverjava.domain.reservation.components;
 import hhplus.serverjava.api.util.exceptions.BaseException;
 import hhplus.serverjava.domain.reservation.entity.Reservation;
 import hhplus.serverjava.domain.reservation.repository.ReservationReaderRepository;
+import hhplus.serverjava.domain.seat.entity.Seat;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import static hhplus.serverjava.api.util.response.BaseResponseStatus.INVALID_RESERVATION;
 

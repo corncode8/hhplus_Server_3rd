@@ -7,26 +7,22 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static hhplus.serverjava.domain.pointhistory.entity.PointHistory.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class PointHistoryDto {
 
-    private Long id;
-    private Long userId;
-    private State state;
-    private Long amount;
-    private LocalDateTime time;
+    private List<PointHistoryList> pointHistoryListList;
 
-    public PointHistory toEntity() {
-        return PointHistory.builder()
-                .id(this.id)
-                .amount(this.id)
-                .type(this.state)
-                .build();
+    public PointHistoryDto(List<PointHistory> pointHistories) {
+        this.pointHistoryListList = pointHistories.stream()
+                .map(pointHistory -> new PointHistoryList(pointHistory))
+                .collect(Collectors.toList());
     }
+
 }

@@ -1,10 +1,7 @@
 package hhplus.serverjava.api.user;
 
 import hhplus.serverjava.api.user.request.PostUserReq;
-import hhplus.serverjava.api.user.response.GetUserRes;
-import hhplus.serverjava.api.user.response.PointHistoryDto;
-import hhplus.serverjava.api.user.response.GetTokenRes;
-import hhplus.serverjava.api.user.response.UserPoint;
+import hhplus.serverjava.api.user.response.*;
 import hhplus.serverjava.api.user.usecase.GetPointHistoryUseCase;
 import hhplus.serverjava.api.user.usecase.GetUserPointUseCase;
 import hhplus.serverjava.api.user.usecase.UserPointChargeUseCase;
@@ -106,19 +103,21 @@ public class UserController {
     /**
      * 잔액 리스트 조회 API
      * [GET] /api/point/{userId}/histories
-     * @return BaseResponse<List<PointHistoryDto>>
+     * @return BaseResponse<PointHistoryDto>
      */
     @Operation(summary = "잔액 리스트 조회")
     @GetMapping("/point/{userId}/histories")
-    public BaseResponse<List<PointHistoryDto>> pointHistory(@PathVariable("userId")Long userId) {
+    public BaseResponse<PointHistoryDto> pointHistory(@PathVariable("userId")Long userId) {
 
-        PointHistoryDto one = new PointHistoryDto(1L, 1L, CHARGE, 500L, LocalDateTime.now().minusDays(2));
-        PointHistoryDto two = new PointHistoryDto(2L, 1L, USE, 100L, LocalDateTime.now().minusDays(1));
+        PointHistoryList mock1 = new PointHistoryList(1L, 1L, CHARGE, 500L, LocalDateTime.now().minusDays(2));
+        PointHistoryList mock2 = new PointHistoryList(2L, 1L, USE, 100L, LocalDateTime.now().minusDays(1));
 
-        List<PointHistoryDto> dtos = new ArrayList<>();
-        dtos.add(one);
-        dtos.add(two);
+        List<PointHistoryList> lists = new ArrayList<>();
+        lists.add(mock1); lists.add(mock2);
 
-        return new BaseResponse<>(dtos);
+        PointHistoryDto result = new PointHistoryDto();
+        result.setPointHistoryListList(lists);
+
+        return new BaseResponse<>(result);
     }
 }

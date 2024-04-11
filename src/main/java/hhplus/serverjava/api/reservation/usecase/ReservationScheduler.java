@@ -3,8 +3,6 @@ package hhplus.serverjava.api.reservation.usecase;
 import hhplus.serverjava.domain.reservation.components.ReservationReader;
 import hhplus.serverjava.domain.reservation.components.ReservationStore;
 import hhplus.serverjava.domain.reservation.entity.Reservation;
-import hhplus.serverjava.domain.seat.components.SeatStore;
-import hhplus.serverjava.domain.seat.entity.Seat;
 import hhplus.serverjava.domain.user.componenets.UserReader;
 import hhplus.serverjava.domain.user.componenets.UserStore;
 import hhplus.serverjava.domain.user.entity.User;
@@ -22,7 +20,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ReservationScheduler {
 
-    private final SeatStore seatStore;
     private final UserStore userStore;
     private final UserReader userReader;
     private final ReservationStore reservationStore;
@@ -38,52 +35,26 @@ public class ReservationScheduler {
         LocalDateTime now = LocalDateTime.now();
         List<Reservation> expiredReservaions = reservationReader.findExpiredReservaions(now);
 
-        if (!expiredReservaions.isEmpty()) {
-            for (Reservation reservation : expiredReservaions) {
-                Seat seat = reservation.getSeat();
-
-                seat.setAvailable();
-                reservation.setCancelled();
-
-            }
-        }
+        // 예약 만료 : 좌석 활성화 + 예약 취소
+        reservationStore.ExpireReservation(expiredReservaions);
 
         // PROCESSING 유저 List
         List<User> workingUsers = userReader.findUsersByStatus(User.State.PROCESSING);
 
         int plusUsersNum = 0;
-        if (!workingUsers.isEmpty()) {
-            for (User user : workingUsers) {
-                // 서비스에 입장한 후 10분이 지나도록 예약도 안하고 있다면 내보내줌
-                if (now.isAfter(user.getUpdatedAt().plusMinutes(10))) {
-                    user.setDone();
-                    plusUsersNum++;
-                }
-            }
-        }
 
-        // 서비스를 이용중인 유저가 100명보다 적다면
-        if (workingUsers.size() < 100) {
-            int num = 100 - workingUsers.size();
-            plusUsersNum += num;
-        }
+        // 서비스에 입장한 후 10분이 지나도록 결제도 안하고 있다면 내보내준다
+        // 서비스를 이용중인 유저가 100명 미만이라면 plusUsersNum++
+        plusUsersNum += userStore.UserValidator(workingUsers, now, plusUsersNum);
+
 
         // WAIT 유저 List
         List<User> waitUsers = userReader.findUsersByStatus(User.State.WAITING);
 
-        // 유저의 status가 변한 시간을 정렬
-        if (!waitUsers.isEmpty()) {
-            waitUsers = waitUsers.stream()
-                    .sorted(Comparator.comparing(user -> user.getUpdatedAt()))
-                    .collect(Collectors.toList());
-        }
+
 
         // plusUsersNum의 수만큼 status를 Processing으로 변경
-        for (int i = 0; i < Math.min(plusUsersNum, waitUsers.size()); i++) {
-            User user = waitUsers.get(i);
-            user.setProcessing();
-
-        }
+        userStore.enterService(waitUsers, plusUsersNum);
     }
 
 }

@@ -18,13 +18,9 @@ public class UserPointChargeUseCase {
     public UserPoint charge(Long userId, Long amount) {
 
         // 비관적 락 적용
-        User user = findUserWithLock(userId);
+        User user = userReader.findByIdWithLock(userId);
         user.sumPoint(amount);
 
         return new UserPoint(user.getId(), user.getPoint());
-    }
-
-    private User findUserWithLock(Long userId) {
-        return userReader.findByIdWithLock(userId);
     }
 }

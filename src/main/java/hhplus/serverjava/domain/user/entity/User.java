@@ -71,6 +71,12 @@ public class User extends BaseEntity {
         this.point = point;
     }
 
+    public User(Long id, Long point, LocalDateTime updatedAt) {
+        this.id = id;
+        this.point = point;
+        this.updatedAt = updatedAt;
+    }
+
     @Builder
     public User(String name, Long point, LocalDateTime updatedAt) {
         this.name = name;

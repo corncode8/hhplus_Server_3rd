@@ -17,20 +17,10 @@ public class GetPointHistoryUseCase {
 
     private final PointHistoryReader pointHistoryReader;
 
-    public List<PointHistoryDto> execute(Long userId) {
+    public PointHistoryDto execute(Long userId) {
         List<PointHistory> pointHistories = pointHistoryReader.readList(userId);
 
-        List<PointHistoryDto> pointHistoryDtos = pointHistories.stream()
-                .map(ph -> new PointHistoryDto(
-                        ph.getId(),
-                        ph.getUser().getId(),
-                        ph.getType(),
-                        ph.getAmount(),
-                        ph.getCreatedAt()
-                ))
-                .collect(Collectors.toList());
-
-        return pointHistoryDtos;
+        return new PointHistoryDto(pointHistories);
     }
 
 }
