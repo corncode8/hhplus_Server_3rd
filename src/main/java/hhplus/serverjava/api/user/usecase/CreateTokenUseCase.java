@@ -11,11 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;
+import static hhplus.serverjava.api.util.response.BaseResponseStatus.FAIL_NEW_TOKEN;
 
 @Service
 @Transactional
