@@ -1,7 +1,7 @@
 package hhplus.serverjava.api.usecase.point.mock;
 
-import hhplus.serverjava.api.dto.response.user.UserPoint;
-import hhplus.serverjava.api.usecase.point.GetUserPointUseCase;
+import hhplus.serverjava.api.user.response.UserPoint;
+import hhplus.serverjava.api.user.usecase.GetUserPointUseCase;
 import hhplus.serverjava.domain.user.componenets.UserReader;
 import hhplus.serverjava.domain.user.entity.User;
 import org.junit.jupiter.api.DisplayName;

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;
 
@@ -18,9 +19,8 @@ public class ReservationCoreReaderRepository implements ReservationReaderReposit
     private final ReservationJPARepository repository;
 
     @Override
-    public Reservation findReservation(Long reservationId) {
-        return repository.findById(reservationId)
-                .orElseThrow(() -> new BaseException(INVALID_RESERVATION));
+    public Optional<Reservation> findReservation(Long reservationId) {
+        return repository.findById(reservationId);
     }
     @Override
     public List<Reservation> findExpiredReservaions(LocalDateTime now) {

@@ -1,6 +1,7 @@
 package hhplus.serverjava.api.usecase.concert;
 
-import hhplus.serverjava.api.dto.response.reservation.GetDateRes;
+import hhplus.serverjava.api.concert.usecase.FindConcertOptionUseCase;
+import hhplus.serverjava.api.reservation.response.GetDateRes;
 import hhplus.serverjava.domain.concertoption.components.ConcertOptionReader;
 import hhplus.serverjava.domain.concertoption.entity.ConcertOption;
 import org.junit.jupiter.api.DisplayName;
@@ -10,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;

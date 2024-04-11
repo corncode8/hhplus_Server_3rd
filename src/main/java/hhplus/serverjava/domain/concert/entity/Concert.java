@@ -1,6 +1,6 @@
 package hhplus.serverjava.domain.concert.entity;
 
-import hhplus.serverjava.domain.common.entity.BaseEntity;
+import hhplus.serverjava.domain.common.BaseEntity;
 import hhplus.serverjava.domain.concertoption.entity.ConcertOption;
 import hhplus.serverjava.domain.seat.entity.Seat;
 import lombok.AccessLevel;

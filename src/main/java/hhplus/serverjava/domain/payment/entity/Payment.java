@@ -1,6 +1,6 @@
 package hhplus.serverjava.domain.payment.entity;
 
-import hhplus.serverjava.domain.common.entity.BaseEntity;
+import hhplus.serverjava.domain.common.BaseEntity;
 import hhplus.serverjava.domain.reservation.entity.Reservation;
 import lombok.AccessLevel;
 import lombok.Builder;

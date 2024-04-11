@@ -1,6 +1,6 @@
 package hhplus.serverjava.domain.reservation.entity;
 
-import hhplus.serverjava.domain.common.entity.BaseEntity;
+import hhplus.serverjava.domain.common.BaseEntity;
 import hhplus.serverjava.domain.payment.entity.Payment;
 import hhplus.serverjava.domain.seat.entity.Seat;
 import hhplus.serverjava.domain.user.entity.User;
@@ -53,6 +53,10 @@ public class Reservation extends BaseEntity {
 
     public enum State {
         RESERVED, PAID, CANCELLED
+    }
+
+    public void setPaid() {
+        this.status = State.PAID;
     }
 
     public void setCancelled() {

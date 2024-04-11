@@ -1,6 +1,7 @@
 package hhplus.serverjava.api.usecase.payment;
 
-import hhplus.serverjava.api.dto.response.payment.PostPayRes;
+import hhplus.serverjava.api.payment.response.PostPayRes;
+import hhplus.serverjava.api.payment.usecase.PaymentUseCase;
 import hhplus.serverjava.domain.concert.entity.Concert;
 import hhplus.serverjava.domain.concertoption.entity.ConcertOption;
 import hhplus.serverjava.domain.payment.components.PaymentStore;

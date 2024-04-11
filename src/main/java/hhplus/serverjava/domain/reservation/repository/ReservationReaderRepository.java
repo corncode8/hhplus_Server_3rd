@@ -4,9 +4,10 @@ import hhplus.serverjava.domain.reservation.entity.Reservation;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface ReservationReaderRepository {
 
-    Reservation findReservation(Long reservationId);
+    Optional<Reservation> findReservation(Long reservationId);
     List<Reservation> findExpiredReservaions(LocalDateTime now);
 }

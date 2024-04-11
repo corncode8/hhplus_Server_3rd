@@ -1,7 +1,7 @@
 package hhplus.serverjava.api.usecase.point.mock;
 
-import hhplus.serverjava.api.dto.response.user.PointHistoryDto;
-import hhplus.serverjava.api.usecase.point.GetPointHistoryUseCase;
+import hhplus.serverjava.api.user.response.PointHistoryDto;
+import hhplus.serverjava.api.user.usecase.GetPointHistoryUseCase;
 import hhplus.serverjava.domain.pointhistory.components.PointHistoryReader;
 import hhplus.serverjava.domain.pointhistory.entity.PointHistory;
 import hhplus.serverjava.domain.pointhistory.entity.PointHistory.State;

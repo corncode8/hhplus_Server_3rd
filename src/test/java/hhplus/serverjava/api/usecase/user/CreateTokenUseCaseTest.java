@@ -1,6 +1,7 @@
 package hhplus.serverjava.api.usecase.user;
 
-import hhplus.serverjava.api.dto.response.user.GetTokenRes;
+import hhplus.serverjava.api.user.response.GetTokenRes;
+import hhplus.serverjava.api.user.usecase.CreateTokenUseCase;
 import hhplus.serverjava.api.util.jwt.JwtService;
 import hhplus.serverjava.domain.user.componenets.UserReader;
 import org.junit.jupiter.api.DisplayName;

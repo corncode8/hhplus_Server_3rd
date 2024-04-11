@@ -1,5 +1,6 @@
 package hhplus.serverjava.api.usecase.point;
 
+import hhplus.serverjava.api.user.usecase.UserPointChargeUseCase;
 import hhplus.serverjava.domain.user.componenets.UserReader;
 import hhplus.serverjava.domain.user.componenets.UserStore;
 import hhplus.serverjava.domain.user.entity.User;

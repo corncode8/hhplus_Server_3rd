@@ -30,7 +30,7 @@ public class ConcertOption {
     @OneToMany(mappedBy = "concertOption")
     private List<Seat> seatList = new ArrayList<>();
 
-    public void setConcert(Concert concert) {
+    public void addConcert(Concert concert) {
         this.concert = concert;
     }
 

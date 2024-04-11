@@ -24,12 +24,15 @@ public enum BaseResponseStatus {
     FAIL_NEW_TOKEN(false,HttpStatus.NOT_FOUND.value(),"토큰 생성에 실패했습니다."),
     FAIL_FIND_QUEUE(false,HttpStatus.NOT_FOUND.value(),"대기열 확인에 실패하였습니다."),
 
+    NOT_FIND_POINT_LIST(false,HttpStatus.NOT_FOUND.value(),"포인트 내역이 없습니다."),
+
     EMPTY_JWT(false, HttpStatus.UNAUTHORIZED.value(), "JWT를 입력해주세요."),
     INVALID_JWT(false, HttpStatus.UNAUTHORIZED.value(), "유효하지 않은 JWT입니다."),
 
 
     CONCERT_EMPTY_DATE(false, HttpStatus.BAD_REQUEST.value(), "콘서트 날짜를 입력해주세요."),
     NOT_FIND_CONCERT(false,HttpStatus.NOT_FOUND.value(),"일치하는 콘서트가 없습니다."),
+    EMPTY_CONCERT(false,HttpStatus.NOT_FOUND.value(),"상영중인 콘서트가 없습니다."),
 
     INVALID_SEAT(false, HttpStatus.NOT_FOUND.value(), "유효하지 않은 좌석 입니다."),
     INVALID_SEAT_RESERVATION(false, HttpStatus.BAD_REQUEST.value(), "예약 가능한 좌석이 아닙니다."),
@@ -39,7 +42,7 @@ public enum BaseResponseStatus {
     FAIL_RESERVAION_SEAT(false, HttpStatus.BAD_REQUEST.value(), "예약에 실패하였습니다."),
 
     INVALID_DATE(false, HttpStatus.BAD_REQUEST.value(), "형식에 맞지 않는 날짜 양식입니다."),
-    EMPTY_CONCERT_OPTION(false, HttpStatus.BAD_REQUEST.value(), "찾을 수 없는 콘서트 일정입니다."),
+    NOT_FOUND_CONCERT_OPTION(false, HttpStatus.BAD_REQUEST.value(), "찾을 수 없는 콘서트 일정입니다."),
 
     /**
      * 500 :  Database, Server 오류

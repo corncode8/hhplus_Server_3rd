@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import javax.persistence.LockModeType;
 import java.util.List;
+import java.util.Optional;
 
 public interface UserJPARepository extends JpaRepository<User, Long> {
 
@@ -16,6 +17,6 @@ public interface UserJPARepository extends JpaRepository<User, Long> {
 
     @Query("select u from User u where u.id = :id")
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    User findByIdWithLock(@Param("id") Long id);
+    Optional<User> findByIdWithLock(@Param("id") Long id);
 
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;
 
@@ -24,13 +25,11 @@ public class ConcertOptionCoreReaderRepository implements ConcertOptionReaderRep
     }
 
     @Override
-    public ConcertOption findConcertOption(Long concertId, LocalDateTime concertAt) {
-        return concertOptionJPARepository.findByConcert_IdAndConcertAt(concertId, concertAt)
-                .orElseThrow(() -> new BaseException(EMPTY_CONCERT_OPTION));
+    public Optional<ConcertOption> findConcertOption(Long concertId, LocalDateTime concertAt) {
+        return concertOptionJPARepository.findByConcert_IdAndConcertAt(concertId, concertAt);
     }
 
-    public Concert findConcert(Long concertOptionId) {
-        return concertOptionJPARepository.findConcert(concertOptionId)
-                .orElseThrow(() -> new BaseException(EMPTY_CONCERT_OPTION));
+    public Optional<Concert> findConcert(Long concertOptionId) {
+        return concertOptionJPARepository.findConcert(concertOptionId);
     }
 }

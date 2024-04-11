@@ -1,6 +1,7 @@
 package hhplus.serverjava.api.usecase.user;
 
-import hhplus.serverjava.api.dto.response.user.GetUserRes;
+import hhplus.serverjava.api.user.response.GetUserRes;
+import hhplus.serverjava.api.user.usecase.GetWaitNumUseCase;
 import hhplus.serverjava.domain.user.componenets.UserReader;
 import hhplus.serverjava.domain.user.componenets.UserStore;
 import hhplus.serverjava.domain.user.entity.User;
@@ -13,7 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,7 +37,6 @@ public class GetWaitNumUseCaseTest {
         //given
         Long userId = 105L;
         User testUser = new User(userId, 1000L);
-        LocalDateTime now = LocalDateTime.now();
 
         List<User> mockUser = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
@@ -45,7 +44,7 @@ public class GetWaitNumUseCaseTest {
             Long point = 500L;
 
             User user = new User(idx, point);
-            user.setUpdatedAt(now);
+            user.setProcessing();
 
             mockUser.add(user);
         }

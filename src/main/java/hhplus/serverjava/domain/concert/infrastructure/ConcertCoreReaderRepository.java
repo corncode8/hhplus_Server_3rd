@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;
 
@@ -16,9 +17,8 @@ public class ConcertCoreReaderRepository implements ConcertReaderRepository {
 
     private final ConcertJPARepository concertJPARepository;
     @Override
-    public Concert findConcert(Long concertId) {
-        return concertJPARepository.findById(concertId)
-                .orElseThrow(() -> new BaseException(NOT_FIND_CONCERT));
+    public Optional<Concert> findConcert(Long concertId) {
+        return concertJPARepository.findById(concertId);
     }
 
     @Override

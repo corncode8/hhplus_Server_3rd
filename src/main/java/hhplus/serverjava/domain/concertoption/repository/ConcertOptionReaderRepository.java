@@ -5,12 +5,13 @@ import hhplus.serverjava.domain.concertoption.entity.ConcertOption;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface ConcertOptionReaderRepository {
 
     List<ConcertOption> findConcertOptionList(Long concertId);
 
-    ConcertOption findConcertOption(Long concertId, LocalDateTime concertAt);
+    Optional<ConcertOption> findConcertOption(Long concertId, LocalDateTime concertAt);
 
-    Concert findConcert(Long concertOptionId);
+    Optional<Concert> findConcert(Long concertOptionId);
 }

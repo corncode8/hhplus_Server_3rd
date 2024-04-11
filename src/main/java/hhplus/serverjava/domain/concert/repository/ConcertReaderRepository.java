@@ -3,10 +3,11 @@ package hhplus.serverjava.domain.concert.repository;
 import hhplus.serverjava.domain.concert.entity.Concert;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ConcertReaderRepository {
 
-    Concert findConcert(Long concertId);
+    Optional<Concert> findConcert(Long concertId);
 
     List<Concert> findConcertList(Concert.State state);
 

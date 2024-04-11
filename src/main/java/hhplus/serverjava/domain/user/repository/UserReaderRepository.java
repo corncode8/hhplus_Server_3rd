@@ -4,12 +4,13 @@ import hhplus.serverjava.domain.user.entity.User;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserReaderRepository {
 
-    User findUser(Long userId);
+    Optional<User> findUser(Long userId);
 
-    User findByIdWithLock(Long id);
+    Optional<User> findByIdWithLock(Long id);
 
     List<User> findUsersByStatus(User.State state);
 

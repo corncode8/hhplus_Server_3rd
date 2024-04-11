@@ -1,6 +1,6 @@
 package hhplus.serverjava.domain.user.entity;
 
-import hhplus.serverjava.domain.common.entity.BaseEntity;
+import hhplus.serverjava.domain.common.BaseEntity;
 import hhplus.serverjava.domain.pointhistory.entity.PointHistory;
 import hhplus.serverjava.domain.reservation.entity.Reservation;
 import lombok.AccessLevel;
@@ -46,10 +46,6 @@ public class User extends BaseEntity {
         WAITING, PROCESSING, DONE
     }
 
-    public void setPoint(Long point) {
-        this.point = point;
-    }
-
     public void setWaiting() {
         this.status = State.WAITING;
         this.updatedAt = LocalDateTime.now();
@@ -69,9 +65,6 @@ public class User extends BaseEntity {
         this.point += point;
     }
 
-    public void setUpdatedAt(LocalDateTime dateTime) {
-        this.updatedAt = dateTime;
-    }
 
     public User(Long id, Long point) {
         this.id = id;

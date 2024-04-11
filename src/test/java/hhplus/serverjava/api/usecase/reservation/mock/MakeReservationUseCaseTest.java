@@ -1,7 +1,7 @@
 package hhplus.serverjava.api.usecase.reservation.mock;
 
-import hhplus.serverjava.api.dto.response.reservation.PostReservationRes;
-import hhplus.serverjava.api.usecase.reservation.MakeReservationUseCase;
+import hhplus.serverjava.api.reservation.response.PostReservationRes;
+import hhplus.serverjava.api.reservation.usecase.MakeReservationUseCase;
 import hhplus.serverjava.domain.concert.entity.Concert;
 import hhplus.serverjava.domain.concertoption.components.ConcertOptionReader;
 import hhplus.serverjava.domain.seat.components.SeatReader;
@@ -55,7 +55,7 @@ public class MakeReservationUseCaseTest {
                 .price(50000)
                 .build();
         seat.setReserved();
-        seat.setExpiredAt();
+
 
         Concert concert = new Concert(testId, "IU CONCERT", "IU");
 

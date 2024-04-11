@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;
 
@@ -25,19 +26,13 @@ public class SeatCoreReaderRepository implements SeatReaderRepository {
     }
 
     @Override
-    public Seat findAvailableSeat(Long concertOptionId, LocalDateTime targetDate, Seat.State state, int seatNum) {
-        Seat availableSeat = seatJPARepository.findAvailableSeat(concertOptionId, targetDate, state, seatNum);
+    public Optional<Seat> findAvailableSeat(Long concertOptionId, LocalDateTime targetDate, Seat.State state, int seatNum) {
+        return seatJPARepository.findAvailableSeat(concertOptionId, targetDate, state, seatNum);
 
-        if (availableSeat == null) {
-            throw new BaseException(EMPTY_SEAT_RESERVATION);
-        }
-
-        return availableSeat;
     }
 
     @Override
-    public Seat findSeatById(Long seatId) {
-        return seatJPARepository.findById(seatId)
-                .orElseThrow(() -> new BaseException(INVALID_SEAT));
+    public Optional<Seat> findSeatById(Long seatId) {
+        return seatJPARepository.findById(seatId);
     }
 }

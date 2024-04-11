@@ -1,6 +1,7 @@
 package hhplus.serverjava.api.usecase.concert;
 
-import hhplus.serverjava.api.dto.response.concert.GetConcertRes;
+import hhplus.serverjava.api.concert.response.GetConcertRes;
+import hhplus.serverjava.api.concert.usecase.GetConcertListUseCase;
 import hhplus.serverjava.domain.concert.components.ConcertReader;
 import hhplus.serverjava.domain.concert.entity.Concert;
 import org.junit.jupiter.api.DisplayName;
@@ -10,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

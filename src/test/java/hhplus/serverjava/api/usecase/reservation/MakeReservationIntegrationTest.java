@@ -1,5 +1,6 @@
 package hhplus.serverjava.api.usecase.reservation;
 
+import hhplus.serverjava.api.reservation.usecase.MakeReservationUseCase;
 import hhplus.serverjava.api.usecase.reservation.mock.MakeReservationUseCaseTest;
 import hhplus.serverjava.domain.concert.components.ConcertStore;
 import hhplus.serverjava.domain.concert.entity.Concert;
@@ -139,7 +140,7 @@ public class MakeReservationIntegrationTest {
         ConcertOption concertOption = ConcertOption.builder()
                 .concertAt(testDateTime)
                 .build();
-        concertOption.setConcert(concert);
+        concertOption.addConcert(concert);
         concertOptionStore.save(concertOption);
 
         return concertOption;

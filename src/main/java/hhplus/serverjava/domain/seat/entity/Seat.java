@@ -61,14 +61,18 @@ public class Seat {
         this.concert = concert;
     }
 
+    public Seat(Long id, int seatNum, int price) {
+        this.id = id;
+        this.seatNum = seatNum;
+        this.price = price;
+    }
+
     public void setReserved() {
         this.status = State.RESERVED;
+        this.expiredAt = LocalDateTime.now().plusMinutes(5);
     }
     public void setAvailable() {
         this.status = State.AVAILABLE;
     }
 
-    public void setExpiredAt() {
-        this.expiredAt = LocalDateTime.now().plusMinutes(5);
-    }
 }

@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface SeatJPARepository extends JpaRepository<Seat, Long> {
 
@@ -21,7 +22,7 @@ public interface SeatJPARepository extends JpaRepository<Seat, Long> {
             "and s.concertOption.concertAt = :targetDate " +
             "and s.status = :state " +
             "and s.seatNum = :seatNum")
-    Seat findAvailableSeat(@Param("concertOptionId") Long concertOptionId, @Param("targetDate")LocalDateTime targetDate,
-                                   @Param("state")Seat.State state, @Param("seatNum")int seatNum);
+    Optional<Seat> findAvailableSeat(@Param("concertOptionId") Long concertOptionId, @Param("targetDate")LocalDateTime targetDate,
+                                    @Param("state")Seat.State state, @Param("seatNum")int seatNum);
 
 }

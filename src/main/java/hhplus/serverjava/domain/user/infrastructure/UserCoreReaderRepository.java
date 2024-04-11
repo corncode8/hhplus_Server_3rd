@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;
 
@@ -17,13 +18,12 @@ public class UserCoreReaderRepository implements UserReaderRepository {
     private final UserJPARepository userJPARepository;
 
     @Override
-    public User findUser(Long userId) {
-         return userJPARepository.findById(userId)
-                 .orElseThrow(() -> new BaseException(NOT_FIND_USER));
+    public Optional<User> findUser(Long userId) {
+         return userJPARepository.findById(userId);
     }
 
     @Override
-    public User findByIdWithLock(Long id) {
+    public Optional<User> findByIdWithLock(Long id) {
         return userJPARepository.findByIdWithLock(id);
     }
 
