@@ -1,6 +1,5 @@
 package hhplus.serverjava.domain.concertoption.infrastructure;
 
-import hhplus.serverjava.api.util.exceptions.BaseException;
 import hhplus.serverjava.domain.concert.entity.Concert;
 import hhplus.serverjava.domain.concertoption.entity.ConcertOption;
 import hhplus.serverjava.domain.concertoption.repository.ConcertOptionReaderRepository;
@@ -11,7 +10,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;
 
 @Repository
 @RequiredArgsConstructor

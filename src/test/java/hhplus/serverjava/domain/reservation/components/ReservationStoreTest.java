@@ -28,7 +28,6 @@ public class ReservationStoreTest {
     @Test
     void test() {
         //given
-        Long testId = 1L;
         LocalDateTime testDateTime = LocalDateTime.now();
         Reservation reservation = Reservation.builder()
                 .seatNum(10)

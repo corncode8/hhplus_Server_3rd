@@ -15,7 +15,6 @@ public class ReservationTest {
     @Test
     void setPaidTest() {
         //given
-        Long testId = 1L;
         LocalDateTime testDateTime = LocalDateTime.now();
         Reservation reservation = Reservation.builder()
                 .seatNum(10)
@@ -36,7 +35,6 @@ public class ReservationTest {
     @Test
     void setCancelledTest() {
         //given
-        Long testId = 1L;
         LocalDateTime testDateTime = LocalDateTime.now();
         Reservation reservation = Reservation.builder()
                 .seatNum(10)

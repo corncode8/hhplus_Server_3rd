@@ -62,8 +62,6 @@ public enum BaseResponseStatus {
 
 
 
-
-
     private final boolean isSuccess;
     private final int code;
     private final String message;

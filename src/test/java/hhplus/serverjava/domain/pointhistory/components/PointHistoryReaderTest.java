@@ -59,7 +59,6 @@ public class PointHistoryReaderTest {
     void readListEmptyTest() {
         //given
         Long testId = 1L;
-        List<PointHistory> pointHistoryList = new ArrayList<>();
 
         //when & then
         BaseException exception = assertThrows(BaseException.class, () -> pointHistoryReader.readList(testId));

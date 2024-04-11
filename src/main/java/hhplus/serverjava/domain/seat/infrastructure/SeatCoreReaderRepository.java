@@ -1,6 +1,5 @@
 package hhplus.serverjava.domain.seat.infrastructure;
 
-import hhplus.serverjava.api.util.exceptions.BaseException;
 import hhplus.serverjava.domain.seat.entity.Seat;
 import hhplus.serverjava.domain.seat.repository.SeatReaderRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +10,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;
 
 @Slf4j
 @Repository
