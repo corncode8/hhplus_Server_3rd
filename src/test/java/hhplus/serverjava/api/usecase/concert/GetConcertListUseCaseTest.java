@@ -1,6 +1,6 @@
 package hhplus.serverjava.api.usecase.concert;
 
-import hhplus.serverjava.api.concert.response.GetConcertRes;
+import hhplus.serverjava.api.concert.response.GetConcertResponse;
 import hhplus.serverjava.api.concert.usecase.GetConcertListUseCase;
 import hhplus.serverjava.domain.concert.components.ConcertReader;
 import hhplus.serverjava.domain.concert.entity.Concert;
@@ -42,7 +42,7 @@ public class GetConcertListUseCaseTest {
         when(concertReader.findConcertList(Concert.State.SHOWING)).thenReturn(concertList);
 
         //when
-        GetConcertRes result = getConcertListUseCase.execute();
+        GetConcertResponse result = getConcertListUseCase.execute();
 
         //then
         assertNotNull(result);

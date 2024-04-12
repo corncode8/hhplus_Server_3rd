@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @NoArgsConstructor
-public class GetSeatsRes {
+public class GetSeatsResponse {
 
     private Long concertOptionId;
     private List<Integer> seatList = new ArrayList<>();
 
-    public GetSeatsRes(Long concertOptionId, List<Seat> seatList) {
+    public GetSeatsResponse(Long concertOptionId, List<Seat> seatList) {
         this.concertOptionId = concertOptionId;
         this.seatList =  seatList.stream()
                 .map(seat -> seat.getSeatNum()).collect(Collectors.toList());

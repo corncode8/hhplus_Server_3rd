@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
@@ -15,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostReservationRes {
+public class PostReservationResponse {
 
     private Long reservationId;
 
@@ -27,7 +26,7 @@ public class PostReservationRes {
     private String  expiredAt;
     private int reservedAmount;
 
-    public PostReservationRes(Reservation reservation, Seat seat) {
+    public PostReservationResponse(Reservation reservation, Seat seat) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         this.reservationId = reservation.getId();

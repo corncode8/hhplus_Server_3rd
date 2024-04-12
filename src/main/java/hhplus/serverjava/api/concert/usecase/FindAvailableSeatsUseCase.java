@@ -1,7 +1,7 @@
 package hhplus.serverjava.api.concert.usecase;
 
 
-import hhplus.serverjava.api.seat.response.GetSeatsRes;
+import hhplus.serverjava.api.seat.response.GetSeatsResponse;
 import hhplus.serverjava.domain.concertoption.components.ConcertOptionReader;
 import hhplus.serverjava.domain.concertoption.entity.ConcertOption;
 import hhplus.serverjava.domain.seat.components.SeatReader;
@@ -23,7 +23,7 @@ public class FindAvailableSeatsUseCase {
     private final ConcertOptionReader concertOptionReader;
 
     // 예약 가능한 좌석 조회
-    public GetSeatsRes execute(Long concertId, LocalDateTime targetDate) {
+    public GetSeatsResponse execute(Long concertId, LocalDateTime targetDate) {
 
         // 콘서트 옵션 조회
         ConcertOption concertOption = concertOptionReader.findConcertOption(concertId, targetDate);
@@ -31,6 +31,6 @@ public class FindAvailableSeatsUseCase {
         // 예약 가능한 좌석 조회
         List<Seat> availableSeats = seatReader.findAvailableSeats(concertId, targetDate, Seat.State.AVAILABLE);
 
-        return new GetSeatsRes(concertOption.getId(), availableSeats);
+        return new GetSeatsResponse(concertOption.getId(), availableSeats);
     }
 }

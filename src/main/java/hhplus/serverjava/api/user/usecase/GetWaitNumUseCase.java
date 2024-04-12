@@ -1,6 +1,6 @@
 package hhplus.serverjava.api.user.usecase;
 
-import hhplus.serverjava.api.user.response.GetUserRes;
+import hhplus.serverjava.api.user.response.GetUserResponse;
 import hhplus.serverjava.domain.user.componenets.UserReader;
 import hhplus.serverjava.domain.user.componenets.UserStore;
 import hhplus.serverjava.domain.user.entity.User;
@@ -20,7 +20,7 @@ public class GetWaitNumUseCase {
     private final UserReader userReader;
     private final UserStore userStore;
 
-    public GetUserRes execute(Long userId) {
+    public GetUserResponse execute(Long userId) {
 
         User user = userReader.findUser(userId);
 
@@ -31,7 +31,7 @@ public class GetWaitNumUseCase {
         // PROCESSING 유저가 90명 미만일 경우 PROCESSING으로 변경
         Long userNum = userStore.getUserNum(user, userList);
 
-        return new GetUserRes(userNum);
+        return new GetUserResponse(userNum);
     }
 
 }

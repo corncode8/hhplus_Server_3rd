@@ -1,6 +1,6 @@
 package hhplus.serverjava.api.payment.usecase;
 
-import hhplus.serverjava.api.payment.response.PostPayRes;
+import hhplus.serverjava.api.payment.response.PostPayResponse;
 import hhplus.serverjava.domain.payment.components.PaymentStore;
 import hhplus.serverjava.domain.payment.entity.Payment;
 import hhplus.serverjava.domain.reservation.components.ReservationReader;
@@ -18,7 +18,7 @@ public class PaymentUseCase {
     private final PaymentStore paymentStore;
     private final ReservationReader reservationReader;
 
-    public PostPayRes execute(Long reservationId) {
+    public PostPayResponse execute(Long reservationId) {
         Reservation reservation = reservationReader.findReservation(reservationId);
 
         Payment payment = Payment.builder()
@@ -27,6 +27,6 @@ public class PaymentUseCase {
                 .build();
         paymentStore.save(payment);
 
-        return new PostPayRes();
+        return new PostPayResponse();
     }
 }

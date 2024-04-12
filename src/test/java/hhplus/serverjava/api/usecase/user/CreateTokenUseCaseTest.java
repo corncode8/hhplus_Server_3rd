@@ -1,6 +1,6 @@
 package hhplus.serverjava.api.usecase.user;
 
-import hhplus.serverjava.api.user.response.GetTokenRes;
+import hhplus.serverjava.api.user.response.GetTokenResponse;
 import hhplus.serverjava.api.user.usecase.CreateTokenUseCase;
 import hhplus.serverjava.api.util.jwt.JwtService;
 import hhplus.serverjava.domain.user.componenets.UserReader;
@@ -37,7 +37,7 @@ public class CreateTokenUseCaseTest {
         when(jwtService.createJwt(userId)).thenReturn(jwt);
 
         //when
-        GetTokenRes result = createTokenUseCase.execute(username);
+        GetTokenResponse result = createTokenUseCase.execute(username);
 
         // then
         assertNotNull(result);

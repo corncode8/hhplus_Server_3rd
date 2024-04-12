@@ -1,6 +1,6 @@
 package hhplus.serverjava.api.payment;
 
-import hhplus.serverjava.api.payment.response.PostPayRes;
+import hhplus.serverjava.api.payment.response.PostPayResponse;
 import hhplus.serverjava.api.util.response.BaseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,16 +24,16 @@ public class PaymentController {
      */
     @Operation(summary = "결제")
     @PostMapping("/payment")
-    public BaseResponse<PostPayRes> point(@PathVariable("reservationId")Long reservationId, @RequestBody int payAmount) {
+    public BaseResponse<PostPayResponse> point(@PathVariable("reservationId")Long reservationId, @RequestBody int payAmount) {
 
         Long payId = 1L;
 
         LocalDateTime payAt = LocalDateTime.now();
 
-        PostPayRes postPayRes = new PostPayRes(payId,reservationId, payAmount, payAt);
+        PostPayResponse postPayResponse = new PostPayResponse(payId,reservationId, payAmount, payAt);
 
 
-        return new BaseResponse<>(postPayRes);
+        return new BaseResponse<>(postPayResponse);
     }
 }
 

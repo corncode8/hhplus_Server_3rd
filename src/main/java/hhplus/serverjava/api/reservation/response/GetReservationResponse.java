@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetReservationRes {
+public class GetReservationResponse {
 
     private Long reservationId;
 

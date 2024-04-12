@@ -1,5 +1,6 @@
-package hhplus.serverjava.api.util.jwt;
+package hhplus.serverjava.api.util.interceptor;
 
+import hhplus.serverjava.api.util.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

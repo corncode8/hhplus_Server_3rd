@@ -11,11 +11,11 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @NoArgsConstructor
-public class GetConcertRes {
+public class GetConcertResponse {
 
     List<ConcertInfo> concertInfoList;
 
-    public GetConcertRes(List<Concert> concerts) {
+    public GetConcertResponse(List<Concert> concerts) {
         this.concertInfoList = concerts.stream()
                 .map(concert -> new ConcertInfo(concert))
                 .collect(Collectors.toList());

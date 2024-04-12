@@ -1,7 +1,7 @@
 package hhplus.serverjava.api.util.config;
 
 import hhplus.serverjava.api.util.jwt.JwtService;
-import hhplus.serverjava.api.util.jwt.TokenInterceptor;
+import hhplus.serverjava.api.util.interceptor.TokenInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

@@ -1,7 +1,7 @@
 package hhplus.serverjava.api.usecase.concert;
 
 import hhplus.serverjava.api.concert.usecase.FindConcertOptionUseCase;
-import hhplus.serverjava.api.reservation.response.GetDateRes;
+import hhplus.serverjava.api.reservation.response.GetDateResponse;
 import hhplus.serverjava.domain.concertoption.components.ConcertOptionReader;
 import hhplus.serverjava.domain.concertoption.entity.ConcertOption;
 import org.junit.jupiter.api.DisplayName;
@@ -56,7 +56,7 @@ public class FindConcertOptionUseCaseTest {
         );
 
         //when
-        GetDateRes result = findConcertOptionUseCase.execute(testConcertId);
+        GetDateResponse result = findConcertOptionUseCase.execute(testConcertId);
 
 
         //then

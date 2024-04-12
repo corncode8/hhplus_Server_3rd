@@ -1,6 +1,6 @@
 package hhplus.serverjava.api.usecase.user;
 
-import hhplus.serverjava.api.user.response.GetUserRes;
+import hhplus.serverjava.api.user.response.GetUserResponse;
 import hhplus.serverjava.api.user.usecase.GetWaitNumUseCase;
 import hhplus.serverjava.domain.user.componenets.UserReader;
 import hhplus.serverjava.domain.user.componenets.UserStore;
@@ -12,7 +12,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +53,7 @@ public class GetWaitNumUseCaseTest {
         when(userReader.findUsersByStatus(User.State.PROCESSING)).thenReturn(mockUser);
 
         //when
-        GetUserRes result = getWaitNumUseCase.execute(userId);
+        GetUserResponse result = getWaitNumUseCase.execute(userId);
 
         //then
         assertNotNull(result);

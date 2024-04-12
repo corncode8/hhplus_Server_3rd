@@ -1,6 +1,6 @@
 package hhplus.serverjava.api.user.usecase;
 
-import hhplus.serverjava.api.user.response.GetTokenRes;
+import hhplus.serverjava.api.user.response.GetTokenResponse;
 import hhplus.serverjava.api.util.exceptions.BaseException;
 import hhplus.serverjava.api.util.jwt.JwtService;
 import hhplus.serverjava.domain.user.componenets.UserReader;
@@ -24,7 +24,7 @@ public class CreateTokenUseCase {
     private final UserReader userReader;
     private final JwtService jwtService;
 
-    public GetTokenRes execute(String username) {
+    public GetTokenResponse execute(String username) {
         Long point = 0L;
 
         try {
@@ -47,7 +47,7 @@ public class CreateTokenUseCase {
 
             userStore.save(user);
 
-            return new GetTokenRes(jwt, userWaitNum);
+            return new GetTokenResponse(jwt, userWaitNum);
         } catch (BaseException e) {
             throw new BaseException(FAIL_NEW_TOKEN);
         }

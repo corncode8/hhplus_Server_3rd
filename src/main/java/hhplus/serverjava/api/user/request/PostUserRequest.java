@@ -1,4 +1,4 @@
-package hhplus.serverjava.api.payment.request;
+package hhplus.serverjava.api.user.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostPayReq {
+public class PostUserRequest {
 
-    private int payAmount;
+    private String username;
 }

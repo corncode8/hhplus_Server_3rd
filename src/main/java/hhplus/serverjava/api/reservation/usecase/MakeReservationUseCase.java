@@ -1,6 +1,6 @@
 package hhplus.serverjava.api.reservation.usecase;
 
-import hhplus.serverjava.api.reservation.response.PostReservationRes;
+import hhplus.serverjava.api.reservation.response.PostReservationResponse;
 import hhplus.serverjava.api.util.exceptions.BaseException;
 import hhplus.serverjava.domain.concert.entity.Concert;
 import hhplus.serverjava.domain.concertoption.components.ConcertOptionReader;
@@ -32,7 +32,7 @@ public class MakeReservationUseCase {
 
     // 좌석 예약
 
-    public PostReservationRes makeReservation(User user, Long concertOptionId, LocalDateTime targetDate, int seatNum){
+    public PostReservationResponse makeReservation(User user, Long concertOptionId, LocalDateTime targetDate, int seatNum){
 
         try {
             Seat seat = seatReader.findAvailableSeat(concertOptionId, targetDate, Seat.State.AVAILABLE, seatNum);
@@ -56,7 +56,7 @@ public class MakeReservationUseCase {
 
             reservationStore.save(reservation);
 
-            return new PostReservationRes(reservation, seat);
+            return new PostReservationResponse(reservation, seat);
         } catch (OptimisticLockException e) {
             throw new BaseException(RESERVED_SEAT);
         }

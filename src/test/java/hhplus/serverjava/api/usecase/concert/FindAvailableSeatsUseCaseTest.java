@@ -1,7 +1,7 @@
 package hhplus.serverjava.api.usecase.concert;
 
 import hhplus.serverjava.api.concert.usecase.FindAvailableSeatsUseCase;
-import hhplus.serverjava.api.seat.response.GetSeatsRes;
+import hhplus.serverjava.api.seat.response.GetSeatsResponse;
 import hhplus.serverjava.domain.concertoption.components.ConcertOptionReader;
 import hhplus.serverjava.domain.concertoption.entity.ConcertOption;
 import hhplus.serverjava.domain.seat.components.SeatReader;
@@ -64,7 +64,7 @@ public class FindAvailableSeatsUseCaseTest {
         when(seatReader.findAvailableSeats(concertId, targetDate, Seat.State.AVAILABLE)).thenReturn(seatList);
 
         //when
-        GetSeatsRes result = findAvailableSeatsUseCase.execute(concertId, targetDate);
+        GetSeatsResponse result = findAvailableSeatsUseCase.execute(concertId, targetDate);
 
         //then
         assertNotNull(result);

@@ -1,6 +1,6 @@
 package hhplus.serverjava.api.usecase.payment;
 
-import hhplus.serverjava.api.payment.response.PostPayRes;
+import hhplus.serverjava.api.payment.response.PostPayResponse;
 import hhplus.serverjava.api.payment.usecase.PaymentUseCase;
 import hhplus.serverjava.domain.concert.entity.Concert;
 import hhplus.serverjava.domain.concertoption.entity.ConcertOption;
@@ -76,7 +76,7 @@ public class PaymentUseCaseTest {
         when(paymentStore.save(payment)).thenReturn(payment);
 
         //when
-        PostPayRes result = paymentUseCase.execute(reservation.getId());
+        PostPayResponse result = paymentUseCase.execute(reservation.getId());
 
         //then
         assertNotNull(result);

@@ -1,6 +1,6 @@
 package hhplus.serverjava.api.user;
 
-import hhplus.serverjava.api.user.request.PostUserReq;
+import hhplus.serverjava.api.user.request.PostUserRequest;
 import hhplus.serverjava.api.user.response.*;
 import hhplus.serverjava.api.user.usecase.GetPointHistoryUseCase;
 import hhplus.serverjava.api.user.usecase.GetUserPointUseCase;
@@ -37,7 +37,7 @@ public class UserController {
      */
     @Operation(summary = "토큰 발급")
     @GetMapping("/wait")
-    public BaseResponse<GetTokenRes> getToken(@RequestBody PostUserReq postUserReq) {
+    public BaseResponse<GetTokenResponse> getToken(@RequestBody PostUserRequest postUserRequest) {
 
         // 유저 생성 + 토큰 발급
 
@@ -45,9 +45,9 @@ public class UserController {
         Long listNum = 1L;
 
 
-        GetTokenRes getTokenRes = new GetTokenRes(token, listNum);
+        GetTokenResponse getTokenResponse = new GetTokenResponse(token, listNum);
 
-        return new BaseResponse<>(getTokenRes);
+        return new BaseResponse<>(getTokenResponse);
     }
 
     /**
@@ -57,16 +57,16 @@ public class UserController {
      */
     @Operation(summary = "대기열 확인")
     @GetMapping("/wait/check")
-    public BaseResponse<GetUserRes> checkQueue() {
+    public BaseResponse<GetUserResponse> checkQueue() {
 
 
         // 유저의 현재 대기열 정보 확인
 
         Long listNum = 1L;
 
-        GetUserRes getUserRes = new GetUserRes(listNum);
+        GetUserResponse getUserResponse = new GetUserResponse(listNum);
 
-        return new BaseResponse<>(getUserRes);
+        return new BaseResponse<>(getUserResponse);
     }
 
 

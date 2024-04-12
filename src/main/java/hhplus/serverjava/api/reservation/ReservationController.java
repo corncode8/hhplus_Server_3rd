@@ -1,7 +1,7 @@
 package hhplus.serverjava.api.reservation;
 
-import hhplus.serverjava.api.reservation.request.PostReservationReq;
-import hhplus.serverjava.api.reservation.response.GetReservationRes;
+import hhplus.serverjava.api.reservation.request.PostReservationRequest;
+import hhplus.serverjava.api.reservation.response.GetReservationResponse;
 import hhplus.serverjava.api.concert.usecase.FindAvailableSeatsUseCase;
 import hhplus.serverjava.api.concert.usecase.FindConcertOptionUseCase;
 import hhplus.serverjava.api.reservation.usecase.MakeReservationUseCase;
@@ -101,9 +101,9 @@ public class ReservationController {
      */
     @Operation(summary = "콘서트 예약")
     @PostMapping("/reservaton")
-    public BaseResponse<GetReservationRes> bookingConcert(@RequestBody PostReservationReq request) {
+    public BaseResponse<GetReservationResponse> bookingConcert(@RequestBody PostReservationRequest request) {
 
-        GetReservationRes execute = new GetReservationRes(1L, "MAKTUB CONCERT", "MAKTUB",
+        GetReservationResponse execute = new GetReservationResponse(1L, "MAKTUB CONCERT", "MAKTUB",
                 LocalDateTime.now().plusDays(1), 5, 50000L);
 
 

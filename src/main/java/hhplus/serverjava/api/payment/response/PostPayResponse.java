@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostPayRes {
+public class PostPayResponse {
 
     private Long id;
 

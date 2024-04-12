@@ -1,6 +1,6 @@
 package hhplus.serverjava.api.usecase.reservation.mock;
 
-import hhplus.serverjava.api.reservation.response.PostReservationRes;
+import hhplus.serverjava.api.reservation.response.PostReservationResponse;
 import hhplus.serverjava.api.reservation.usecase.MakeReservationUseCase;
 import hhplus.serverjava.domain.concert.entity.Concert;
 import hhplus.serverjava.domain.concertoption.components.ConcertOptionReader;
@@ -64,7 +64,7 @@ public class MakeReservationUseCaseTest {
         when(concertOptionReader.findConcert(testId)).thenReturn(concert);
 
         //when
-        PostReservationRes result = makeReservationUseCase.makeReservation(user, testId, testDateTime, testSeatNum);
+        PostReservationResponse result = makeReservationUseCase.makeReservation(user, testId, testDateTime, testSeatNum);
 
         //then
         assertNotNull(result);
