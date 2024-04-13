@@ -31,10 +31,10 @@ public class ReservationScheduler {
 
         // 좌석이 만료된 예약 조회
         LocalDateTime now = LocalDateTime.now();
-        List<Reservation> expiredReservaions = reservationReader.findExpiredReservaions(now);
+        List<Reservation> expiredReservations = reservationReader.findExpiredReservaions(now);
 
         // 예약 만료 : 좌석 활성화 + 예약 취소
-        reservationStore.ExpireReservation(expiredReservaions);
+        reservationStore.ExpireReservation(expiredReservations);
 
         // PROCESSING 유저 List
         List<User> workingUsers = userReader.findUsersByStatus(User.State.PROCESSING);

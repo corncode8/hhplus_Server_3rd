@@ -4,11 +4,10 @@ import hhplus.serverjava.api.util.response.BaseResponse;
 import hhplus.serverjava.api.util.response.BaseResponseStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
-@RestControllerAdvice
-public class ExceptionAdvice {
+@org.springframework.web.bind.annotation.RestControllerAdvice
+public class ApiControllerAdvice {
 
     @ExceptionHandler(BaseException.class)
     public BaseResponse<BaseResponseStatus> BaseExceptionHandle(BaseException exception) {
