@@ -5,7 +5,6 @@ import hhplus.serverjava.api.reservation.response.GetReservationResponse;
 import hhplus.serverjava.api.concert.usecase.FindAvailableSeatsUseCase;
 import hhplus.serverjava.api.concert.usecase.FindConcertOptionUseCase;
 import hhplus.serverjava.api.reservation.usecase.MakeReservationUseCase;
-import hhplus.serverjava.api.util.exceptions.BaseException;
 import hhplus.serverjava.api.util.jwt.JwtService;
 import hhplus.serverjava.api.util.response.BaseResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,13 +13,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;
 
 
 @Tag(name = "예약 Controller",
