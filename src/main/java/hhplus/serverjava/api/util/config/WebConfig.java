@@ -15,6 +15,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new TokenInterceptor(jwtService)).addPathPatterns("/api/**");
+        registry.addInterceptor(new TokenInterceptor(jwtService))
+                .addPathPatterns("/api/wait/check", "/api/reservation");
     }
 }

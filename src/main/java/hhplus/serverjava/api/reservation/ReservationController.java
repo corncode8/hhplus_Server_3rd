@@ -109,16 +109,4 @@ public class ReservationController {
 
         return new BaseResponse<>(execute);
     }
-
-
-
-    private LocalDate dateParser(String StrDate) {
-        try {
-            return LocalDate.parse(StrDate, DateTimeFormatter.ISO_DATE);
-        } catch (BaseException e) {
-            throw new BaseException(INVALID_DATE);
-        }
-
-    }
-
 }

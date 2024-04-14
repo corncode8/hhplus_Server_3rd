@@ -29,10 +29,4 @@ public interface JwtService {
     */
     Long getUserId();
 
-    /*
-   JWT의 userId 검증
-   @return Boolean
-   @throws BaseException
-    */
-    boolean validToken(Long userId);
 }

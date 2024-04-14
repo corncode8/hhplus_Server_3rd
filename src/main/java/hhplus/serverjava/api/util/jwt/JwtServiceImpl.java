@@ -1,7 +1,6 @@
 package hhplus.serverjava.api.util.jwt;
 
 import hhplus.serverjava.api.util.exceptions.BaseException;
-import hhplus.serverjava.domain.user.componenets.UserReader;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -24,7 +23,6 @@ import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;
 @RequiredArgsConstructor
 public class JwtServiceImpl implements JwtService{
 
-    private final UserReader userReader;
 
     @Value("${jwt.secret-key}")
     private String JWT_SECRET_KEY;
@@ -81,16 +79,6 @@ public class JwtServiceImpl implements JwtService{
 
         // 3. userId 추출
         return claims.getBody().get("userId",Long.class);
-    }
-
-    @Override
-    public boolean validToken(Long userId) {
-        try {
-            userReader.findUser(userId);
-        } catch (BaseException e) {
-            throw new BaseException(NOT_FIND_USER);
-        }
-        return true;
     }
 
 }
