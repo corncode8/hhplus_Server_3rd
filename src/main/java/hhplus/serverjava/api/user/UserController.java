@@ -9,7 +9,6 @@ import hhplus.serverjava.api.user.usecase.GetUserPointUseCase;
 import hhplus.serverjava.api.user.usecase.UserPointChargeUseCase;
 import hhplus.serverjava.api.util.exceptions.BaseException;
 import hhplus.serverjava.api.util.response.BaseResponse;
-import hhplus.serverjava.domain.user.entity.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -18,13 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import static hhplus.serverjava.api.util.response.BaseResponseStatus.FAIL_FIND_QUEUE;
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.NOT_FIND_USER;
-import static hhplus.serverjava.domain.pointhistory.entity.PointHistory.State.*;
 
 @Tag(name = "유저 Controller",
         description = "토큰 발급 API, 대기열 확인 API, 잔액 충전 API, 잔액 조회 API, 잔액 리스트 조회 API")
