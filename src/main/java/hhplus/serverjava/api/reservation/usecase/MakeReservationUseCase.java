@@ -8,6 +8,7 @@ import hhplus.serverjava.domain.reservation.components.ReservationStore;
 import hhplus.serverjava.domain.reservation.entity.Reservation;
 import hhplus.serverjava.domain.seat.components.SeatReader;
 import hhplus.serverjava.domain.seat.entity.Seat;
+import hhplus.serverjava.domain.user.componenets.UserReader;
 import hhplus.serverjava.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,15 +27,18 @@ import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;
 @RequiredArgsConstructor
 public class MakeReservationUseCase {
 
+    private final UserReader userReader;
     private final SeatReader seatReader;
     private final ReservationStore reservationStore;
     private final ConcertOptionReader concertOptionReader;
 
     // 좌석 예약
 
-    public PostReservationResponse makeReservation(User user, Long concertOptionId, LocalDateTime targetDate, int seatNum){
+    public PostReservationResponse makeReservation(Long userId, Long concertOptionId, LocalDateTime targetDate, int seatNum){
 
         try {
+            User user = userReader.findUser(userId);
+
             Seat seat = seatReader.findAvailableSeat(concertOptionId, targetDate, Seat.State.AVAILABLE, seatNum);
 
             // 좌석 예약상태로 변경, 임시 배정시간 5분 Set

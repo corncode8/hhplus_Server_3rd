@@ -87,7 +87,7 @@ public class MakeReservationIntegrationTest {
             try {
                 executorService.execute(() -> {
                     try{
-                        makeReservationUseCase.makeReservation(user.get(idx), concertOption.getId(), testDateTime, seat.getSeatNum());
+                        makeReservationUseCase.makeReservation(user.get(idx).getId(), concertOption.getId(), testDateTime, seat.getSeatNum());
                         successCnt.incrementAndGet();
                     } catch (Exception e) {
                         failCnt.incrementAndGet();

@@ -27,6 +27,8 @@ public class PaymentUseCase {
                 .build();
         paymentStore.save(payment);
 
+        // 토큰 만료, 사용자 잔액 검증
+
         return new PostPayResponse();
     }
 }

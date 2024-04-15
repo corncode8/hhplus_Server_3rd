@@ -6,6 +6,7 @@ import hhplus.serverjava.api.user.usecase.GetPointHistoryUseCase;
 import hhplus.serverjava.api.user.usecase.GetUserPointUseCase;
 import hhplus.serverjava.api.user.usecase.UserPointChargeUseCase;
 import hhplus.serverjava.api.util.response.BaseResponse;
+import hhplus.serverjava.domain.user.entity.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +34,7 @@ public class UserController {
     /**
      * 토큰 발급 API
      * [GET] /api/wait
-     * @return BaseResponse<PostUserRes>
+     * @return BaseResponse<GetTokenResponse>
      */
     @Operation(summary = "토큰 발급")
     @GetMapping("/wait")
@@ -45,7 +46,7 @@ public class UserController {
         Long listNum = 1L;
 
 
-        GetTokenResponse getTokenResponse = new GetTokenResponse(token, listNum);
+        GetTokenResponse getTokenResponse = new GetTokenResponse(token, listNum, User.State.WAITING);
 
         return new BaseResponse<>(getTokenResponse);
     }
@@ -53,7 +54,7 @@ public class UserController {
     /**
      * 대기열 확인 API
      * [GET] /api/wait/check
-     * @return BaseResponse<GetUserRes>
+     * @return BaseResponse<GetUserResponse>
      */
     @Operation(summary = "대기열 확인")
     @GetMapping("/wait/check")

@@ -18,7 +18,7 @@ import static hhplus.serverjava.api.util.response.BaseResponseStatus.FAIL_NEW_TO
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class CreateTokenUseCase {
+public class GetTokenUseCase {
 
     private final UserStore userStore;
     private final UserReader userReader;
@@ -35,6 +35,8 @@ public class CreateTokenUseCase {
                     .updatedAt(LocalDateTime.now())
                     .build();
 
+            userStore.save(user);
+
             // 토큰 생성
             String jwt = jwtService.createJwt(user.getId());
 
@@ -45,9 +47,7 @@ public class CreateTokenUseCase {
             // 서비스를 이용중인 유저가 90명 미만이라면 바로 processing
             Long userWaitNum = userStore.getUserNum(user, userUpdAscList);
 
-            userStore.save(user);
-
-            return new GetTokenResponse(jwt, userWaitNum);
+            return new GetTokenResponse(jwt, userWaitNum, user.getStatus());
         } catch (BaseException e) {
             throw new BaseException(FAIL_NEW_TOKEN);
         }

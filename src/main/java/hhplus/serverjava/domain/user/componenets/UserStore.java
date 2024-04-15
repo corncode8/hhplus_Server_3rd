@@ -77,6 +77,7 @@ public class UserStore {
 
         // 서비스를 이용중인 유저가 90명보다 적을 경우 바로 processing
         if (userUpdAscList.size() < 90) {
+            log.info(user.getId() + "번 유저 상태 PROCESSING으로 변경");
             user.setProcessing();
             return 0L;
         }

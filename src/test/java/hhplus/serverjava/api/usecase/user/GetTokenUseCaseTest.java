@@ -1,7 +1,7 @@
 package hhplus.serverjava.api.usecase.user;
 
 import hhplus.serverjava.api.user.response.GetTokenResponse;
-import hhplus.serverjava.api.user.usecase.CreateTokenUseCase;
+import hhplus.serverjava.api.user.usecase.GetTokenUseCase;
 import hhplus.serverjava.api.util.jwt.JwtService;
 import hhplus.serverjava.domain.user.componenets.UserReader;
 import org.junit.jupiter.api.DisplayName;
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class CreateTokenUseCaseTest {
+public class GetTokenUseCaseTest {
 
     @Mock
     UserReader userReader;
@@ -24,7 +24,7 @@ public class CreateTokenUseCaseTest {
     JwtService jwtService;
 
     @InjectMocks
-    CreateTokenUseCase createTokenUseCase;
+    GetTokenUseCase getTokenUseCase;
 
     @DisplayName("토큰 생성 API 테스트")
     @Test
@@ -37,7 +37,7 @@ public class CreateTokenUseCaseTest {
         when(jwtService.createJwt(userId)).thenReturn(jwt);
 
         //when
-        GetTokenResponse result = createTokenUseCase.execute(username);
+        GetTokenResponse result = getTokenUseCase.execute(username);
 
         // then
         assertNotNull(result);

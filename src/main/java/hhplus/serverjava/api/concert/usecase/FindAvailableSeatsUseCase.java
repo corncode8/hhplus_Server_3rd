@@ -1,6 +1,5 @@
 package hhplus.serverjava.api.concert.usecase;
 
-
 import hhplus.serverjava.api.seat.response.GetSeatsResponse;
 import hhplus.serverjava.domain.concertoption.components.ConcertOptionReader;
 import hhplus.serverjava.domain.concertoption.entity.ConcertOption;

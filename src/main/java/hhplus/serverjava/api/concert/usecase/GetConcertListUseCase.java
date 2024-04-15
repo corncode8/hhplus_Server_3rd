@@ -22,5 +22,4 @@ public class GetConcertListUseCase {
 
         return new GetConcertResponse(concertList);
     }
-
 }

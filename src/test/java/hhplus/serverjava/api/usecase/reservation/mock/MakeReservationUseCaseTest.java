@@ -64,7 +64,7 @@ public class MakeReservationUseCaseTest {
         when(concertOptionReader.findConcert(testId)).thenReturn(concert);
 
         //when
-        PostReservationResponse result = makeReservationUseCase.makeReservation(user, testId, testDateTime, testSeatNum);
+        PostReservationResponse result = makeReservationUseCase.makeReservation(user.getId(), testId, testDateTime, testSeatNum);
 
         //then
         assertNotNull(result);

@@ -1,5 +1,6 @@
 package hhplus.serverjava.api.user.response;
 
+import hhplus.serverjava.domain.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,8 @@ public class GetTokenResponse {
 
     // 대기 번호
     private Long listNum;
+
+    private User.State state;
 
     // 예상 시간
 //    private LocalDateTime expectedTime;
