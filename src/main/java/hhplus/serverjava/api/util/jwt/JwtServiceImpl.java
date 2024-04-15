@@ -35,7 +35,7 @@ public class JwtServiceImpl implements JwtService{
                 .setHeaderParam("type","jwt")
                 .claim("userId",userId)
                 .setIssuedAt(now)
-                .setExpiration(new Date(System.currentTimeMillis()+1*(1000*60*60*24*365)))
+                .setExpiration(new Date(System.currentTimeMillis()+1*(1000*60*60*24*365))) // TODO: 토큰 유효시간 설정
                 .signWith(SignatureAlgorithm.HS256, JWT_SECRET_KEY)
                 .compact();
     }

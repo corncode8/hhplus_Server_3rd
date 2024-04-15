@@ -57,6 +57,7 @@ public class Reservation extends BaseEntity {
 
     public void setPaid() {
         this.status = State.PAID;
+        this.user.setDone();
     }
 
     public void setCancelled() {

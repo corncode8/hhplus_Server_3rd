@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDateTime;
 
 import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -64,5 +65,6 @@ public class TokenInterceptorTest {
                 .andExpect(request().attribute("userId", notNullValue()))
                 .andExpect(request().attribute("waitNum", helloWorldUser.getListNum()));
 
+        assertEquals(81, helloWorldUser.getListNum());
     }
 }

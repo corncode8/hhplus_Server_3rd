@@ -1,5 +1,6 @@
 package hhplus.serverjava.domain.reservation.entity;
 
+import hhplus.serverjava.domain.user.entity.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,7 +29,8 @@ public class ReservationTest {
         reservation.setPaid();
 
         //then
-        assertEquals(reservation.status, Reservation.State.PAID);
+        assertEquals(Reservation.State.PAID, reservation.status);
+        assertEquals(User.State.DONE, reservation.getUser().getStatus());
     }
 
     @DisplayName("setCancelled테스트")

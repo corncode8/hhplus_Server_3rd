@@ -80,8 +80,14 @@ public class PaymentUseCaseTest {
 
         //then
         assertNotNull(result);
-        assertEquals(result.getId(), payment.getId());
+        assertEquals(result.getPayId(), payment.getId());
+
         assertEquals(result.getPayAmount(), payment.getPayAmount());
         assertEquals(result.getReservationId(), reservation.getId());
+
+        // 예약 상태 PAID
+        assertEquals(Reservation.State.PAID, payment.getReservation().getStatus());
+        // 유저 상태 DONE
+        assertEquals(User.State.DONE, payment.getReservation().getUser().getStatus());
     }
 }

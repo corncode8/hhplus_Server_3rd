@@ -24,7 +24,7 @@ public class PaymentController {
      */
     @Operation(summary = "결제")
     @PostMapping("/payment")
-    public BaseResponse<PostPayResponse> point(@PathVariable("reservationId")Long reservationId, @RequestBody int payAmount) {
+    public BaseResponse<PostPayResponse> point(@PathVariable("reservationId")Long reservationId, @RequestBody Long payAmount) {
 
         Long payId = 1L;
 
