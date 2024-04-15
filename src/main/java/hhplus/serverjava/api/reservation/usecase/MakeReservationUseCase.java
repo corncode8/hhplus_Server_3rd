@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.OptimisticLockException;
-import java.time.LocalDateTime;
 
 import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;
 

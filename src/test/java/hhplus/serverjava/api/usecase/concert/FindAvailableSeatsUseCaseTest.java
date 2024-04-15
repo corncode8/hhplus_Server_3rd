@@ -64,7 +64,7 @@ public class FindAvailableSeatsUseCaseTest {
         when(seatReader.findAvailableSeats(concertId, targetDate, Seat.State.AVAILABLE)).thenReturn(seatList);
 
         //when
-        GetSeatsResponse result = findAvailableSeatsUseCase.execute(concertId, targetDate);
+        GetSeatsResponse result = findAvailableSeatsUseCase.execute(concertId, targetDate.toString());
 
         //then
         assertNotNull(result);

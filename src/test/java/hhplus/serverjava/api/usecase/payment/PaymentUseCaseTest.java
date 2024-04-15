@@ -36,9 +36,9 @@ public class PaymentUseCaseTest {
     void test() {
         //given
         Long Id = 1L;
-        Long payAmount = 50000L;
+        int payAmount = 50000;
 
-        User user =new User(Id, 500L);
+        User user =new User(Id, 5000000L);
 
         Concert concert = Concert.builder()
                 .id(Id)
@@ -69,14 +69,14 @@ public class PaymentUseCaseTest {
 
         Payment payment = Payment.builder()
                 .id(Id)
-                .payAmount(payAmount)
+                .payAmount((long)payAmount)
                 .reservation(reservation)
                 .build();
 
         when(paymentStore.save(payment)).thenReturn(payment);
 
         //when
-        PostPayResponse result = paymentUseCase.execute(reservation.getId());
+        PostPayResponse result = paymentUseCase.execute(reservation.getId(), payAmount);
 
         //then
         assertNotNull(result);
