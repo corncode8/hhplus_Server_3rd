@@ -7,12 +7,12 @@ import hhplus.serverjava.domain.reservation.components.ReservationReader;
 import hhplus.serverjava.domain.reservation.entity.Reservation;
 import hhplus.serverjava.domain.user.componenets.UserValidator;
 import hhplus.serverjava.domain.user.entity.User;
-import io.swagger.v3.oas.annotations.servers.Server;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-@Server
+@Service
 @Transactional
 @RequiredArgsConstructor
 public class PaymentUseCase {
@@ -21,13 +21,13 @@ public class PaymentUseCase {
     private final UserValidator userValidator;
     private final ReservationReader reservationReader;
 
-    public PostPayResponse execute(Long reservationId) {
+    public PostPayResponse execute(Long reservationId, int payAmount) {
         Reservation reservation = reservationReader.findReservation(reservationId);
 
         User user = reservation.getUser();
 
         // 잔액 검증
-        userValidator.isValidUserPoint(reservation.getReservedPrice(), user.getPoint());
+        userValidator.isValidUserPoint(payAmount, user.getPoint());
 
         Payment payment = Payment.builder()
                 .reservation(reservation)

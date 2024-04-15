@@ -1,11 +1,15 @@
 package hhplus.serverjava.api.reservation;
 
+import hhplus.serverjava.api.concert.response.GetConcertResponse;
+import hhplus.serverjava.api.concert.usecase.GetConcertListUseCase;
 import hhplus.serverjava.api.reservation.request.PostReservationRequest;
-import hhplus.serverjava.api.reservation.response.GetReservationResponse;
+import hhplus.serverjava.api.reservation.response.GetDateResponse;
 import hhplus.serverjava.api.concert.usecase.FindAvailableSeatsUseCase;
 import hhplus.serverjava.api.concert.usecase.FindConcertOptionUseCase;
+import hhplus.serverjava.api.reservation.response.PostReservationResponse;
 import hhplus.serverjava.api.reservation.usecase.MakeReservationUseCase;
-import hhplus.serverjava.api.util.jwt.JwtService;
+import hhplus.serverjava.api.seat.response.GetSeatsResponse;
+import hhplus.serverjava.api.util.exceptions.BaseException;
 import hhplus.serverjava.api.util.response.BaseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -13,10 +17,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
+import static hhplus.serverjava.api.util.response.BaseResponseStatus.NOT_FIND_USER;
 
 
 @Tag(name = "예약 Controller",
@@ -27,28 +32,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReservationController {
 
+    private final GetConcertListUseCase getConcertListUseCase;
     private final FindConcertOptionUseCase findConcertOptionUseCase;
     private final FindAvailableSeatsUseCase findAvailableSeatsUseCase;
     private final MakeReservationUseCase makeReservationUseCase;
-    private final JwtService jwtService;
 
     /**
      * 콘서트 조회 API
      * [GET] /api/concert
-     * @return BaseResponse<GetDateRes>
+     * @return BaseResponse<GetConcertResponse>
      */
     @Operation(summary = "콘서트 조회")
     @GetMapping("/concert")
-    public BaseResponse<List<String>> getConcert() {
+    public BaseResponse<GetConcertResponse> getConcert() {
 
-        String concertId = "1";
-        String concertName = "MAKTUB CONCERT";
-        String artist = "MAKTUB";
-
-        List<String> execute = new ArrayList<>();
-        execute.add(concertId);
-        execute.add(concertName);
-        execute.add(artist);
+        GetConcertResponse execute = getConcertListUseCase.execute();
 
         return new BaseResponse<>(execute);
     }
@@ -56,17 +54,13 @@ public class ReservationController {
     /**
      * 예약 가능한 날짜 조회 API
      * [GET] /api/concert/{concertId}/date
-     * @return BaseResponse<GetDateRes>
+     * @return BaseResponse<GetDateResponse>
      */
     @Operation(summary = "예약 가능한 날짜 조회")
     @GetMapping("/concert/{concertId}/date")
-    public BaseResponse<List<String>> getAvailableDates(@PathVariable("concertId") Long concertId) {
+    public BaseResponse<GetDateResponse> getAvailableDates(@PathVariable("concertId") Long concertId) {
 
-        List<String> execute = new ArrayList<>();
-        execute.add("2024-04-08");
-        execute.add("2024-04-09");
-        execute.add("2024-04-03");
-
+        GetDateResponse execute = findConcertOptionUseCase.execute(concertId);
 
         return new BaseResponse<>(execute);
     }
@@ -74,18 +68,13 @@ public class ReservationController {
     /**
      * 예약 가능한 좌석 조회 API
      * [GET] /api/concert/date/{date}/seats
-     * @return BaseResponse<GetSeatsRes>
+     * @return BaseResponse<GetSeatsResponse>
      */
     @Operation(summary = "예약 가능한 좌석 조회")
     @GetMapping("/concert/date/{date}/seats")
-    public BaseResponse<List<String>> getAvailableSeats(@PathVariable("date") String concertDate) {
+    public BaseResponse<GetSeatsResponse> getAvailableSeats(@PathVariable("date") String targetDate, @RequestParam @NotNull Long concertId) {
 
-        List<String> execute = new ArrayList<>();
-        execute.add("1");
-        execute.add("2");
-        execute.add("5");
-        execute.add("9");
-        execute.add("16");
+        GetSeatsResponse execute = findAvailableSeatsUseCase.execute(concertId, targetDate);
 
         return new BaseResponse<>(execute);
     }
@@ -93,15 +82,19 @@ public class ReservationController {
     /**
      * 콘서트 예약 API
      * [POST] /api/reservation
-     * @return BaseResponse<GetSeatsRes>
+     * @return BaseResponse<PostReservationResponse>
      */
     @Operation(summary = "콘서트 예약")
     @PostMapping("/reservaton")
-    public BaseResponse<GetReservationResponse> bookingConcert(@RequestBody PostReservationRequest request) {
+    public BaseResponse<PostReservationResponse> bookingConcert(HttpServletRequest request, @Valid @RequestBody PostReservationRequest reservationRequest) {
 
-        GetReservationResponse execute = new GetReservationResponse(1L, "MAKTUB CONCERT", "MAKTUB",
-                LocalDateTime.now().plusDays(1), 5, 50000L);
+        Long userId = (Long) request.getAttribute("userId");
 
+        if (userId == null) {
+            throw new BaseException(NOT_FIND_USER);
+        }
+
+        PostReservationResponse execute = makeReservationUseCase.makeReservation(userId, reservationRequest);
 
         return new BaseResponse<>(execute);
     }

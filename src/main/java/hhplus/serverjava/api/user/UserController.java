@@ -1,10 +1,13 @@
 package hhplus.serverjava.api.user;
 
+import hhplus.serverjava.api.user.request.PatchUserRequest;
 import hhplus.serverjava.api.user.request.PostUserRequest;
 import hhplus.serverjava.api.user.response.*;
 import hhplus.serverjava.api.user.usecase.GetPointHistoryUseCase;
+import hhplus.serverjava.api.user.usecase.GetTokenUseCase;
 import hhplus.serverjava.api.user.usecase.GetUserPointUseCase;
 import hhplus.serverjava.api.user.usecase.UserPointChargeUseCase;
+import hhplus.serverjava.api.util.exceptions.BaseException;
 import hhplus.serverjava.api.util.response.BaseResponse;
 import hhplus.serverjava.domain.user.entity.User;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,10 +16,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static hhplus.serverjava.api.util.response.BaseResponseStatus.FAIL_FIND_QUEUE;
+import static hhplus.serverjava.api.util.response.BaseResponseStatus.NOT_FIND_USER;
 import static hhplus.serverjava.domain.pointhistory.entity.PointHistory.State.*;
 
 @Tag(name = "유저 Controller",
@@ -27,7 +34,8 @@ import static hhplus.serverjava.domain.pointhistory.entity.PointHistory.State.*;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final GetPointHistoryUseCase pointHistoryUseCase;
+    private final GetTokenUseCase getTokenUseCase;
+    private final GetPointHistoryUseCase getPointHistoryUseCase;
     private final GetUserPointUseCase getUserPointUseCase;
     private final UserPointChargeUseCase userPointChargeUseCase;
 
@@ -38,17 +46,12 @@ public class UserController {
      */
     @Operation(summary = "토큰 발급")
     @GetMapping("/wait")
-    public BaseResponse<GetTokenResponse> getToken(@RequestBody PostUserRequest postUserRequest) {
+    public BaseResponse<GetTokenResponse> getToken(@Valid @RequestBody PostUserRequest request) {
 
         // 유저 생성 + 토큰 발급
+        GetTokenResponse execute = getTokenUseCase.execute(request.getUsername());
 
-        String token = "wer7w-edt-w5g-dsrgdrg-testToken";
-        Long listNum = 1L;
-
-
-        GetTokenResponse getTokenResponse = new GetTokenResponse(token, listNum, User.State.WAITING);
-
-        return new BaseResponse<>(getTokenResponse);
+        return new BaseResponse<>(execute);
     }
 
     /**
@@ -58,16 +61,16 @@ public class UserController {
      */
     @Operation(summary = "대기열 확인")
     @GetMapping("/wait/check")
-    public BaseResponse<GetUserResponse> checkQueue() {
+    public BaseResponse<GetUserResponse> checkQueue(HttpServletRequest request) {
 
+        // Interceptor에서 유저의 현재 대기열 정보 확인
+        Long waitNum = (Long) request.getAttribute("waitNum");
 
-        // 유저의 현재 대기열 정보 확인
+        if (waitNum == null) {
+            throw new BaseException(FAIL_FIND_QUEUE);
+        }
 
-        Long listNum = 1L;
-
-        GetUserResponse getUserResponse = new GetUserResponse(listNum);
-
-        return new BaseResponse<>(getUserResponse);
+        return new BaseResponse<>(new GetUserResponse(waitNum));
     }
 
 
@@ -78,9 +81,9 @@ public class UserController {
      */
     @Operation(summary = "잔액 충전")
     @PatchMapping("/point/{userId}/charge")
-    public BaseResponse<UserPoint> chargePoint(@PathVariable("userId") Long userId,@RequestBody Long amount) {
+    public BaseResponse<UserPoint> chargePoint(@PathVariable("userId") Long userId, @Valid @RequestBody PatchUserRequest request) {
 
-        UserPoint charge = new UserPoint(1L, 50000L);
+        UserPoint charge = userPointChargeUseCase.charge(userId, request.getAmount());
 
         return new BaseResponse<>(charge);
     }
@@ -95,9 +98,9 @@ public class UserController {
     @GetMapping("/point/{userId}/account")
     public BaseResponse<UserPoint> point(@PathVariable("userId")Long userId) {
 
-        UserPoint userPoint = new UserPoint(1L, 65050L);
+        UserPoint execute = getUserPointUseCase.execute(userId);
 
-        return new BaseResponse<>(userPoint);
+        return new BaseResponse<>(execute);
     }
 
 
@@ -110,15 +113,8 @@ public class UserController {
     @GetMapping("/point/{userId}/histories")
     public BaseResponse<PointHistoryDto> pointHistory(@PathVariable("userId")Long userId) {
 
-        PointHistoryList mock1 = new PointHistoryList(1L, 1L, CHARGE, 500L, LocalDateTime.now().minusDays(2));
-        PointHistoryList mock2 = new PointHistoryList(2L, 1L, USE, 100L, LocalDateTime.now().minusDays(1));
+        PointHistoryDto execute = getPointHistoryUseCase.execute(userId);
 
-        List<PointHistoryList> lists = new ArrayList<>();
-        lists.add(mock1); lists.add(mock2);
-
-        PointHistoryDto result = new PointHistoryDto();
-        result.setPointHistoryListList(lists);
-
-        return new BaseResponse<>(result);
+        return new BaseResponse<>(execute);
     }
 }

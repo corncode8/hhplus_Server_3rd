@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -22,13 +23,15 @@ public class FindAvailableSeatsUseCase {
     private final ConcertOptionReader concertOptionReader;
 
     // 예약 가능한 좌석 조회
-    public GetSeatsResponse execute(Long concertId, LocalDateTime targetDate) {
+    public GetSeatsResponse execute(Long concertId, String targetDate) {
+
+        LocalDateTime parse = LocalDateTime.parse(targetDate, DateTimeFormatter.ISO_DATE);
 
         // 콘서트 옵션 조회
-        ConcertOption concertOption = concertOptionReader.findConcertOption(concertId, targetDate);
+        ConcertOption concertOption = concertOptionReader.findConcertOption(concertId, parse);
 
         // 예약 가능한 좌석 조회
-        List<Seat> availableSeats = seatReader.findAvailableSeats(concertId, targetDate, Seat.State.AVAILABLE);
+        List<Seat> availableSeats = seatReader.findAvailableSeats(concertId, parse, Seat.State.AVAILABLE);
 
         return new GetSeatsResponse(concertOption.getId(), availableSeats);
     }

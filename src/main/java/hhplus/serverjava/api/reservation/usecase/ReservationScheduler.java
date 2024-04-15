@@ -45,11 +45,8 @@ public class ReservationScheduler {
         // 서비스를 이용중인 유저가 100명 미만이라면 plusUsersNum++
         plusUsersNum += userStore.UserValidator(workingUsers, now, plusUsersNum);
 
-
         // WAIT 유저 List
         List<User> waitUsers = userReader.findUsersByStatus(User.State.WAITING);
-
-
 
         // plusUsersNum의 수만큼 status를 Processing으로 변경
         userStore.enterService(waitUsers, plusUsersNum);

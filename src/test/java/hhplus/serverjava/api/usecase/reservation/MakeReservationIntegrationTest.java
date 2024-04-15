@@ -1,5 +1,6 @@
 package hhplus.serverjava.api.usecase.reservation;
 
+import hhplus.serverjava.api.reservation.request.PostReservationRequest;
 import hhplus.serverjava.api.reservation.usecase.MakeReservationUseCase;
 import hhplus.serverjava.api.usecase.reservation.mock.MakeReservationUseCaseTest;
 import hhplus.serverjava.domain.concert.components.ConcertStore;
@@ -74,6 +75,8 @@ public class MakeReservationIntegrationTest {
 
         Seat seat = saveTestSeat(testSeatNum, concertOption, concert);
 
+        PostReservationRequest request = new PostReservationRequest(concertOption.getId(), testDateTime, seat.getSeatNum());
+
         AtomicInteger successCnt = new AtomicInteger(0);
         AtomicInteger failCnt = new AtomicInteger(0);
 
@@ -87,7 +90,7 @@ public class MakeReservationIntegrationTest {
             try {
                 executorService.execute(() -> {
                     try{
-                        makeReservationUseCase.makeReservation(user.get(idx).getId(), concertOption.getId(), testDateTime, seat.getSeatNum());
+                        makeReservationUseCase.makeReservation(user.get(idx).getId(), request);
                         successCnt.incrementAndGet();
                     } catch (Exception e) {
                         failCnt.incrementAndGet();

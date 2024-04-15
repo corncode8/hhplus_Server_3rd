@@ -5,14 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostUserRequest {
+public class PatchUserRequest {
 
-    @NotBlank
-    private String username;
+    @NotNull
+    private Long amount;
 }

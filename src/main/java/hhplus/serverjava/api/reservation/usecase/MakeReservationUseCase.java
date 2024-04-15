@@ -1,5 +1,6 @@
 package hhplus.serverjava.api.reservation.usecase;
 
+import hhplus.serverjava.api.reservation.request.PostReservationRequest;
 import hhplus.serverjava.api.reservation.response.PostReservationResponse;
 import hhplus.serverjava.api.util.exceptions.BaseException;
 import hhplus.serverjava.domain.concert.entity.Concert;
@@ -34,24 +35,24 @@ public class MakeReservationUseCase {
 
     // 좌석 예약
 
-    public PostReservationResponse makeReservation(Long userId, Long concertOptionId, LocalDateTime targetDate, int seatNum){
+    public PostReservationResponse makeReservation(Long userId, PostReservationRequest request){
 
         try {
             User user = userReader.findUser(userId);
 
-            Seat seat = seatReader.findAvailableSeat(concertOptionId, targetDate, Seat.State.AVAILABLE, seatNum);
+            Seat seat = seatReader.findAvailableSeat(request.getConcertOptionId(), request.getTargetDate(), Seat.State.AVAILABLE, request.getSeatNum());
 
             // 좌석 예약상태로 변경, 임시 배정시간 5분 Set
             seat.setReserved();
 
             // findConcert
-            Concert concert = concertOptionReader.findConcert(concertOptionId);
+            Concert concert = concertOptionReader.findConcert(request.getConcertOptionId());
 
             // 예약 생성
             Reservation reservation = Reservation.builder()
                     .user(user)
                     .seat(seat)
-                    .concertAt(targetDate)
+                    .concertAt(request.getTargetDate())
                     .seatNum(seat.getSeatNum())
                     .concertName(concert.getName())
                     .concertArtist(concert.getArtist())
