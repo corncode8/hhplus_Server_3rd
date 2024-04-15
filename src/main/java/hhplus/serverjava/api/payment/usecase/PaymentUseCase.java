@@ -1,7 +1,6 @@
 package hhplus.serverjava.api.payment.usecase;
 
 import hhplus.serverjava.api.payment.response.PostPayResponse;
-import hhplus.serverjava.api.util.exceptions.BaseException;
 import hhplus.serverjava.domain.payment.components.PaymentStore;
 import hhplus.serverjava.domain.payment.entity.Payment;
 import hhplus.serverjava.domain.reservation.components.ReservationReader;

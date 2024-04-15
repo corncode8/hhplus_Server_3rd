@@ -9,7 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static hhplus.serverjava.api.util.response.BaseResponseStatus.NOT_ENOUGH_POINT;
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.NOT_FIND_USER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

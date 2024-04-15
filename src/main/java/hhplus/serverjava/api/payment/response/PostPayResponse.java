@@ -1,7 +1,6 @@
 package hhplus.serverjava.api.payment.response;
 
 import hhplus.serverjava.domain.payment.entity.Payment;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
