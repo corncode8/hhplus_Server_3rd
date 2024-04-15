@@ -18,6 +18,7 @@ public class GetTokenResponse {
     // 대기 번호
     private Long listNum;
 
+    // 유저 상태
     private User.State state;
 
     // 예상 시간

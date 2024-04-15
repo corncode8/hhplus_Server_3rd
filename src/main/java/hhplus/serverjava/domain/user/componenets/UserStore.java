@@ -68,11 +68,15 @@ public class UserStore {
         // updatedAt 오름차순으로 정렬
         Collections.sort(userUpdAscList, Comparator.comparing(u -> u.getUpdatedAt()));
 
+
         // 가장 마지막에 서비스에 입장한 유저
         User recentlyUpdUser = userUpdAscList.get(userUpdAscList.size() -1);
+//        log.info("입력받은 유저 Id : {}", user.getId());
+//        log.info("가장 마지막에 서비스에 입장한 유저 : {}", recentlyUpdUser.getId());
 
         // 조회하려는 유저의 Id - 가장 마지막에 서비스에 입장한 유저Id = 대기번호
         Long userNum = user.getId() - recentlyUpdUser.getId();
+//        log.info("user.getId() - recentlyUpdUser.getId() : {}", userNum);
 
 
         // 서비스를 이용중인 유저가 90명보다 적을 경우 바로 processing

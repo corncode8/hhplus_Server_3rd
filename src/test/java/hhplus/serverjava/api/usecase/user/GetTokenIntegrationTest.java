@@ -1,9 +1,7 @@
-package hhplus.serverjava.api.usecase;
+package hhplus.serverjava.api.usecase.user;
 
 import hhplus.serverjava.api.user.response.GetTokenResponse;
 import hhplus.serverjava.api.user.usecase.GetTokenUseCase;
-import hhplus.serverjava.api.util.jwt.JwtService;
-import hhplus.serverjava.domain.user.componenets.UserReader;
 import hhplus.serverjava.domain.user.componenets.UserStore;
 import hhplus.serverjava.domain.user.entity.User;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,18 +18,15 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @ActiveProfiles("dev")
-public class WaitIntegrationTest {
+public class GetTokenIntegrationTest {
 
-    // 토큰을 생성하고 대기열에 접근 통합 테스트
+    // 토큰을 생성 + 대기열 확인 통합 테스트
 
     @Autowired
     private UserStore userStore;
     @Autowired
-    private UserReader userReader;
-    @Autowired
-    private JwtService jwtService;
-    @Autowired
     private GetTokenUseCase getTokenUseCase;
+
 
     // 150명 유저 생성 = 100명 -> 현재 서비스 이용중인 유저, 50명 -> 대기중인 유저
     @BeforeEach
@@ -70,5 +65,4 @@ public class WaitIntegrationTest {
         assertEquals(51, result.getListNum());
 
     }
-
 }

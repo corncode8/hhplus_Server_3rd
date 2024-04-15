@@ -20,6 +20,7 @@ public class GetWaitNumUseCase {
     private final UserReader userReader;
     private final UserStore userStore;
 
+    // 대기번호 return
     public GetUserResponse execute(Long userId) {
 
         User user = userReader.findUser(userId);
