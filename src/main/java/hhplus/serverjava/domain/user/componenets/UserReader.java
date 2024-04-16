@@ -1,6 +1,6 @@
 package hhplus.serverjava.domain.user.componenets;
 
-import hhplus.serverjava.api.util.exceptions.BaseException;
+import hhplus.serverjava.api.support.exceptions.BaseException;
 import hhplus.serverjava.domain.user.entity.User;
 import hhplus.serverjava.domain.user.repository.UserReaderRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.NOT_FIND_USER;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.NOT_FIND_USER;
 
 @Component
 @RequiredArgsConstructor

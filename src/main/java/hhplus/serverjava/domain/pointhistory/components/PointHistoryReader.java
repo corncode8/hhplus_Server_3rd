@@ -1,6 +1,6 @@
 package hhplus.serverjava.domain.pointhistory.components;
 
-import hhplus.serverjava.api.util.exceptions.BaseException;
+import hhplus.serverjava.api.support.exceptions.BaseException;
 import hhplus.serverjava.domain.pointhistory.entity.PointHistory;
 import hhplus.serverjava.domain.pointhistory.repository.PointHistoryReaderRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.NOT_FIND_POINT_LIST;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.NOT_FIND_POINT_LIST;
 
 @Component
 @RequiredArgsConstructor

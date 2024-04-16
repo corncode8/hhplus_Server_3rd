@@ -2,7 +2,7 @@ package hhplus.serverjava.api.usecase.payment;
 
 import hhplus.serverjava.api.payment.response.PostPayResponse;
 import hhplus.serverjava.api.payment.usecase.PaymentUseCase;
-import hhplus.serverjava.api.util.exceptions.BaseException;
+import hhplus.serverjava.api.support.exceptions.BaseException;
 import hhplus.serverjava.domain.concert.components.ConcertStore;
 import hhplus.serverjava.domain.concert.entity.Concert;
 import hhplus.serverjava.domain.concertoption.components.ConcertOptionStore;
@@ -22,7 +22,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDateTime;
 
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.NOT_ENOUGH_POINT;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.NOT_ENOUGH_POINT;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest

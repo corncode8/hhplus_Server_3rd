@@ -1,6 +1,6 @@
-package hhplus.serverjava.api.util.interceptor;
+package hhplus.serverjava.api.support.interceptor;
 
-import hhplus.serverjava.api.util.exceptions.BaseException;
+import hhplus.serverjava.api.support.exceptions.BaseException;
 import hhplus.serverjava.api.util.jwt.JwtService;
 import hhplus.serverjava.domain.user.componenets.UserReader;
 import hhplus.serverjava.domain.user.componenets.UserStore;
@@ -33,6 +33,10 @@ public class TokenInterceptor implements HandlerInterceptor {
             request.setAttribute("userId", userId);
 
             User user = userReader.findUser(userId);
+
+            if (user.getStatus().equals(User.State.DONE)) {
+                user.setWaiting();
+            }
 
             // 대기열 로직
             if (user.getStatus().equals(User.State.WAITING)) {

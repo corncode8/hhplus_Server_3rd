@@ -1,6 +1,6 @@
 package hhplus.serverjava.domain.user.components;
 
-import hhplus.serverjava.api.util.exceptions.BaseException;
+import hhplus.serverjava.api.support.exceptions.BaseException;
 import hhplus.serverjava.domain.user.componenets.UserValidator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,7 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.NOT_ENOUGH_POINT;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.NOT_ENOUGH_POINT;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

@@ -1,6 +1,6 @@
 package hhplus.serverjava.domain.concert.component;
 
-import hhplus.serverjava.api.util.exceptions.BaseException;
+import hhplus.serverjava.api.support.exceptions.BaseException;
 import hhplus.serverjava.domain.concert.components.ConcertReader;
 import hhplus.serverjava.domain.concert.entity.Concert;
 import hhplus.serverjava.domain.concert.repository.ConcertReaderRepository;
@@ -16,8 +16,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.EMPTY_CONCERT;
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.NOT_FIND_CONCERT;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.EMPTY_CONCERT;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.NOT_FIND_CONCERT;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 

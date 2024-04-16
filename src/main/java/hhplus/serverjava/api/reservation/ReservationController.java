@@ -9,8 +9,8 @@ import hhplus.serverjava.api.concert.usecase.FindConcertOptionUseCase;
 import hhplus.serverjava.api.reservation.response.PostReservationResponse;
 import hhplus.serverjava.api.reservation.usecase.MakeReservationUseCase;
 import hhplus.serverjava.api.seat.response.GetSeatsResponse;
-import hhplus.serverjava.api.util.exceptions.BaseException;
-import hhplus.serverjava.api.util.response.BaseResponse;
+import hhplus.serverjava.api.support.exceptions.BaseException;
+import hhplus.serverjava.api.support.response.BaseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.NOT_FIND_USER;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.NOT_FIND_USER;
 
 
 @Tag(name = "예약 Controller",

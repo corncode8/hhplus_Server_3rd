@@ -1,7 +1,7 @@
 package hhplus.serverjava.api.user.usecase;
 
 import hhplus.serverjava.api.user.response.GetTokenResponse;
-import hhplus.serverjava.api.util.exceptions.BaseException;
+import hhplus.serverjava.api.support.exceptions.BaseException;
 import hhplus.serverjava.api.util.jwt.JwtService;
 import hhplus.serverjava.domain.user.componenets.UserReader;
 import hhplus.serverjava.domain.user.componenets.UserStore;
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.FAIL_NEW_TOKEN;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.FAIL_NEW_TOKEN;
 
 @Service
 @Transactional

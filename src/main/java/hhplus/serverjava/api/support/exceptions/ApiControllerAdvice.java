@@ -1,7 +1,7 @@
-package hhplus.serverjava.api.util.exceptions;
+package hhplus.serverjava.api.support.exceptions;
 
-import hhplus.serverjava.api.util.response.BaseResponse;
-import hhplus.serverjava.api.util.response.BaseResponseStatus;
+import hhplus.serverjava.api.support.response.BaseResponse;
+import hhplus.serverjava.api.support.response.BaseResponseStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 

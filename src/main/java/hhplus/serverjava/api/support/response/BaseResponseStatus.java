@@ -1,4 +1,4 @@
-package hhplus.serverjava.api.util.response;
+package hhplus.serverjava.api.support.response;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -51,6 +51,8 @@ public enum BaseResponseStatus {
     DATABASE_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "데이터베이스 연결에 실패하였습니다."),
     DATABASE_EMPTY(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "저장된 데이터가 없습니다."),
     SERVER_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "서버와의 연결에 실패하였습니다."),
+
+    SCHEDULER_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "스케줄러 오류"),
 
 
 

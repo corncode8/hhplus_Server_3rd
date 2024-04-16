@@ -1,6 +1,6 @@
-package hhplus.serverjava.api.util.exceptions;
+package hhplus.serverjava.api.support.exceptions;
 
-import hhplus.serverjava.api.util.response.BaseResponseStatus;
+import hhplus.serverjava.api.support.response.BaseResponseStatus;
 import lombok.Getter;
 import lombok.Setter;
 

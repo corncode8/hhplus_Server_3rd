@@ -5,6 +5,7 @@ import hhplus.serverjava.domain.reservation.components.ReservationStore;
 import hhplus.serverjava.domain.reservation.entity.Reservation;
 import hhplus.serverjava.domain.user.componenets.UserReader;
 import hhplus.serverjava.domain.user.componenets.UserStore;
+import hhplus.serverjava.domain.user.componenets.UserValidator;
 import hhplus.serverjava.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -20,6 +21,7 @@ public class ReservationScheduler {
 
     private final UserStore userStore;
     private final UserReader userReader;
+    private final UserValidator userValidator;
     private final ReservationStore reservationStore;
     private final ReservationReader reservationReader;
 
@@ -43,7 +45,7 @@ public class ReservationScheduler {
 
         // 서비스에 입장한 후 10분이 지나도록 결제도 안하고 있다면 내보내준다
         // 서비스를 이용중인 유저가 100명 미만이라면 plusUsersNum++
-        plusUsersNum += userStore.UserValidator(workingUsers, now, plusUsersNum);
+        plusUsersNum += userValidator.UserSchedulerValidator(workingUsers, now, plusUsersNum);
 
         // WAIT 유저 List
         List<User> waitUsers = userReader.findUsersByStatus(User.State.WAITING);

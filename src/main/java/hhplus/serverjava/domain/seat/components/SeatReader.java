@@ -1,6 +1,6 @@
 package hhplus.serverjava.domain.seat.components;
 
-import hhplus.serverjava.api.util.exceptions.BaseException;
+import hhplus.serverjava.api.support.exceptions.BaseException;
 import hhplus.serverjava.domain.seat.entity.Seat;
 import hhplus.serverjava.domain.seat.repository.SeatReaderRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.EMPTY_SEAT_RESERVATION;
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.INVALID_SEAT_RESERVATION;
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.INVALID_SEAT;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.EMPTY_SEAT_RESERVATION;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.INVALID_SEAT_RESERVATION;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.INVALID_SEAT;
 
 
 @Component

@@ -1,6 +1,6 @@
 package hhplus.serverjava.domain.concertoption.components;
 
-import hhplus.serverjava.api.util.exceptions.BaseException;
+import hhplus.serverjava.api.support.exceptions.BaseException;
 import hhplus.serverjava.domain.concert.entity.Concert;
 import hhplus.serverjava.domain.concertoption.entity.ConcertOption;
 import hhplus.serverjava.domain.concertoption.repository.ConcertOptionReaderRepository;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.NOT_FOUND_CONCERT_OPTION;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.NOT_FOUND_CONCERT_OPTION;
 
 @Component
 @RequiredArgsConstructor

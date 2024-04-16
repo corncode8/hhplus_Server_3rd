@@ -1,4 +1,4 @@
-package hhplus.serverjava.api.util.response;
+package hhplus.serverjava.api.support.response;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.SUCCESS;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.SUCCESS;
 
 
 @Getter

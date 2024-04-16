@@ -1,7 +1,7 @@
 package hhplus.serverjava.api.util.config;
 
 import hhplus.serverjava.api.util.jwt.JwtService;
-import hhplus.serverjava.api.util.interceptor.TokenInterceptor;
+import hhplus.serverjava.api.support.interceptor.TokenInterceptor;
 import hhplus.serverjava.domain.user.componenets.UserReader;
 import hhplus.serverjava.domain.user.componenets.UserStore;
 import lombok.RequiredArgsConstructor;

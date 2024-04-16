@@ -1,6 +1,6 @@
 package hhplus.serverjava.domain.reservation.components;
 
-import hhplus.serverjava.api.util.exceptions.BaseException;
+import hhplus.serverjava.api.support.exceptions.BaseException;
 import hhplus.serverjava.domain.reservation.entity.Reservation;
 import hhplus.serverjava.domain.reservation.repository.ReservationReaderRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -13,7 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.INVALID_RESERVATION;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.INVALID_RESERVATION;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 

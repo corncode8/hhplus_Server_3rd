@@ -1,6 +1,6 @@
 package hhplus.serverjava.domain.seat.components;
 
-import hhplus.serverjava.api.util.exceptions.BaseException;
+import hhplus.serverjava.api.support.exceptions.BaseException;
 import hhplus.serverjava.domain.seat.entity.Seat;
 import hhplus.serverjava.domain.seat.repository.SeatReaderRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.*;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 

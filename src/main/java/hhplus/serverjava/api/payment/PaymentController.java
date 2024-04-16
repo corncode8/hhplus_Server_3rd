@@ -2,7 +2,7 @@ package hhplus.serverjava.api.payment;
 
 import hhplus.serverjava.api.payment.response.PostPayResponse;
 import hhplus.serverjava.api.payment.usecase.PaymentUseCase;
-import hhplus.serverjava.api.util.response.BaseResponse;
+import hhplus.serverjava.api.support.response.BaseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

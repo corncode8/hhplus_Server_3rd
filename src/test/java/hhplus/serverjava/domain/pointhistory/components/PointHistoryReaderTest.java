@@ -1,6 +1,6 @@
 package hhplus.serverjava.domain.pointhistory.components;
 
-import hhplus.serverjava.api.util.exceptions.BaseException;
+import hhplus.serverjava.api.support.exceptions.BaseException;
 import hhplus.serverjava.domain.pointhistory.entity.PointHistory;
 import hhplus.serverjava.domain.pointhistory.repository.PointHistoryReaderRepository;
 import hhplus.serverjava.domain.user.entity.User;
@@ -11,12 +11,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.NOT_FIND_CONCERT;
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.NOT_FIND_POINT_LIST;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.NOT_FIND_POINT_LIST;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 

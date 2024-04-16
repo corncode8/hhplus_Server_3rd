@@ -1,6 +1,6 @@
 package hhplus.serverjava.domain.concert.components;
 
-import hhplus.serverjava.api.util.exceptions.BaseException;
+import hhplus.serverjava.api.support.exceptions.BaseException;
 import hhplus.serverjava.domain.concert.entity.Concert;
 import hhplus.serverjava.domain.concert.repository.ConcertReaderRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.EMPTY_CONCERT;
-import static hhplus.serverjava.api.util.response.BaseResponseStatus.NOT_FIND_CONCERT;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.EMPTY_CONCERT;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.NOT_FIND_CONCERT;
 
 @Component
 @RequiredArgsConstructor
