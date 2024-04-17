@@ -75,4 +75,7 @@ public class Seat {
         this.status = State.AVAILABLE;
     }
 
+    public void setExpiredAt(LocalDateTime dateTime) {
+        this.expiredAt = dateTime;
+    }
 }

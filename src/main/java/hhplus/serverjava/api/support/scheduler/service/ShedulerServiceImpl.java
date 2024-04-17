@@ -1,4 +1,4 @@
-package hhplus.serverjava.api.support.scheduler;
+package hhplus.serverjava.api.support.scheduler.service;
 
 import hhplus.serverjava.domain.reservation.components.ReservationReader;
 import hhplus.serverjava.domain.reservation.components.ReservationStore;
@@ -8,12 +8,14 @@ import hhplus.serverjava.domain.user.componenets.UserStore;
 import hhplus.serverjava.domain.user.componenets.UserValidator;
 import hhplus.serverjava.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -28,7 +30,7 @@ public class ShedulerServiceImpl implements SchedulerService{
 
     // 좌석이 만료된 예약 확인
     @Override
-    public Boolean expiredReservations(LocalDateTime now) {
+    public Boolean findExpiredReservations(LocalDateTime now) {
         // 좌석이 만료된 예약 조회
         List<Reservation> expiredReservations = reservationReader.findExpiredReservaions(now);
 
@@ -55,7 +57,7 @@ public class ShedulerServiceImpl implements SchedulerService{
     // 서비스에 입장한 후 10분이 지나도록
     // 결제를 안하고 있는 유저가 있는지 확인
     @Override
-    public Boolean userTimeValidation (LocalDateTime now) {
+    public Boolean findUserTimeValidation(LocalDateTime now) {
         // 서비스 이용중 유저 조회
         List<User> workingUsers = userReader.findUsersByStatus(User.State.PROCESSING);
 
@@ -82,7 +84,7 @@ public class ShedulerServiceImpl implements SchedulerService{
 
     // 서비스를 이용중인 유저가 100명 미만인지 확인
     @Override
-    public Boolean workingUserNumValidation (LocalDateTime now) {
+    public Boolean findWorkingUserNumValidation(LocalDateTime now) {
         // 서비스 이용중 유저 조회
         List<User> workingUsers = userReader.findUsersByStatus(User.State.PROCESSING);
 
@@ -92,6 +94,7 @@ public class ShedulerServiceImpl implements SchedulerService{
         return false;
     }
 
+    // 100명보다 부족한 만큼 대기유저 활성화
     @Override
     public void enterServiceUser() {
         // 서비스 이용중 유저
@@ -103,6 +106,7 @@ public class ShedulerServiceImpl implements SchedulerService{
         int num = 0;
 
         num = 100 - workingUsers.size();
+        log.info("num : {}", num);
 
         if (num > 0) {
             userStore.enterService(waitingUsers, num);

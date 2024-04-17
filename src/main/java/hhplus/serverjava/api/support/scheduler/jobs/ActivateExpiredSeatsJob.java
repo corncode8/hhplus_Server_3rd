@@ -1,7 +1,7 @@
 package hhplus.serverjava.api.support.scheduler.jobs;
 
 import hhplus.serverjava.api.support.exceptions.BaseException;
-import hhplus.serverjava.api.support.scheduler.SchedulerService;
+import hhplus.serverjava.api.support.scheduler.service.SchedulerService;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
 import org.springframework.context.ApplicationContext;

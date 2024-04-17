@@ -32,7 +32,7 @@ public class PaymentController {
      */
     @Operation(summary = "결제")
     @PostMapping("/payment")
-    public BaseResponse<PostPayResponse> point(HttpServletRequest request, @Valid @RequestBody PostPayRequest postRequest) {
+    public BaseResponse<PostPayResponse> payment(HttpServletRequest request, @Valid @RequestBody PostPayRequest postRequest) {
 
         Long userId = (Long) request.getAttribute("userId");
 

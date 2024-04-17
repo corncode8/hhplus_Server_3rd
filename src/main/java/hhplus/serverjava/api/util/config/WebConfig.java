@@ -5,6 +5,7 @@ import hhplus.serverjava.api.support.interceptor.TokenInterceptor;
 import hhplus.serverjava.domain.user.componenets.UserReader;
 import hhplus.serverjava.domain.user.componenets.UserStore;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -17,10 +18,16 @@ public class WebConfig implements WebMvcConfigurer {
     private final UserReader userReader;
     private final UserStore userStore;
 
+    private final TokenInterceptor tokenInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new TokenInterceptor(jwtService, userReader, userStore))
+        registry.addInterceptor(tokenInterceptor)
                 .addPathPatterns("/api/wait/check", "/api/concert/**", "/api/reservation", "/api/payment");
-        // 결제시 토큰 검증?
+    }
+
+    @Bean
+    public TokenInterceptor tokenInterceptor() {
+        return new TokenInterceptor(jwtService, userReader, userStore);
     }
 }

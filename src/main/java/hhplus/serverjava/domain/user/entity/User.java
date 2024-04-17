@@ -65,6 +65,9 @@ public class User extends BaseEntity {
         this.point += point;
     }
 
+    public void setUpdatedAt(LocalDateTime dateTime) {
+        this.updatedAt = dateTime;
+    }
 
     public User(Long id, Long point) {
         this.id = id;

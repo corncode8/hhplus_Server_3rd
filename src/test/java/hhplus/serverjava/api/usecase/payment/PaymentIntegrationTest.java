@@ -1,5 +1,6 @@
 package hhplus.serverjava.api.usecase.payment;
 
+import hhplus.serverjava.api.payment.request.PostPayRequest;
 import hhplus.serverjava.api.payment.response.PostPayResponse;
 import hhplus.serverjava.api.payment.usecase.PaymentUseCase;
 import hhplus.serverjava.api.support.exceptions.BaseException;
@@ -89,8 +90,17 @@ public class PaymentIntegrationTest {
         Long testReservationId = 1L;
         int payAmount = 50000;
 
+        PostPayRequest request = new PostPayRequest(testReservationId, payAmount);
+
+        User user = User.builder()
+                .name("testUser")
+                .point(5000000L)
+                .updatedAt(LocalDateTime.now())
+                .build();
+        userStore.save(user);
+
         //when
-        PostPayResponse result = paymentUseCase.execute(testReservationId, payAmount);
+        PostPayResponse result = paymentUseCase.execute(request, user.getId());
 
         //then
         assertNotNull(result);
@@ -105,8 +115,17 @@ public class PaymentIntegrationTest {
         Long testReservationId = 1L;
         int payAmount = 5000000;
 
+        PostPayRequest request = new PostPayRequest(testReservationId, payAmount);
+
+        User user = User.builder()
+                .name("testUser")
+                .point(50L)
+                .updatedAt(LocalDateTime.now())
+                .build();
+        userStore.save(user);
+
         //when & then
-        BaseException exception = assertThrows(BaseException.class, () -> paymentUseCase.execute(testReservationId, payAmount));
+        BaseException exception = assertThrows(BaseException.class, () -> paymentUseCase.execute(request, user.getId()));
         assertEquals(NOT_ENOUGH_POINT.getMessage(), exception.getMessage());
     }
 }

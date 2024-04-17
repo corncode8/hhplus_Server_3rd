@@ -1,4 +1,4 @@
-package hhplus.serverjava.api.support.scheduler;
+package hhplus.serverjava.api.support.scheduler.service;
 
 import java.time.LocalDateTime;
 
@@ -9,7 +9,7 @@ public interface SchedulerService {
    @param now
    @return Boolean
     */
-    Boolean expiredReservations(LocalDateTime now);
+    Boolean findExpiredReservations(LocalDateTime now);
 
    /*
    좌석이 만료된 예약 처리
@@ -25,7 +25,7 @@ public interface SchedulerService {
    @param  now
    @return Boolean
     */
-     Boolean userTimeValidation (LocalDateTime now);
+     Boolean findUserTimeValidation(LocalDateTime now);
 
      /*
    서비스에 입장한 후 10분이 지나도록
@@ -40,7 +40,7 @@ public interface SchedulerService {
    @param  now
    @return Boolean
     */
-     Boolean workingUserNumValidation (LocalDateTime now);
+     Boolean findWorkingUserNumValidation(LocalDateTime now);
 
      /*
    서비스를 이용중인 유저가 N명 미만인 만큼
