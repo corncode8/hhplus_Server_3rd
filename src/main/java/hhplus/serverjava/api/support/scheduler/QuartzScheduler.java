@@ -1,7 +1,6 @@
 package hhplus.serverjava.api.support.scheduler;
 
 import hhplus.serverjava.api.support.scheduler.jobs.MainSchedulerJob;
-import hhplus.serverjava.api.util.config.QuartzConfig;
 import lombok.RequiredArgsConstructor;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;

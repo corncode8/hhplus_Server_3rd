@@ -52,7 +52,8 @@ public enum BaseResponseStatus {
     DATABASE_EMPTY(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "저장된 데이터가 없습니다."),
     SERVER_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "서버와의 연결에 실패하였습니다."),
 
-    SCHEDULER_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "스케줄러 오류"),
+    SCHEDULER_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "스케줄러 오류 발생"),
+    WAIT_QUEUE_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "대기열 오류 발생"),
 
 
 

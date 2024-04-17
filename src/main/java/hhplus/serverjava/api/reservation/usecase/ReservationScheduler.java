@@ -25,8 +25,8 @@ public class ReservationScheduler {
     private final ReservationStore reservationStore;
     private final ReservationReader reservationReader;
 
-    @Scheduled(fixedDelay = 60000)     // 1분마다 실행
-    @Transactional
+//    @Scheduled(fixedDelay = 60000)     // 1분마다 실행
+//    @Transactional
     public void reservationExpired() {
         // 좌석 5분 임시배정(스케줄러)
         // 좌석의 만료시간이 5분이 지났다면 해당 좌석 AVAILABLE로 수정후 예약 CANCELLED로 수정

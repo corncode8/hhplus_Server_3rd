@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.WAIT_QUEUE_ERROR;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -53,8 +55,7 @@ public class TokenInterceptor implements HandlerInterceptor {
             }
             return true;
         } catch (BaseException e) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write("Unauthorized : " + e.getMessage());
+            response.getWriter().write("BaseException : " + new BaseException(WAIT_QUEUE_ERROR));
             return false;
         }
     }
