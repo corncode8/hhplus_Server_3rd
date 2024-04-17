@@ -20,7 +20,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new TokenInterceptor(jwtService, userReader, userStore))
-                .addPathPatterns("/api/wait/check", "/api/concert/**", "/api/reservation");
+                .addPathPatterns("/api/wait/check", "/api/concert/**", "/api/reservation", "/api/payment");
         // 결제시 토큰 검증?
     }
 }

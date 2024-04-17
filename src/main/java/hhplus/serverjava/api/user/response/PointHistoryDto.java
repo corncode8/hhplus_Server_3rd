@@ -14,10 +14,10 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class PointHistoryDto {
 
-    private List<PointHistoryList> pointHistoryListList;
+    private List<PointHistoryList> pointHistoryList;
 
     public PointHistoryDto(List<PointHistory> pointHistories) {
-        this.pointHistoryListList = pointHistories.stream()
+        this.pointHistoryList = pointHistories.stream()
                 .map(pointHistory -> new PointHistoryList(pointHistory))
                 .collect(Collectors.toList());
     }

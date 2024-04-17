@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static hhplus.serverjava.api.support.response.BaseResponseStatus.NOT_ENOUGH_POINT;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.NOT_VALID_USER;
 
 @Component
 public class UserValidator {
@@ -54,4 +55,9 @@ public class UserValidator {
         return Math.min(plusUsersNum, 100);
     }
 
+    public void validUser(User user1, User user2) {
+        if (user1.getId() != user2.getId()) {
+            throw new BaseException(NOT_VALID_USER);
+        }
+    }
 }

@@ -23,8 +23,8 @@ public class PostReservationResponse {
     private String  reservationDate;
 
     private int reservationSeat;
-    private String  expiredAt;
-    private int reservedAmount;
+    private String expiredAt;
+    private int price;
 
     public PostReservationResponse(Reservation reservation, Seat seat) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -35,6 +35,6 @@ public class PostReservationResponse {
         this.reservationDate = reservation.getConcertAt().format(formatter);
         this.reservationSeat = reservation.getSeatNum();
         this.expiredAt = seat.getExpiredAt().format(formatter);
-        this.reservedAmount = reservation.getReservedPrice();
+        this.price = reservation.getReservedPrice();
     }
 }

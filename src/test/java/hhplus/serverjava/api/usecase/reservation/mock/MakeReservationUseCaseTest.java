@@ -80,7 +80,7 @@ public class MakeReservationUseCaseTest {
         assertEquals(result.getExpiredAt(), seat.getExpiredAt().format(formatter));
 
         assertEquals(result.getReservationSeat(), testSeatNum);
-        assertEquals(result.getReservedAmount(), 50000);
+        assertEquals(result.getPrice(), 50000);
 
     }
 
