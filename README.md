@@ -62,7 +62,7 @@
     "result": {
         "token": "wer7w-edt-w5g-dsrgdrg-testToken",
         "listNum": 1,
-        "expectedTime": "2024-04-03T13:19:03.6565297"
+        "state": "WAITING"
     }
 }
 ```
@@ -84,7 +84,6 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
     "message": "요청에 성공하였습니다.",
     "result": {
         "listNum": 1,
-        "expectedTime": "2024-04-03T13:20:55.1693036"
     }
 }
 ```
@@ -157,7 +156,7 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
     "message": "요청에 성공하였습니다.",
     "result": {
         "concertOptionId": 1,
-        "availableSeatsList": [
+        "seatList": [
             "1",
             "2",
             "5",
@@ -180,16 +179,8 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
 - request body
 ```
 {
-    "concertOptionId": 1,
-    "seatNumber": 1
-}
-```
-- request body
-```
-{
     "concertOptionId": "3",
-    "concertAt": "2024-03-01",
-    "reservationAmount": 50000,
+    "targetDate": "2024-03-01",
     "seatNumber": 2
 }
 ```
@@ -203,8 +194,9 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
         "reservationId": 1,
         "concertName": "MAKTUB Concert",
         "concertArtist": "MAKTUB",
-        "concertAt": "2024-03-01",
-        "seatNum": 2,
+        "reservationDate": "2024-03-01",
+        "reservationSeat": 2,
+        "expiredAt": "2024-03-01 15:35",
         "price": 50000
     }
 }
@@ -263,15 +255,15 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
     "isSuccess": true,
     "code": 200,
     "message": "요청에 성공하였습니다.",
-    "result": [
-        {
-            "id": 1,
+    "result": {
+        "pointHistoryList": [
+             "id": 1,
             "userId": 1,
             "state": "CHARGE",
             "amount": 500,
             "time": "2024-04-03T13:28:37.4315016"
-        }
-    ]
+    ]        
+  }
 }
 ```
 
@@ -282,6 +274,9 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
 | 메서드 | URL |
 |--------|-----------|
 | POST    |/api/payment  |
+```
+token="wer7w-edt-w5g-dsrgdrg-testToken"
+```
 - request body
 ```
 {
@@ -296,7 +291,7 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
     "code": 200,
     "message": "요청에 성공하였습니다.",
     "result": {
-        "id": 1,
+        "payId": 1,
         "reservationId": 1,
         "payAmount": 50000,
         "payAt": "2024-04-03T13:30:24.4380995"
