@@ -274,6 +274,7 @@ token="wer7w-edt-w5g-dsrgdrg-testToken"
 | 메서드 | URL |
 |--------|-----------|
 | POST    |/api/payment  |
+- request header
 ```
 token="wer7w-edt-w5g-dsrgdrg-testToken"
 ```
