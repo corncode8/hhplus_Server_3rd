@@ -29,9 +29,9 @@ public class UserReader {
     public List<User> findUsersByStatus(User.State state) {
         List<User> users = userReaderRepository.findUsersByStatus(state);
 
-        if (users.isEmpty()) {
-            throw new BaseException(NOT_FIND_USER);
-        }
+//        if (users.isEmpty()) {
+//            throw new BaseException(NOT_FIND_USER);
+//        }
 
         return userReaderRepository.findUsersByStatus(state);
     }

@@ -42,15 +42,23 @@ public class UserStore {
     // 서비스를 이용중인 유저가 90명보다 적을 경우 바로 processing
     public Long getUserNum(User user, List<User> userUpdAscList) {
 
-        // updatedAt 오름차순으로 정렬
-        Collections.sort(userUpdAscList, Comparator.comparing(u -> u.getUpdatedAt()));
+        Long userNum = 0L;
+
+        if (!userUpdAscList.isEmpty()) {
+            // updatedAt 오름차순으로 정렬
+            Collections.sort(userUpdAscList, Comparator.comparing(u -> u.getUpdatedAt()));
 
 
-        // 가장 마지막에 서비스에 입장한 유저
-        User recentlyUpdUser = userUpdAscList.get(userUpdAscList.size() -1);
+            // 가장 마지막에 서비스에 입장한 유저
+            User recentlyUpdUser = userUpdAscList.get(userUpdAscList.size() -1);
 
-        // 조회하려는 유저의 Id - 가장 마지막에 서비스에 입장한 유저Id = 대기번호
-        Long userNum = user.getId() - recentlyUpdUser.getId();
+            // 조회하려는 유저의 Id - 가장 마지막에 서비스에 입장한 유저Id = 대기번호
+            userNum = user.getId() - recentlyUpdUser.getId();
+        } else {
+            // 현재 이용중인 유저가 Empty라면 processiong + 대기번호 0L return
+            user.setProcessing();
+            return 0L;
+        }
 
         // 서비스를 이용중인 유저가 90명보다 적을 경우 바로 processing
         if (userUpdAscList.size() < 90) {

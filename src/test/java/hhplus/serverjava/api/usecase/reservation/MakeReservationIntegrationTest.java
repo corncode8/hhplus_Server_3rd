@@ -75,7 +75,7 @@ public class MakeReservationIntegrationTest {
 
         Seat seat = saveTestSeat(testSeatNum, concertOption, concert);
 
-        PostReservationRequest request = new PostReservationRequest(concertOption.getId(), testDateTime, seat.getSeatNum());
+        PostReservationRequest request = new PostReservationRequest(concertOption.getId(), testDateTime.toString(), seat.getSeatNum());
 
         AtomicInteger successCnt = new AtomicInteger(0);
         AtomicInteger failCnt = new AtomicInteger(0);

@@ -18,6 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.OptimisticLockException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import static hhplus.serverjava.api.support.response.BaseResponseStatus.*;
 
 
@@ -36,10 +39,12 @@ public class MakeReservationUseCase {
 
     public PostReservationResponse makeReservation(Long userId, PostReservationRequest request){
 
+        LocalDateTime parse = LocalDateTime.parse(request.getTargetDate(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+
         try {
             User user = userReader.findUser(userId);
 
-            Seat seat = seatReader.findAvailableSeat(request.getConcertOptionId(), request.getTargetDate(), Seat.State.AVAILABLE, request.getSeatNum());
+            Seat seat = seatReader.findAvailableSeat(request.getConcertOptionId(), parse, Seat.State.AVAILABLE, request.getSeatNum());
 
             // 좌석 예약상태로 변경, 임시 배정시간 5분 Set
             seat.setReserved();
@@ -51,7 +56,7 @@ public class MakeReservationUseCase {
             Reservation reservation = Reservation.builder()
                     .user(user)
                     .seat(seat)
-                    .concertAt(request.getTargetDate())
+                    .concertAt(parse)
                     .seatNum(seat.getSeatNum())
                     .concertName(concert.getName())
                     .concertArtist(concert.getArtist())

@@ -1,7 +1,6 @@
 package hhplus.serverjava.api.user;
 
 import hhplus.serverjava.api.user.request.PatchUserRequest;
-import hhplus.serverjava.api.user.request.PostUserRequest;
 import hhplus.serverjava.api.user.response.*;
 import hhplus.serverjava.api.user.usecase.GetPointHistoryUseCase;
 import hhplus.serverjava.api.user.usecase.GetTokenUseCase;
@@ -40,10 +39,10 @@ public class UserController {
      */
     @Operation(summary = "토큰 발급")
     @GetMapping("/wait")
-    public BaseResponse<GetTokenResponse> getToken(@Valid @RequestBody PostUserRequest request) {
+    public BaseResponse<GetTokenResponse> getToken(@RequestParam String username) {
 
         // 유저 생성 + 토큰 발급
-        GetTokenResponse execute = getTokenUseCase.execute(request.getUsername());
+        GetTokenResponse execute = getTokenUseCase.execute(username);
 
         return new BaseResponse<>(execute);
     }

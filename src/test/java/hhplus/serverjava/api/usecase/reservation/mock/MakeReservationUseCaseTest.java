@@ -60,7 +60,7 @@ public class MakeReservationUseCaseTest {
 
         Concert concert = new Concert(testId, "IU CONCERT", "IU");
 
-        PostReservationRequest request = new PostReservationRequest(testId, testDateTime, testSeatNum);
+        PostReservationRequest request = new PostReservationRequest(testId, testDateTime.toString(), testSeatNum);
 
 
         when(seatReader.findAvailableSeat(testId, testDateTime, Seat.State.AVAILABLE, 10)).thenReturn(seat);

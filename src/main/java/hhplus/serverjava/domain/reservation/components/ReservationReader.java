@@ -4,6 +4,7 @@ import hhplus.serverjava.api.support.exceptions.BaseException;
 import hhplus.serverjava.domain.reservation.entity.Reservation;
 import hhplus.serverjava.domain.reservation.repository.ReservationReaderRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import static hhplus.serverjava.api.support.response.BaseResponseStatus.INVALID_RESERVATION;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class ReservationReader {

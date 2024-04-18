@@ -25,7 +25,7 @@ public class FindAvailableSeatsUseCase {
     // 예약 가능한 좌석 조회
     public GetSeatsResponse execute(Long concertId, String targetDate) {
 
-        LocalDateTime parse = LocalDateTime.parse(targetDate, DateTimeFormatter.ISO_DATE);
+        LocalDateTime parse = LocalDateTime.parse(targetDate, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 
         // 콘서트 옵션 조회
         ConcertOption concertOption = concertOptionReader.findConcertOption(concertId, parse);

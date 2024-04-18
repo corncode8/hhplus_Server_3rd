@@ -85,7 +85,7 @@ public class ReservationController {
      * @return BaseResponse<PostReservationResponse>
      */
     @Operation(summary = "콘서트 예약")
-    @PostMapping("/reservaton")
+    @PostMapping("/reservation")
     public BaseResponse<PostReservationResponse> bookingConcert(HttpServletRequest request, @Valid @RequestBody PostReservationRequest reservationRequest) {
 
         Long userId = (Long) request.getAttribute("userId");

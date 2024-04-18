@@ -14,20 +14,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor
 public class WebConfig implements WebMvcConfigurer {
 
-    private final JwtService jwtService;
-    private final UserReader userReader;
-    private final UserStore userStore;
-
     private final TokenInterceptor tokenInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(tokenInterceptor)
                 .addPathPatterns("/api/wait/check", "/api/concert/**", "/api/reservation", "/api/payment");
-    }
-
-    @Bean
-    public TokenInterceptor tokenInterceptor() {
-        return new TokenInterceptor(jwtService, userReader, userStore);
     }
 }
