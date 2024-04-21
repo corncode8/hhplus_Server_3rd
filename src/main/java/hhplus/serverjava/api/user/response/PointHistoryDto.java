@@ -1,5 +1,6 @@
 package hhplus.serverjava.api.user.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import hhplus.serverjava.domain.pointhistory.entity.PointHistory;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class PointHistoryDto {
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<PointHistoryList> pointHistoryList;
 
     public PointHistoryDto(List<PointHistory> pointHistories) {

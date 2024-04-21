@@ -1,5 +1,6 @@
 package hhplus.serverjava.api.reservation.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import hhplus.serverjava.domain.concertoption.entity.ConcertOption;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class GetDateResponse {
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     List<String> availableDates;
 
     public GetDateResponse(List<ConcertOption> concertOptionList) {

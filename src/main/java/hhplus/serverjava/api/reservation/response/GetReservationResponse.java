@@ -22,5 +22,4 @@ public class GetReservationResponse {
     private int seatNum;
     private Long price;
 
-
 }
