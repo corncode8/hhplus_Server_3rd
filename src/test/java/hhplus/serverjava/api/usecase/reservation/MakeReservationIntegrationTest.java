@@ -2,7 +2,7 @@ package hhplus.serverjava.api.usecase.reservation;
 
 import hhplus.serverjava.api.reservation.request.PostReservationRequest;
 import hhplus.serverjava.api.reservation.usecase.MakeReservationUseCase;
-import hhplus.serverjava.api.usecase.reservation.mock.MakeReservationUseCaseTest;
+
 import hhplus.serverjava.domain.concert.components.ConcertStore;
 import hhplus.serverjava.domain.concert.entity.Concert;
 import hhplus.serverjava.domain.concertoption.components.ConcertOptionStore;
@@ -12,7 +12,6 @@ import hhplus.serverjava.domain.seat.components.SeatStore;
 import hhplus.serverjava.domain.seat.entity.Seat;
 import hhplus.serverjava.domain.user.componenets.UserStore;
 import hhplus.serverjava.domain.user.entity.User;
-import org.jboss.logging.Logger;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,20 +105,14 @@ public class MakeReservationIntegrationTest {
         //then
         Seat findSeat = seatReader.findSeatById(seat.getId());
 
-        System.out.println("successCnt = " + successCnt);
-        System.out.println("failCnt = " + failCnt);
-        System.out.println("findSeat.getStatus() = " + findSeat.getStatus());
-
-        System.out.println("findSeat.getVersion() = " + findSeat.getVersion());
-
         // 전체 스레드 갯수 - 실패한 횟수 = 성공한 횟수
-//        assertEquals(threadCnt - failCnt.intValue(), successCnt.intValue());
+        assertEquals(threadCnt - failCnt.intValue(), successCnt.intValue());
 
         // version == 성공한 횟수
-//        assertEquals(successCnt.intValue(), findSeat.getVersion());
+        assertEquals(successCnt.intValue(), findSeat.getVersion());
 
         // 전체 스레드 갯수 - 실패한 횟수
-//        assertEquals(threadCnt - successCnt.intValue(), failCnt.intValue());
+        assertEquals(threadCnt - successCnt.intValue(), failCnt.intValue());
 
     }
 
