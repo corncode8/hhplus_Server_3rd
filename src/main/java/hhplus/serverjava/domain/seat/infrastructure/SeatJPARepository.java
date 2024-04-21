@@ -2,10 +2,12 @@ package hhplus.serverjava.domain.seat.infrastructure;
 
 import hhplus.serverjava.domain.seat.entity.Seat;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 
+import javax.persistence.LockModeType;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +20,7 @@ public interface SeatJPARepository extends JpaRepository<Seat, Long> {
     List<Seat> findAvailableSeats(@Param("concertId") Long concertId, @Param("targetDate") LocalDateTime targetDate,
                                   @Param("state")Seat.State state);
 
+    @Lock(LockModeType.OPTIMISTIC)
     @Query("select s from Seat s where s.concertOption.id = :concertOptionId " +
             "and s.concertOption.concertAt = :targetDate " +
             "and s.status = :state " +

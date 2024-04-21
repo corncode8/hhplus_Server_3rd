@@ -81,4 +81,8 @@ public class Reservation extends BaseEntity {
         this.concertAt = concertAt;
         this.seat = seat;
     }
+
+    public static Reservation create(String concertName, String concertArtist, LocalDateTime concertAt, int seatNum, int reservedPrice, User user, Seat seat) {
+        return new Reservation(concertName, concertArtist, concertAt, seatNum, reservedPrice, user, seat);
+    }
 }

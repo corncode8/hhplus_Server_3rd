@@ -5,6 +5,7 @@ import hhplus.serverjava.api.reservation.response.PostReservationResponse;
 import hhplus.serverjava.api.support.exceptions.BaseException;
 import hhplus.serverjava.domain.concert.entity.Concert;
 import hhplus.serverjava.domain.concertoption.components.ConcertOptionReader;
+import hhplus.serverjava.domain.reservation.components.ReservationCreator;
 import hhplus.serverjava.domain.reservation.components.ReservationStore;
 import hhplus.serverjava.domain.reservation.entity.Reservation;
 import hhplus.serverjava.domain.seat.components.SeatReader;
@@ -36,7 +37,6 @@ public class MakeReservationUseCase {
     private final ConcertOptionReader concertOptionReader;
 
     // 좌석 예약
-
     public PostReservationResponse makeReservation(Long userId, PostReservationRequest request){
 
         LocalDateTime parse = LocalDateTime.parse(request.getTargetDate(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
@@ -45,30 +45,27 @@ public class MakeReservationUseCase {
             User user = userReader.findUser(userId);
 
             Seat seat = seatReader.findAvailableSeat(request.getConcertOptionId(), parse, Seat.State.AVAILABLE, request.getSeatNum());
+            log.info("Seat 상태 변경 전 : {}", seat.getStatus());
 
             // 좌석 예약상태로 변경, 임시 배정시간 5분 Set
             seat.setReserved();
+
+            log.info("Seat 상태 변경 후 : {}", seat.getStatus());
 
             // findConcert
             Concert concert = concertOptionReader.findConcert(request.getConcertOptionId());
 
             // 예약 생성
-            Reservation reservation = Reservation.builder()
-                    .user(user)
-                    .seat(seat)
-                    .concertAt(parse)
-                    .seatNum(seat.getSeatNum())
-                    .concertName(concert.getName())
-                    .concertArtist(concert.getArtist())
-                    .reservedPrice(seat.getPrice())
-                    .build();
+            Reservation reservation = ReservationCreator.create(
+                    concert.getName(), concert.getArtist(), parse, seat.getSeatNum(), seat.getPrice(), user, seat
+            );
 
             reservationStore.save(reservation);
 
             return new PostReservationResponse(reservation, seat);
         } catch (OptimisticLockException e) {
+            log.info("OptimisticLockException : {}", e.getMessage());
             throw new BaseException(RESERVED_SEAT);
         }
     }
-
 }
