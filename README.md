@@ -32,6 +32,8 @@
 - 유저간 대기열을 요청 순서대로 정확하게 제공할 방법
 - 동시에 여러 사용자가 예약 요청을 했을 때, 좌석이 중복으로 배정 가능하지 않도록 해야함
 
+## 프로젝트 회고
+[Truble Shooting](https://kiwi-somersault-cb9.notion.site/79c4cafbec32438980ce36fef7db642d?pvs=4)
 
 ## ERD
 ![concert erd](https://raw.githubusercontent.com/corncode8/hhplus_Server_3rd/main/images/erd/hhplus_3rd_erd.png)
