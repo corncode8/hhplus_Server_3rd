@@ -1,5 +1,6 @@
 # 1 워크플로의 이름 지정
-name: [prod] CI Pipeline
+name: prod CI Pipeline
+
 # 2 워크플로가 시작될 조건 지정
 on:
   pull_request:
@@ -29,7 +30,7 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle-
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: chmod +x ./gradlew build
 
       - name: Test
         run: ./gradlew test
