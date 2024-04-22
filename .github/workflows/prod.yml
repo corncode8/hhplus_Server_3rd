@@ -4,8 +4,8 @@ name: prod CI Pipeline
 # 2 워크플로가 시작될 조건 지정
 on:
   pull_request:
-    branches:
-      - main
+    types:
+      - [opened, synchronize]
 
 jobs:
   build:
