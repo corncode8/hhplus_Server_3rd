@@ -1,22 +1,25 @@
 spring:
-  profiles:
-    group: # Run - Edit Configurations
-      dev: common, dev
-      prod: common, prod
----
-spring:
-  config:
-    activate:
-      on-profile: "common"
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    generate-ddl: false
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
   application:
     name: demo
   sql:
     init:
       platform: mysql
   datasource:
-    url: ${{ secrets.DB_URL }}
-    username: ${{ secrets.DB_USERNAME }}
-    password: ${{ secrets.DB_PASSWORD }}
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
   quartz:
     job-store-type: memory
@@ -43,38 +46,6 @@ springdoc:
     - /**
 
 jwt:
-  secret-key: ${{ secrets.JWT_SECRET_KEY }}  # JWT key.
+  secret-key: ${JWT_SECRET_KEY}  # JWT key.
 
----
-spring:
-  config:
-    activate:
-      on-profile: "prod"
-  jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    hibernate:
-      ddl-auto: update
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    generate-ddl: false
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
 
----
-spring:
-  config:
-    activate:
-      on-profile: "dev"
-  jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    hibernate:
-      ddl-auto: create-drop
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    generate-ddl: false
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
