@@ -34,7 +34,7 @@ jobs:
 
       - name: Build with Gradle
         env:
-          ENV: ${{ secrets.TEST_YML }}
+          ENV: ${{ secrets.APPLICATION_YML_DEV }}
         run: |
           mkdir src/main/resources
           echo "$ENV" > src/main/resources/application.yml
@@ -42,7 +42,7 @@ jobs:
 
       - name: Test
         env:
-          ENV: ${{ secrets.TEST_YML }}
+          ENV: ${{ secrets.APPLICATION_YML_DEV }}
         run: |
           mkdir src/main/resources
           echo "$ENV" > src/main/resources/application.yml
