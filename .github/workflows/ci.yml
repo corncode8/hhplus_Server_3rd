@@ -29,8 +29,11 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: ${{ runner.os }}-gradle-
 
+      - name: Permission go Gradlew
+        run: chmod +x ./gradlew
+
       - name: Build with Gradle
-        run: chmod +x ./gradlew build
+        run: ./gradlew build
 
       - name: Test
         run: ./gradlew test
