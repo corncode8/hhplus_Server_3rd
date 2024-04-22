@@ -38,7 +38,9 @@ jobs:
         run: |
           mkdir src/main/resources
           echo "$ENV" > src/main/resources/application.yml
-          ./gradlew build
+          ./gradlew build   
+          
+          
 
       - name: Test
         env:
