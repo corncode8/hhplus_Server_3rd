@@ -1,16 +1,18 @@
-# 1 워크플로의 이름 지정
-name: dev CI Pipeline
+name: CI/CD
 
-# 2 워크플로가 시작될 조건 지정
 on:
   push:
     branches:
-      - ci/cd-workflow
+      - main
+  pull_request:
+    branches:
+      - main
+      - dev
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest # 3 실행 환경 지정
-    #4 실행스텝지정
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
@@ -35,14 +37,16 @@ jobs:
       - name: Set YML
         run: |
           mkdir -p src/main/resources
-          echo "${{ secrets.ENV_DEV }}" | base64 --decode > src/main/resources/application.yml
+          if [[ $GITHUB_REF_NAME == 'main' ]]; then
+            echo "${{ secrets.ENV_PROD }}" | base64 --decode > src/main/resources/application.yml
+          else
+            echo "${{ secrets.ENV_DEV }}" | base64 --decode > src/main/resources/application.yml
+          fi
           find src
 
-
-      - name: Build with Gradle
-        run: ./gradlew build -x test
-
-#      - name: Test
-#        run: ./gradlew build test
+      - name: Build Docker image
+        run: |
+          SHORT_SHA=$(echo ${{ github.sha }} | cut -c 1-8)
+          docker build . -t reservation:$SHORT_SHA -f Dockerfile
 
 
