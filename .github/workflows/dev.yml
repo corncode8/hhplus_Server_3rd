@@ -38,7 +38,12 @@ jobs:
         run: |
           mkdir src/main/resources
           echo "$ENV" > src/main/resources/application.yml
-          ./gradlew build -x test
+          ./gradlew build
 
-#      - name: Test
-#        run: ./gradlew test
+      - name: Test
+        env:
+          ENV: ${{ secrets.TEST_YML }}
+        run: |
+          mkdir src/main/resources
+          echo "$ENV" > src/main/resources/application.yml
+          ./gradlew test
