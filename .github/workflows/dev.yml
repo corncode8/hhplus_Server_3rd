@@ -38,6 +38,7 @@ jobs:
           echo "${{ secrets.ENV_DEV }}" | base64 --decode > src/main/resources/application.yml
           find src
 
+
       - name: Build with Gradle
         run: ./gradlew build
 
