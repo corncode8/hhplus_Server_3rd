@@ -30,7 +30,7 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle-
 
       - name: Permission go Gradlew
-        run: chmod +x
+        run: chmod +x ./gradlew
 
       - name: Build with Gradle
         run: ./gradlew build +x test
