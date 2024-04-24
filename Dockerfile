@@ -1,8 +1,11 @@
 FROM openjdk:17
 
-ARG mode_input
-ENV mode=$mode_input
+ENV TZ=Asia/Seoul
 
-RUN ./gradlew build -x test
+COPY build/libs/server-java.jar /app/server-java.jar
 
-CMD ls build/libs/*SNAPSHOT.jar | xargs -I{} java -jar {}
+EXPOSE 9000
+
+ENTRYPOINT java \
+  -jar /app/server-java.jar \
+  --spring.profiles.active=${PROFILE} \
