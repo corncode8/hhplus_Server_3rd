@@ -35,6 +35,14 @@
 ## 프로젝트 회고
 [Truble Shooting](https://kiwi-somersault-cb9.notion.site/79c4cafbec32438980ce36fef7db642d?pvs=4)
 
+### Git Branch 전략
+- `dev` 개발 환경
+    - 개발한 내용을 테스트 해보는 환경
+- `staging` 사내 릴리즈 환경
+    - 운영 배포 직전 환경,
+- `prod` 운영 릴리즈 환경
+    - 실제 운영 환경
+
 ## ERD
 ![concert erd](https://raw.githubusercontent.com/corncode8/hhplus_Server_3rd/main/images/erd/hhplus_3rd_erd.png)
 ## API 명세
