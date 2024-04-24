@@ -53,6 +53,6 @@ jobs:
           REPO: ${{ secrets.DOCKER_REPO_NAME }}
         run: |
           export SHORT_SHA=$(echo ${{ github.sha }} | cut -c 1-8)
-          docker build -t $REPO:$SHORT_SHA -f Dockerfile
+          docker build -t $REPO:$SHORT_SHA -f Dockerfile .
           docker tag $REPO:latest $NAME/$REPO:latest
           docker push $NAME/$REPO:latest
