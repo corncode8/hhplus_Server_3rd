@@ -1,11 +1,12 @@
 package hhplus.serverjava.domain.concert.infrastructure;
 
-import hhplus.serverjava.domain.concert.entity.Concert;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import hhplus.serverjava.domain.concert.entity.Concert;
 
 public interface ConcertJPARepository extends JpaRepository<Concert, Long> {
 
-    List<Concert> findConcertsByStatus(Concert.State state);
+	List<Concert> findConcertsByStatus(Concert.State state);
 }

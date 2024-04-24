@@ -1,17 +1,16 @@
 package hhplus.serverjava.domain.user.repository;
 
-import hhplus.serverjava.domain.user.entity.User;
-import org.springframework.data.repository.query.Param;
-
 import java.util.List;
 import java.util.Optional;
 
+import hhplus.serverjava.domain.user.entity.User;
+
 public interface UserReaderRepository {
 
-    Optional<User> findUser(Long userId);
+	Optional<User> findUser(Long userId);
 
-    Optional<User> findByIdWithLock(Long id);
+	Optional<User> findByIdWithLock(Long id);
 
-    List<User> findUsersByStatus(User.State state);
+	List<User> findUsersByStatus(User.State state);
 
 }

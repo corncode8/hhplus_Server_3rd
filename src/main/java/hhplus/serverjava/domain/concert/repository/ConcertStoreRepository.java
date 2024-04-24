@@ -4,5 +4,5 @@ import hhplus.serverjava.domain.concert.entity.Concert;
 
 public interface ConcertStoreRepository {
 
-    Concert save(Concert concert);
+	Concert save(Concert concert);
 }

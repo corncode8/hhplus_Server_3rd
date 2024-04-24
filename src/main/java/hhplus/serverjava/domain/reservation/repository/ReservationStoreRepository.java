@@ -4,5 +4,5 @@ import hhplus.serverjava.domain.reservation.entity.Reservation;
 
 public interface ReservationStoreRepository {
 
-    Reservation save(Reservation reservation);
+	Reservation save(Reservation reservation);
 }

@@ -1,5 +1,17 @@
 package hhplus.serverjava.api.usecase.payment;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
 import hhplus.serverjava.api.payment.request.PostPayRequest;
 import hhplus.serverjava.api.payment.response.PostPayResponse;
 import hhplus.serverjava.api.payment.usecase.PaymentUseCase;
@@ -10,88 +22,75 @@ import hhplus.serverjava.domain.payment.entity.Payment;
 import hhplus.serverjava.domain.reservation.entity.Reservation;
 import hhplus.serverjava.domain.seat.entity.Seat;
 import hhplus.serverjava.domain.user.entity.User;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class PaymentUseCaseTest {
 
-    @Mock
-    PaymentStore paymentStore;
+	@Mock
+	PaymentStore paymentStore;
 
-    @InjectMocks
-    PaymentUseCase paymentUseCase;
+	@InjectMocks
+	PaymentUseCase paymentUseCase;
 
-    @DisplayName("결제 테스트")
-    @Test
-    void test() {
-        //given
-        Long Id = 1L;
-        int payAmount = 50000;
+	@DisplayName("결제 테스트")
+	@Test
+	void test() {
+		//given
+		Long Id = 1L;
+		int payAmount = 50000;
 
-        User user =new User(Id, 5000000L);
+		User user = new User(Id, 5000000L);
 
-        Concert concert = Concert.builder()
-                .id(Id)
-                .name("마크툽 콘서트")
-                .artist("마크툽")
-                .build();
+		Concert concert = Concert.builder()
+			.id(Id)
+			.name("마크툽 콘서트")
+			.artist("마크툽")
+			.build();
 
-        ConcertOption concertOption = ConcertOption.builder()
-                .id(Id)
-                .concertAt(LocalDateTime.now())
-                .build();
+		ConcertOption concertOption = ConcertOption.builder()
+			.id(Id)
+			.concertAt(LocalDateTime.now())
+			.build();
 
-        Seat seat = Seat.builder()
-                .id(Id)
-                .price(50000)
-                .seatNum(15)
-                .build();
+		Seat seat = Seat.builder()
+			.id(Id)
+			.price(50000)
+			.seatNum(15)
+			.build();
 
-        Reservation reservation = Reservation.builder()
-                .seatNum(seat.getSeatNum())
-                .concertArtist(concert.getArtist())
-                .concertName(concert.getName())
-                .reservedPrice(seat.getPrice())
-                .concertAt(concertOption.getConcertAt())
-                .user(user)
-                .seat(seat)
-                .build();
+		Reservation reservation = Reservation.builder()
+			.seatNum(seat.getSeatNum())
+			.concertArtist(concert.getArtist())
+			.concertName(concert.getName())
+			.reservedPrice(seat.getPrice())
+			.concertAt(concertOption.getConcertAt())
+			.user(user)
+			.seat(seat)
+			.build();
 
-        Payment payment = Payment.builder()
-                .id(Id)
-                .payAmount((long)payAmount)
-                .reservation(reservation)
-                .build();
+		Payment payment = Payment.builder()
+			.id(Id)
+			.payAmount((long)payAmount)
+			.reservation(reservation)
+			.build();
 
-        when(paymentStore.save(payment)).thenReturn(payment);
+		when(paymentStore.save(payment)).thenReturn(payment);
 
-        PostPayRequest request = new PostPayRequest(reservation.getId(), payAmount);
+		PostPayRequest request = new PostPayRequest(reservation.getId(), payAmount);
 
+		//when
+		PostPayResponse result = paymentUseCase.execute(request, user.getId());
 
-        //when
-        PostPayResponse result = paymentUseCase.execute(request, user.getId());
+		//then
+		assertNotNull(result);
+		assertEquals(result.getPayId(), payment.getId());
 
-        //then
-        assertNotNull(result);
-        assertEquals(result.getPayId(), payment.getId());
+		assertEquals(result.getPayAmount(), payment.getPayAmount());
+		assertEquals(result.getReservationId(), reservation.getId());
 
-        assertEquals(result.getPayAmount(), payment.getPayAmount());
-        assertEquals(result.getReservationId(), reservation.getId());
-
-        // 예약 상태 PAID
-        assertEquals(Reservation.State.PAID, payment.getReservation().getStatus());
-        // 유저 상태 DONE
-        assertEquals(User.State.DONE, payment.getReservation().getUser().getStatus());
-    }
+		// 예약 상태 PAID
+		assertEquals(Reservation.State.PAID, payment.getReservation().getStatus());
+		// 유저 상태 DONE
+		assertEquals(User.State.DONE, payment.getReservation().getUser().getStatus());
+	}
 }

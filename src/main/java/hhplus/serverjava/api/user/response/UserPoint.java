@@ -11,6 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserPoint {
 
-    private Long userId;
-    private Long point;
+	private Long userId;
+	private Long point;
 }

@@ -1,5 +1,11 @@
 package hhplus.serverjava.api.support.scheduler.service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import hhplus.serverjava.domain.reservation.components.ReservationReader;
 import hhplus.serverjava.domain.reservation.components.ReservationStore;
 import hhplus.serverjava.domain.reservation.entity.Reservation;
@@ -9,108 +15,100 @@ import hhplus.serverjava.domain.user.componenets.UserValidator;
 import hhplus.serverjava.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class ShedulerServiceImpl implements SchedulerService{
+public class ShedulerServiceImpl implements SchedulerService {
 
-    private final ReservationStore reservationStore;
-    private final ReservationReader reservationReader;
-    private final UserValidator userValidator;
-    private final UserStore userStore;
-    private final UserReader userReader;
+	private final ReservationStore reservationStore;
+	private final ReservationReader reservationReader;
+	private final UserValidator userValidator;
+	private final UserStore userStore;
+	private final UserReader userReader;
 
+	// 좌석이 만료된 예약 확인
+	@Override
+	public Boolean findExpiredReservations(LocalDateTime now) {
+		// 좌석이 만료된 예약 조회
+		List<Reservation> expiredReservations = reservationReader.findExpiredReservaions(now);
 
-    // 좌석이 만료된 예약 확인
-    @Override
-    public Boolean findExpiredReservations(LocalDateTime now) {
-        // 좌석이 만료된 예약 조회
-        List<Reservation> expiredReservations = reservationReader.findExpiredReservaions(now);
+		if (!expiredReservations.isEmpty()) {
+			return true;
+		}
+		return false;
+	}
 
-        if (!expiredReservations.isEmpty()) {
-            return true;
-        }
-        return false;
-    }
+	// 좌석이 만료된 예약 처리
+	@Override
+	public void expireReservations(LocalDateTime now) {
+		// 좌석이 만료된 예약 조회
+		List<Reservation> expiredReservations = reservationReader.findExpiredReservaions(now);
 
-    // 좌석이 만료된 예약 처리
-    @Override
-    public void expireReservations(LocalDateTime now) {
-        // 좌석이 만료된 예약 조회
-        List<Reservation> expiredReservations = reservationReader.findExpiredReservaions(now);
+		if (!expiredReservations.isEmpty()) {
+			// 예약 만료 : 좌석 활성화 + 예약 취소
+			reservationStore.ExpireReservation(expiredReservations);
+		}
 
-        if (!expiredReservations.isEmpty()) {
-            // 예약 만료 : 좌석 활성화 + 예약 취소
-            reservationStore.ExpireReservation(expiredReservations);
-        }
+	}
 
-    }
+	// 서비스에 입장한 후 10분이 지나도록
+	// 결제를 안하고 있는 유저가 있는지 확인
+	@Override
+	public Boolean findUserTimeValidation(LocalDateTime now) {
+		// 서비스 이용중 유저 조회
+		List<User> workingUsers = userReader.findUsersByStatus(User.State.PROCESSING);
 
+		Boolean validation = userValidator.UserActiveTimeValidator(workingUsers, now);
 
-    // 서비스에 입장한 후 10분이 지나도록
-    // 결제를 안하고 있는 유저가 있는지 확인
-    @Override
-    public Boolean findUserTimeValidation(LocalDateTime now) {
-        // 서비스 이용중 유저 조회
-        List<User> workingUsers = userReader.findUsersByStatus(User.State.PROCESSING);
+		return validation;
+	}
 
-        Boolean validation = userValidator.UserActiveTimeValidator(workingUsers, now);
+	// 서비스에 입장한 후 10분이 지나도록
+	// 결제를 안하고 있는 유저 만료 처리
+	public void expireUsers(LocalDateTime now) {
+		List<User> workingUsers = userReader.findUsersByStatus(User.State.PROCESSING);
 
-        return validation;
-    }
+		if (!workingUsers.isEmpty()) {
+			for (User user : workingUsers) {
+				// user의 status를 Done으로 변경
+				if (now.isAfter(user.getUpdatedAt().plusMinutes(10))) {
+					user.setDone();
+				}
+			}
+		}
+	}
 
-    // 서비스에 입장한 후 10분이 지나도록
-    // 결제를 안하고 있는 유저 만료 처리
-    public void expireUsers(LocalDateTime now) {
-        List<User> workingUsers = userReader.findUsersByStatus(User.State.PROCESSING);
+	// 서비스를 이용중인 유저가 100명 미만인지 확인
+	@Override
+	public Boolean findWorkingUserNumValidation(LocalDateTime now) {
+		// 서비스 이용중 유저 조회
+		List<User> workingUsers = userReader.findUsersByStatus(User.State.PROCESSING);
 
-        if (!workingUsers.isEmpty()) {
-            for (User user : workingUsers) {
-                // user의 status를 Done으로 변경
-                if (now.isAfter(user.getUpdatedAt().plusMinutes(10))) {
-                    user.setDone();
-                }
-            }
-        }
-    }
+		if (workingUsers.size() < 100) {
+			return true;
+		}
+		return false;
+	}
 
+	// 100명보다 부족한 만큼 대기유저 활성화
+	@Override
+	public void enterServiceUser() {
+		// 서비스 이용중 유저
+		List<User> workingUsers = userReader.findUsersByStatus(User.State.PROCESSING);
 
-    // 서비스를 이용중인 유저가 100명 미만인지 확인
-    @Override
-    public Boolean findWorkingUserNumValidation(LocalDateTime now) {
-        // 서비스 이용중 유저 조회
-        List<User> workingUsers = userReader.findUsersByStatus(User.State.PROCESSING);
+		// 대기중인 유저
+		List<User> waitingUsers = userReader.findUsersByStatus(User.State.WAITING);
 
-        if (workingUsers.size() < 100) {
-            return true;
-        }
-        return false;
-    }
+		int num = 0;
 
-    // 100명보다 부족한 만큼 대기유저 활성화
-    @Override
-    public void enterServiceUser() {
-        // 서비스 이용중 유저
-        List<User> workingUsers = userReader.findUsersByStatus(User.State.PROCESSING);
+		num = 100 - workingUsers.size();
+		log.info("num : {}", num);
 
-        // 대기중인 유저
-        List<User> waitingUsers = userReader.findUsersByStatus(User.State.WAITING);
+		if (num > 0) {
+			userStore.enterService(waitingUsers, num);
+		}
 
-        int num = 0;
-
-        num = 100 - workingUsers.size();
-        log.info("num : {}", num);
-
-        if (num > 0) {
-            userStore.enterService(waitingUsers, num);
-        }
-
-    }
+	}
 }

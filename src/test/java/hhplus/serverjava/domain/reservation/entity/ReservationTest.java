@@ -1,57 +1,57 @@
 package hhplus.serverjava.domain.reservation.entity;
 
-import hhplus.serverjava.domain.user.entity.User;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import hhplus.serverjava.domain.user.entity.User;
 
 @ExtendWith(MockitoExtension.class)
 public class ReservationTest {
-    @DisplayName("setPaid테스트")
-    @Test
-    void setPaidTest() {
-        //given
-        LocalDateTime testDateTime = LocalDateTime.now();
-        Reservation reservation = Reservation.builder()
-                .seatNum(10)
-                .reservedPrice(50000)
-                .concertAt(testDateTime)
-                .concertName("MAKTUB CONCERT")
-                .concertArtist("MAKTUB")
-                .build();
+	@DisplayName("setPaid테스트")
+	@Test
+	void setPaidTest() {
+		//given
+		LocalDateTime testDateTime = LocalDateTime.now();
+		Reservation reservation = Reservation.builder()
+			.seatNum(10)
+			.reservedPrice(50000)
+			.concertAt(testDateTime)
+			.concertName("MAKTUB CONCERT")
+			.concertArtist("MAKTUB")
+			.build();
 
-        //when
-        reservation.setPaid();
+		//when
+		reservation.setPaid();
 
-        //then
-        assertEquals(Reservation.State.PAID, reservation.status);
-        assertEquals(User.State.DONE, reservation.getUser().getStatus());
-    }
+		//then
+		assertEquals(Reservation.State.PAID, reservation.status);
+		assertEquals(User.State.DONE, reservation.getUser().getStatus());
+	}
 
-    @DisplayName("setCancelled테스트")
-    @Test
-    void setCancelledTest() {
-        //given
-        LocalDateTime testDateTime = LocalDateTime.now();
-        Reservation reservation = Reservation.builder()
-                .seatNum(10)
-                .reservedPrice(50000)
-                .concertAt(testDateTime)
-                .concertName("MAKTUB CONCERT")
-                .concertArtist("MAKTUB")
-                .build();
+	@DisplayName("setCancelled테스트")
+	@Test
+	void setCancelledTest() {
+		//given
+		LocalDateTime testDateTime = LocalDateTime.now();
+		Reservation reservation = Reservation.builder()
+			.seatNum(10)
+			.reservedPrice(50000)
+			.concertAt(testDateTime)
+			.concertName("MAKTUB CONCERT")
+			.concertArtist("MAKTUB")
+			.build();
 
-        //when
-        reservation.setCancelled();
+		//when
+		reservation.setCancelled();
 
-        //then
-        assertEquals(reservation.status, Reservation.State.CANCELLED);
-    }
-
+		//then
+		assertEquals(reservation.status, Reservation.State.CANCELLED);
+	}
 
 }

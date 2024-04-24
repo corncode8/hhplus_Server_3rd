@@ -12,15 +12,15 @@ import lombok.Setter;
 @AllArgsConstructor
 public class GetTokenResponse {
 
-    // 토큰
-    private String token;
+	// 토큰
+	private String token;
 
-    // 대기 번호
-    private Long listNum;
+	// 대기 번호
+	private Long listNum;
 
-    // 유저 상태
-    private User.State state;
+	// 유저 상태
+	private User.State state;
 
-    // 예상 시간
-//    private LocalDateTime expectedTime;
+	// 예상 시간
+	//    private LocalDateTime expectedTime;
 }

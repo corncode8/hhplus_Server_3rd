@@ -1,9 +1,9 @@
 package hhplus.serverjava.domain.pointhistory.repository;
 
-import hhplus.serverjava.domain.pointhistory.entity.PointHistory;
-
 import java.util.List;
 
+import hhplus.serverjava.domain.pointhistory.entity.PointHistory;
+
 public interface PointHistoryReaderRepository {
-    List<PointHistory> readList(Long userId);
+	List<PointHistory> readList(Long userId);
 }

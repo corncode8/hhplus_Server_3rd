@@ -11,10 +11,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class GetUserResponse {
 
-    // 대기 번호
-    private Long listNum;
+	// 대기 번호
+	private Long listNum;
 
-    // 예상 시간
-//    private LocalDateTime expectedTime;
+	// 예상 시간
+	//    private LocalDateTime expectedTime;
 
 }

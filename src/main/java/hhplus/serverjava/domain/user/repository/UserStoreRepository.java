@@ -4,6 +4,6 @@ import hhplus.serverjava.domain.user.entity.User;
 
 public interface UserStoreRepository {
 
-    User save(User user);
+	User save(User user);
 
 }
