@@ -44,6 +44,8 @@ jobs:
 #          echo "$ENV_YML" > src/main/resources/application.yml
 #          ./gradlew test -Dspring.profiles.active=dev
 
+
+
       - name: Login Docker
         uses: docker/login-action@v1
         with:
