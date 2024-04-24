@@ -35,6 +35,9 @@ jobs:
       - name: Permission go Gradlew
         run: chmod +x ./gradlew
 
+      - name: Build with Gradle
+        run: ./gradlew build -x test
+
 #      - name: Run test
 #        run: |
 #          mkdir src/main/resources
