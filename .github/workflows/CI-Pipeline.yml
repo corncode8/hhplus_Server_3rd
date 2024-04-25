@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - feature/**
   pull_request:
     branches:
       - main
@@ -36,15 +35,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build -x test
-
-      #      - name: Run test
-      #        run: |
-      #          mkdir src/main/resources
-      #          echo "$ENV_YML" > src/main/resources/application.yml
-      #          ./gradlew test -Dspring.profiles.active=dev
-
-
+        run: ./gradlew build
 
       - name: Login Docker
         uses: docker/login-action@v1

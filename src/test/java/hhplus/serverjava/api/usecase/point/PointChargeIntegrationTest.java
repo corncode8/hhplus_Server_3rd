@@ -19,7 +19,7 @@ import hhplus.serverjava.api.user.usecase.UserPointChargeUseCase;
 import hhplus.serverjava.domain.user.componenets.UserReader;
 import hhplus.serverjava.domain.user.componenets.UserStore;
 import hhplus.serverjava.domain.user.entity.User;
-import hhplus.serverjava.domain.user.infrastructure.UserJPARepository;
+import hhplus.serverjava.domain.user.infrastructure.UserJpaRepository;
 
 @SpringBootTest
 @ActiveProfiles("dev")
@@ -33,7 +33,7 @@ public class PointChargeIntegrationTest {
 	private UserStore userStore;
 
 	@Autowired
-	private UserJPARepository userJPARepository;
+	private UserJpaRepository userJpaRepository;
 
 	@Autowired
 	private UserPointChargeUseCase userPointChargeUseCase;
@@ -44,7 +44,7 @@ public class PointChargeIntegrationTest {
 	 */
 	@DisplayName("포인트 충전 동시성 테스트")
 	@Test
-	void 동시성_테스트() throws Exception {
+	void test() throws Exception {
 		//given
 		User user = saveTestUser();
 
@@ -83,7 +83,7 @@ public class PointChargeIntegrationTest {
 		assertEquals(findUser.getPoint(), point * threadCnt);
 
 		// 테스트 유저 삭제
-		userJPARepository.delete(findUser);
+		userJpaRepository.delete(findUser);
 
 	}
 

@@ -15,7 +15,6 @@ import hhplus.serverjava.domain.seat.repository.SeatStoreRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class SeatStoreTest {
-
 	@Mock
 	SeatStoreRepository seatStoreRepository;
 	@InjectMocks

@@ -1,10 +1,10 @@
 package hhplus.serverjava.api.interceptor;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.LocalDateTime;
 
@@ -26,7 +26,6 @@ import hhplus.serverjava.domain.user.entity.User;
 @ActiveProfiles("dev")
 @AutoConfigureMockMvc
 public class TokenInterceptorTest {
-
 	@Autowired
 	private MockMvc mockMvc;
 	@Autowired
@@ -51,9 +50,10 @@ public class TokenInterceptorTest {
 	}
 
 	// 토큰 생성하고 해당 유저로 인터셉터 테스트
+	@SuppressWarnings("checkstyle:RegexpSingleline")
 	@DisplayName("TokenInterceptor 테스트")
 	@Test
-	void InterceptorTest() throws Exception {
+	void interceptorTest() throws Exception {
 		//given
 
 		// 유저 새로 생성

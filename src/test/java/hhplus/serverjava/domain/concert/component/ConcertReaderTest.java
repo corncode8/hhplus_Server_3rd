@@ -23,7 +23,6 @@ import hhplus.serverjava.domain.concert.repository.ConcertReaderRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class ConcertReaderTest {
-
 	@Mock
 	ConcertReaderRepository concertReaderRepository;
 

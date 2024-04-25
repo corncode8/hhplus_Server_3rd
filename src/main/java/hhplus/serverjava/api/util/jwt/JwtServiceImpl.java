@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 public class JwtServiceImpl implements JwtService {
 
 	@Value("${jwt.secret-key}")
-	private String JWT_SECRET_KEY;
+	private String jwtSecretKey;
 
 	// JWT 생성
 	@Override
@@ -37,7 +37,7 @@ public class JwtServiceImpl implements JwtService {
 			.claim("userId", userId)
 			.setIssuedAt(now)
 			.setExpiration(new Date(System.currentTimeMillis() + 1 * (1000 * 60 * 60 * 24 * 365))) // TODO: 토큰 유효시간 설정
-			.signWith(SignatureAlgorithm.HS256, JWT_SECRET_KEY)
+			.signWith(SignatureAlgorithm.HS256, jwtSecretKey)
 			.compact();
 	}
 
@@ -69,7 +69,7 @@ public class JwtServiceImpl implements JwtService {
 		Jws<Claims> claims;
 		try {
 			claims = Jwts.parser()
-				.setSigningKey(JWT_SECRET_KEY)
+				.setSigningKey(jwtSecretKey)
 				.parseClaimsJws(accessToken);
 		} catch (Exception ignored) {
 			throw new BaseException(INVALID_JWT);
@@ -81,5 +81,4 @@ public class JwtServiceImpl implements JwtService {
 		// 3. userId 추출
 		return claims.getBody().get("userId", Long.class);
 	}
-
 }

@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class UserReader {
-
 	private final UserReaderRepository userReaderRepository;
 
 	public User findUser(Long userId) {

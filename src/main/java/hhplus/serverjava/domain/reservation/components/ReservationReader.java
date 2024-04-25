@@ -17,7 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @RequiredArgsConstructor
 public class ReservationReader {
-
 	private final ReservationReaderRepository reservationReaderRepository;
 
 	public Reservation findReservation(Long reservationId) {

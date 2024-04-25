@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class ReservationCreator {
-
 	public static Reservation create(
 		String concertName,
 		String concertArtist,

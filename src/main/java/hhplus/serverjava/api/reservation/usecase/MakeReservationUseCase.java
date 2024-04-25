@@ -43,8 +43,6 @@ public class MakeReservationUseCase {
 		try {
 			User user = userReader.findUser(userId);
 
-			//            Seat seat = seatReader.findAvailableSeat(request.getConcertOptionId(), parse, Seat.State.AVAILABLE, request.getSeatNum());
-
 			// 좌석 예약상태로 변경, 임시 배정시간 5분 Set
 			Seat seat = seatReservedUseCase.setReserved(request.getConcertOptionId(), parse, request.getSeatNum());
 

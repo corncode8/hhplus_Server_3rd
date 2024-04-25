@@ -9,11 +9,10 @@ import lombok.RequiredArgsConstructor;
 @Repository
 @RequiredArgsConstructor
 public class SeatCoreStoreRepository implements SeatStoreRepository {
-
-	private final SeatJPARepository seatJPARepository;
+	private final SeatJpaRepository seatJpaRepository;
 
 	@Override
 	public Seat save(Seat seat) {
-		return seatJPARepository.save(seat);
+		return seatJpaRepository.save(seat);
 	}
 }

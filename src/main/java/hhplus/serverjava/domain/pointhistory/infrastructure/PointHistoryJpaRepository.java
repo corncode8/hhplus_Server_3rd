@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import hhplus.serverjava.domain.pointhistory.entity.PointHistory;
 
-public interface PointHistoryJPARepository extends JpaRepository<PointHistory, Long> {
+public interface PointHistoryJpaRepository extends JpaRepository<PointHistory, Long> {
 
 	List<PointHistory> findAllByUser_Id(Long userId);
 }

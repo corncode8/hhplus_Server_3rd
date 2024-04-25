@@ -10,10 +10,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ConcertCoreStoreRepository implements ConcertStoreRepository {
 
-	private final ConcertJPARepository concertJPARepository;
+	private final ConcertJpaRepository concertJpaRepository;
 
 	@Override
 	public Concert save(Concert concert) {
-		return concertJPARepository.save(concert);
+		return concertJpaRepository.save(concert);
 	}
 }

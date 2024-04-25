@@ -14,7 +14,6 @@ import hhplus.serverjava.domain.seat.entity.Seat;
 
 @ExtendWith(MockitoExtension.class)
 public class ConcertOptionTest {
-
 	@DisplayName("addConcert테스트")
 	@Test
 	void addConcertTest() {
@@ -56,5 +55,4 @@ public class ConcertOptionTest {
 		//then
 		assertEquals(concertOption.getSeatList().get(0), seat);
 	}
-
 }

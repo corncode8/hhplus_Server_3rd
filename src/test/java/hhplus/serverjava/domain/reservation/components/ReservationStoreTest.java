@@ -20,7 +20,6 @@ import hhplus.serverjava.domain.seat.entity.Seat;
 
 @ExtendWith(MockitoExtension.class)
 public class ReservationStoreTest {
-
 	@Mock
 	ReservationStoreRepository repository;
 
@@ -54,7 +53,7 @@ public class ReservationStoreTest {
 
 	@DisplayName("ExpireReservation테스트")
 	@Test
-	void ExpireReservationTest() {
+	void expireReservationTest() {
 		//given
 
 		Long testId = 1L;
@@ -69,7 +68,7 @@ public class ReservationStoreTest {
 			new Reservation("MAKTUB", "MAKTUB CONCERT", testDateTime, seat)
 		);
 		//when
-		reservationStore.ExpireReservation(reservationList);
+		reservationStore.expireReservation(reservationList);
 
 		//then
 

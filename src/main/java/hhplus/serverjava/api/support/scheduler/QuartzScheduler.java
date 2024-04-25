@@ -25,7 +25,7 @@ public class QuartzScheduler {
 	private static Scheduler scheduler;
 
 	@PostConstruct
-	public void QuartzScheduler() throws SchedulerException {
+	public void quartzSchedulerMethod() throws SchedulerException {
 
 		String jobName = "mainSchedulerJob";
 		String triggerName = "mainTrigger";

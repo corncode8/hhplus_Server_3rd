@@ -21,6 +21,7 @@ import hhplus.serverjava.api.reservation.response.GetDateResponse;
 import hhplus.serverjava.domain.concertoption.components.ConcertOptionReader;
 import hhplus.serverjava.domain.concertoption.entity.ConcertOption;
 
+@SuppressWarnings("checkstyle:RegexpMultiline")
 @ExtendWith(MockitoExtension.class)
 public class FindConcertOptionUseCaseTest {
 

@@ -12,11 +12,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PointHistoryCoreReaderRepository implements PointHistoryReaderRepository {
 
-	private final PointHistoryJPARepository pointHistoryJPARepository;
+	private final PointHistoryJpaRepository pointHistoryJpaRepository;
 
 	@Override
 	public List<PointHistory> readList(Long userId) {
-		return pointHistoryJPARepository.findAllByUser_Id(userId);
+		return pointHistoryJpaRepository.findAllByUser_Id(userId);
 	}
 
 }

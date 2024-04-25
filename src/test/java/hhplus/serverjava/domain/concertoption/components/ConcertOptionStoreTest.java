@@ -17,7 +17,6 @@ import hhplus.serverjava.domain.concertoption.repository.ConcertOptionStoreRepos
 
 @ExtendWith(MockitoExtension.class)
 public class ConcertOptionStoreTest {
-
 	@Mock
 	ConcertOptionStoreRepository concertOptionStoreRepository;
 

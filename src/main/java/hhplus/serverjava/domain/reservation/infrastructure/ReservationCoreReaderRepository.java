@@ -13,8 +13,7 @@ import lombok.RequiredArgsConstructor;
 @Repository
 @RequiredArgsConstructor
 public class ReservationCoreReaderRepository implements ReservationReaderRepository {
-
-	private final ReservationJPARepository repository;
+	private final ReservationJpaRepository repository;
 
 	@Override
 	public Optional<Reservation> findReservation(Long reservationId) {

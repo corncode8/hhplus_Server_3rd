@@ -15,7 +15,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class GetSeatsResponse {
-
 	private Long concertOptionId;
 
 	@JsonInclude(JsonInclude.Include.NON_NULL)

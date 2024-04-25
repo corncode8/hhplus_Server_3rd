@@ -11,7 +11,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 public class UserTest {
-
 	@DisplayName("setWaiting테스트")
 	@Test
 	void setWaitingTest() {

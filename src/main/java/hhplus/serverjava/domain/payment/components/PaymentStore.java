@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class PaymentStore {
-
 	private final PaymentStoreRepository paymentStoreRepository;
 
 	public Payment save(Payment payment) {

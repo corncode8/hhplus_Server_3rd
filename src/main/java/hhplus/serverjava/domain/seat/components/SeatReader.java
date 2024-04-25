@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class SeatReader {
-
 	private final SeatReaderRepository seatReaderRepository;
 
 	public List<Seat> findAvailableSeats(Long concertId, LocalDateTime targetDate, Seat.State state) {

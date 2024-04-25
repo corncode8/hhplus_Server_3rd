@@ -9,10 +9,9 @@ import lombok.RequiredArgsConstructor;
 @Repository
 @RequiredArgsConstructor
 public class PaymentCoreStoreRepository implements PaymentStoreRepository {
-
-	private final PaymentJPARepository paymentJPARepository;
+	private final PaymentJpaRepository paymentJpaRepository;
 
 	public Payment save(Payment payment) {
-		return paymentJPARepository.save(payment);
+		return paymentJpaRepository.save(payment);
 	}
 }

@@ -15,7 +15,6 @@ import hhplus.serverjava.domain.user.entity.User;
 
 @ExtendWith(MockitoExtension.class)
 public class ReservationTest {
-
 	@Mock
 	User user;
 

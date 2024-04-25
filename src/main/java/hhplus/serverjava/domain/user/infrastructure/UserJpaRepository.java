@@ -12,12 +12,10 @@ import org.springframework.data.repository.query.Param;
 
 import hhplus.serverjava.domain.user.entity.User;
 
-public interface UserJPARepository extends JpaRepository<User, Long> {
-
+public interface UserJpaRepository extends JpaRepository<User, Long> {
 	List<User> findUsersByStatus(User.State state);
 
 	@Query("select u from User u where u.id = :id")
 	@Lock(LockModeType.PESSIMISTIC_WRITE)
 	Optional<User> findByIdWithLock(@Param("id") Long id);
-
 }

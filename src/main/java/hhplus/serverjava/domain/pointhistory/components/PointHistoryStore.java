@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class PointHistoryStore {
-
 	private final PointHistoryStoreRepository pointHistoryStoreRepository;
 
 	public PointHistory save(PointHistory pointHistory) {

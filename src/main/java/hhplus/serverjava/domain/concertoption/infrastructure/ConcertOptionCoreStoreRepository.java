@@ -9,11 +9,10 @@ import lombok.RequiredArgsConstructor;
 @Repository
 @RequiredArgsConstructor
 public class ConcertOptionCoreStoreRepository implements ConcertOptionStoreRepository {
-
-	private final ConcertOptionJPARepository concertOptionJPARepository;
+	private final ConcertOptionJpaRepository concertOptionJpaRepository;
 
 	@Override
 	public ConcertOption save(ConcertOption concertOption) {
-		return concertOptionJPARepository.save(concertOption);
+		return concertOptionJpaRepository.save(concertOption);
 	}
 }

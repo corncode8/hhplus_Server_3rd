@@ -20,7 +20,6 @@ import hhplus.serverjava.domain.reservation.repository.ReservationReaderReposito
 
 @ExtendWith(MockitoExtension.class)
 public class ReservationReaderTest {
-
 	@Mock
 	ReservationReaderRepository reservationReaderRepository;
 

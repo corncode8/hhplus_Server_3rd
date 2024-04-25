@@ -13,15 +13,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ConcertCoreReaderRepository implements ConcertReaderRepository {
 
-	private final ConcertJPARepository concertJPARepository;
+	private final ConcertJpaRepository concertJpaRepository;
 
 	@Override
 	public Optional<Concert> findConcert(Long concertId) {
-		return concertJPARepository.findById(concertId);
+		return concertJpaRepository.findById(concertId);
 	}
 
 	@Override
 	public List<Concert> findConcertList(Concert.State state) {
-		return concertJPARepository.findConcertsByStatus(state);
+		return concertJpaRepository.findConcertsByStatus(state);
 	}
 }

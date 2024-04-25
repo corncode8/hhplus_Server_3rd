@@ -14,7 +14,6 @@ import hhplus.serverjava.domain.user.componenets.UserValidator;
 
 @ExtendWith(MockitoExtension.class)
 public class UserValidatorTest {
-
 	@InjectMocks
 	private UserValidator userValidator;
 

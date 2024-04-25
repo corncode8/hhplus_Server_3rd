@@ -12,7 +12,6 @@ import hhplus.serverjava.domain.user.entity.User;
 
 @Component
 public class UserValidator {
-
 	public void isValidUserPoint(int price, Long balance) {
 		if (price > balance) {
 			throw new BaseException(NOT_ENOUGH_POINT);
@@ -20,7 +19,7 @@ public class UserValidator {
 	}
 
 	// 서비스에 입장한 후 10분이 지나도록 결제도 안하고 있는지 확인
-	public Boolean UserActiveTimeValidator(List<User> workingUsers, LocalDateTime now) {
+	public Boolean userActiveTimeValidator(List<User> workingUsers, LocalDateTime now) {
 
 		if (!workingUsers.isEmpty()) {
 			for (User user : workingUsers) {
@@ -34,7 +33,7 @@ public class UserValidator {
 
 	// 서비스에 입장한 후 10분이 지나도록 결제도 안하고 있다면 내보내준다
 	// 서비스를 이용중인 유저가 100명보다 적다면 plusUsersNum++
-	public int UserSchedulerValidator(List<User> workingUsers, LocalDateTime now, int plusUsersNum) {
+	public int userSchedulerValidator(List<User> workingUsers, LocalDateTime now, int plusUsersNum) {
 		int temp = 0;
 
 		if (!workingUsers.isEmpty()) {

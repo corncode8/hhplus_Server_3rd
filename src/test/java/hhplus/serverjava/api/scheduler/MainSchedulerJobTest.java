@@ -31,7 +31,6 @@ import hhplus.serverjava.domain.user.entity.User;
 @ActiveProfiles("dev")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class MainSchedulerJobTest {
-
 	@Autowired
 	private ApplicationContext applicationContext;
 
@@ -75,7 +74,7 @@ public class MainSchedulerJobTest {
 
 	@DisplayName("Quartz MainSchedulerJob 테스트")
 	@Test
-	void MainSchedulerJobTest() throws SchedulerException, InterruptedException {
+	void mainSchedulerJobTest() throws SchedulerException, InterruptedException {
 		//given
 
 		// 좌석이 만료된 예약 조회

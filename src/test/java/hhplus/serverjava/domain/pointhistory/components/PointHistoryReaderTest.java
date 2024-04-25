@@ -21,7 +21,6 @@ import hhplus.serverjava.domain.user.entity.User;
 
 @ExtendWith(MockitoExtension.class)
 public class PointHistoryReaderTest {
-
 	@Mock
 	PointHistoryReaderRepository pointHistoryReaderRepository;
 

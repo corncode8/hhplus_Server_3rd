@@ -22,7 +22,6 @@ import hhplus.serverjava.domain.user.repository.UserReaderRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class UserReaderTest {
-
 	@Mock
 	UserReaderRepository userReaderRepository;
 

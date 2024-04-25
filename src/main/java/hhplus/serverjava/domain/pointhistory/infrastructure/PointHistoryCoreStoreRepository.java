@@ -10,9 +10,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PointHistoryCoreStoreRepository implements PointHistoryStoreRepository {
 
-	private final PointHistoryJPARepository pointHistoryJPARepository;
+	private final PointHistoryJpaRepository pointHistoryJpaRepository;
 
 	public PointHistory save(PointHistory pointHistory) {
-		return pointHistoryJPARepository.save(pointHistory);
+		return pointHistoryJpaRepository.save(pointHistory);
 	}
 }

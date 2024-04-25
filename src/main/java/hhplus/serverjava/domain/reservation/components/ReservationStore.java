@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class ReservationStore {
-
 	private final ReservationStoreRepository repository;
 
 	public Reservation save(Reservation reservation) {
@@ -20,7 +19,7 @@ public class ReservationStore {
 	}
 
 	// 좌석 활성화 + 예약 취소 로직
-	public void ExpireReservation(List<Reservation> expiredReservaions) {
+	public void expireReservation(List<Reservation> expiredReservaions) {
 		if (!expiredReservaions.isEmpty()) {
 			for (Reservation reservation : expiredReservaions) {
 				Seat seat = reservation.getSeat();

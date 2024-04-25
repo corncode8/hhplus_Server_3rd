@@ -18,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @RequiredArgsConstructor
 public class ConcertOptionReader {
-
 	private final ConcertOptionReaderRepository concertOptionReaderRepository;
 
 	public List<ConcertOption> findConcertOptionList(Long concertId) {

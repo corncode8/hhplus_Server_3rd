@@ -9,12 +9,11 @@ import lombok.RequiredArgsConstructor;
 @Repository
 @RequiredArgsConstructor
 public class UserCoreStoreRepository implements UserStoreRepository {
-
-	private final UserJPARepository userJPARepository;
+	private final UserJpaRepository userJpaRepository;
 
 	@Override
 	public User save(User user) {
-		return userJPARepository.save(user);
+		return userJpaRepository.save(user);
 	}
 
 }

@@ -9,8 +9,7 @@ import lombok.RequiredArgsConstructor;
 @Repository
 @RequiredArgsConstructor
 public class ReservationCoreStoreRepository implements ReservationStoreRepository {
-
-	private final ReservationJPARepository repository;
+	private final ReservationJpaRepository repository;
 
 	@Override
 	public Reservation save(Reservation reservation) {

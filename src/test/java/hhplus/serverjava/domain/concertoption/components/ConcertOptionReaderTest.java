@@ -24,7 +24,6 @@ import hhplus.serverjava.domain.concertoption.repository.ConcertOptionReaderRepo
 
 @ExtendWith(MockitoExtension.class)
 public class ConcertOptionReaderTest {
-
 	@Mock
 	ConcertOptionReaderRepository concertOptionReaderRepository;
 

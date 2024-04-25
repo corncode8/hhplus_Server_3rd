@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class PointHistoryReader {
-
 	private final PointHistoryReaderRepository pointHistoryReaderRepository;
 
 	public List<PointHistory> readList(Long userId) {

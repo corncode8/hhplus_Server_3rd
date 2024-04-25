@@ -6,7 +6,6 @@ import java.util.Optional;
 import hhplus.serverjava.domain.user.entity.User;
 
 public interface UserReaderRepository {
-
 	Optional<User> findUser(Long userId);
 
 	Optional<User> findByIdWithLock(Long id);

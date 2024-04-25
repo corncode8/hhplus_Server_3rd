@@ -12,7 +12,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 public class SeatTest {
-
 	@DisplayName("setReserved테스트")
 	@Test
 	void setReservedTest() {

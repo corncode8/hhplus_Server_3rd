@@ -4,5 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import hhplus.serverjava.domain.payment.entity.Payment;
 
-public interface PaymentJPARepository extends JpaRepository<Payment, Long> {
+public interface PaymentJpaRepository extends JpaRepository<Payment, Long> {
 }

@@ -15,7 +15,6 @@ import hhplus.serverjava.domain.payment.reservation.PaymentStoreRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class PaymentStoreTest {
-
 	@Mock
 	PaymentStoreRepository paymentStoreRepository;
 

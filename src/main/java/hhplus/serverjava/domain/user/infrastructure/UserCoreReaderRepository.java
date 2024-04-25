@@ -12,22 +12,21 @@ import lombok.RequiredArgsConstructor;
 @Repository
 @RequiredArgsConstructor
 public class UserCoreReaderRepository implements UserReaderRepository {
-
-	private final UserJPARepository userJPARepository;
+	private final UserJpaRepository userJpaRepository;
 
 	@Override
 	public Optional<User> findUser(Long userId) {
-		return userJPARepository.findById(userId);
+		return userJpaRepository.findById(userId);
 	}
 
 	@Override
 	public Optional<User> findByIdWithLock(Long id) {
-		return userJPARepository.findByIdWithLock(id);
+		return userJpaRepository.findByIdWithLock(id);
 	}
 
 	@Override
 	public List<User> findUsersByStatus(User.State state) {
-		return userJPARepository.findUsersByStatus(state);
+		return userJpaRepository.findUsersByStatus(state);
 	}
 
 }

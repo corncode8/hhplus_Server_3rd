@@ -48,24 +48,24 @@ public class PaymentUseCaseTest {
 	@Test
 	void test() {
 		//given
-		Long Id = 1L;
+		Long id = 1L;
 		int payAmount = 50000;
 
-		User user = new User(Id, 5000000L);
+		User user = new User(id, 5000000L);
 
 		Concert concert = Concert.builder()
-			.id(Id)
+			.id(id)
 			.name("마크툽 콘서트")
 			.artist("마크툽")
 			.build();
 
 		ConcertOption concertOption = ConcertOption.builder()
-			.id(Id)
+			.id(id)
 			.concertAt(LocalDateTime.now())
 			.build();
 
 		Seat seat = Seat.builder()
-			.id(Id)
+			.id(id)
 			.price(50000)
 			.seatNum(15)
 			.build();
@@ -81,7 +81,7 @@ public class PaymentUseCaseTest {
 			.build();
 
 		Payment payment = Payment.builder()
-			.id(Id)
+			.id(id)
 			.payAmount((long)payAmount)
 			.reservation(reservation)
 			.build();

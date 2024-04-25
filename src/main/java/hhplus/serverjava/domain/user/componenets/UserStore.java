@@ -16,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @RequiredArgsConstructor
 public class UserStore {
-
 	private final UserStoreRepository userStoreRepository;
 
 	public User save(User user) {

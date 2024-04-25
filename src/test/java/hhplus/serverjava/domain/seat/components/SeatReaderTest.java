@@ -23,7 +23,6 @@ import hhplus.serverjava.domain.seat.repository.SeatReaderRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class SeatReaderTest {
-
 	@Mock
 	SeatReaderRepository seatReaderRepository;
 

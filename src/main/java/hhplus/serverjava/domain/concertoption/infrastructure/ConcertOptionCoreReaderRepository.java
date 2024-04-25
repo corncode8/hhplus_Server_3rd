@@ -14,20 +14,19 @@ import lombok.RequiredArgsConstructor;
 @Repository
 @RequiredArgsConstructor
 public class ConcertOptionCoreReaderRepository implements ConcertOptionReaderRepository {
-
-	private final ConcertOptionJPARepository concertOptionJPARepository;
+	private final ConcertOptionJpaRepository concertOptionJpaRepository;
 
 	@Override
 	public List<ConcertOption> findConcertOptionList(Long concertId) {
-		return concertOptionJPARepository.findByConcert_Id(concertId);
+		return concertOptionJpaRepository.findByConcert_Id(concertId);
 	}
 
 	@Override
 	public Optional<ConcertOption> findConcertOption(Long concertId, LocalDateTime concertAt) {
-		return concertOptionJPARepository.findByConcert_IdAndConcertAt(concertId, concertAt);
+		return concertOptionJpaRepository.findByConcert_IdAndConcertAt(concertId, concertAt);
 	}
 
 	public Optional<Concert> findConcert(Long concertOptionId) {
-		return concertOptionJPARepository.findConcert(concertOptionId);
+		return concertOptionJpaRepository.findConcert(concertOptionId);
 	}
 }

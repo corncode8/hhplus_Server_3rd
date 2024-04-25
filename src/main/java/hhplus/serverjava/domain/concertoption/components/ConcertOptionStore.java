@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class ConcertOptionStore {
-
 	private final ConcertOptionStoreRepository concertOptionStoreRepository;
 
 	public ConcertOption save(ConcertOption concertOption) {
