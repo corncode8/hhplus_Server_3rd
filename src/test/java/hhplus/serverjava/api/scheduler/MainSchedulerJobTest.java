@@ -1,6 +1,6 @@
 package hhplus.serverjava.api.scheduler;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 
