@@ -36,11 +36,14 @@ jobs:
       - name: Permission go Gradlew
         run: chmod +x ./gradlew
 
-      - name: Build with Gradle
+      - name: Set YML
         run: |
-          mkdir src/main/resources
-          echo "$DEV_YML" > src/main/resources/application.yml
-          ./gradlew build
+          mkdir -p src/main/resources
+          echo "${{ secrets.APPLICATION_YML }}" | base64 --decode > src/main/resources/application.yml
+          find src
+
+      - name: Build with Gradle
+        run: ./gradlew build
 
       - name: Login Docker
         uses: docker/login-action@v1
