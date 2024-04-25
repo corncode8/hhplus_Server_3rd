@@ -37,7 +37,10 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: |
+          mkdir src/main/resources
+          echo "$DEV_YML" > src/main/resources/application.yml
+          ./gradlew build
 
       - name: Login Docker
         uses: docker/login-action@v1
