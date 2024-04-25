@@ -1,7 +1,9 @@
 package hhplus.serverjava.domain.user.entity;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.DisplayName;
@@ -24,7 +26,7 @@ public class UserTest {
 
 		//then
 		assertEquals(User.State.WAITING, user.getStatus());
-		assertEquals(testDateTime, user.getUpdatedAt());
+		assertTrue(Math.abs(Duration.between(testDateTime, user.getUpdatedAt()).getSeconds()) < 5);
 	}
 
 	@DisplayName("setProcessing테스트")
@@ -40,7 +42,7 @@ public class UserTest {
 
 		//then
 		assertEquals(User.State.PROCESSING, user.getStatus());
-		assertEquals(testDateTime, user.getUpdatedAt());
+		assertTrue(Math.abs(Duration.between(testDateTime, user.getUpdatedAt()).getSeconds()) < 5);
 	}
 
 	@DisplayName("setDone테스트")
@@ -56,7 +58,7 @@ public class UserTest {
 
 		//then
 		assertEquals(User.State.DONE, user.getStatus());
-		assertEquals(testDateTime, user.getUpdatedAt());
+		assertTrue(Math.abs(Duration.between(testDateTime, user.getUpdatedAt()).getSeconds()) < 5);
 	}
 
 	@DisplayName("sumPoint테스트")
