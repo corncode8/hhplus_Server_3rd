@@ -88,6 +88,13 @@ public class User extends BaseEntity {
 		this.updatedAt = updatedAt;
 	}
 
+	public User(Long id, Long point, LocalDateTime updatedAt, String name) {
+		this.id = id;
+		this.point = point;
+		this.updatedAt = updatedAt;
+		this.name = name;
+	}
+
 	@Builder
 	public User(String name, Long point, LocalDateTime updatedAt) {
 		this.name = name;

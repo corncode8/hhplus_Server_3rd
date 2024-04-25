@@ -48,6 +48,7 @@ public class ShedulerServiceImpl implements SchedulerService {
 
 		if (!expiredReservations.isEmpty()) {
 			// 예약 만료 : 좌석 활성화 + 예약 취소
+			log.info("예약 만료 로직 실행");
 			reservationStore.ExpireReservation(expiredReservations);
 		}
 

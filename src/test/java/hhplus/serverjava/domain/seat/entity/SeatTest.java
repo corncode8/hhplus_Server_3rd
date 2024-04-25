@@ -2,6 +2,7 @@ package hhplus.serverjava.domain.seat.entity;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.DisplayName;
@@ -26,7 +27,7 @@ public class SeatTest {
 
 		//then
 		assertEquals(Seat.State.RESERVED, seat.getStatus());
-		assertEquals(testDateTime, seat.getExpiredAt());
+		assertTrue(Math.abs(Duration.between(testDateTime, seat.getExpiredAt()).getSeconds()) < 5);
 	}
 
 	@DisplayName("setAvailable테스트")

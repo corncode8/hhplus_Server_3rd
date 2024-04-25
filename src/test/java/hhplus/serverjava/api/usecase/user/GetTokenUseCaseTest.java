@@ -3,6 +3,8 @@ package hhplus.serverjava.api.usecase.user;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,6 +16,8 @@ import hhplus.serverjava.api.user.response.GetTokenResponse;
 import hhplus.serverjava.api.user.usecase.GetTokenUseCase;
 import hhplus.serverjava.api.util.jwt.JwtService;
 import hhplus.serverjava.domain.user.componenets.UserReader;
+import hhplus.serverjava.domain.user.componenets.UserStore;
+import hhplus.serverjava.domain.user.entity.User;
 
 @ExtendWith(MockitoExtension.class)
 public class GetTokenUseCaseTest {
@@ -22,6 +26,8 @@ public class GetTokenUseCaseTest {
 	UserReader userReader;
 	@Mock
 	JwtService jwtService;
+	@Mock
+	UserStore userStore;
 
 	@InjectMocks
 	GetTokenUseCase getTokenUseCase;
@@ -30,14 +36,19 @@ public class GetTokenUseCaseTest {
 	@Test
 	void test() {
 		//given
-		Long userId = 1L;
-		String username = "TestUser";
 		String jwt = "jfnherjkfera-Test-Token";
 
-		when(jwtService.createJwt(userId)).thenReturn(jwt);
+		User user = User.builder()
+			.point(0L)
+			.name("testUser")
+			.updatedAt(LocalDateTime.now())
+			.build();
+
+		when(userStore.save(any(User.class))).thenReturn(user);
+		when(jwtService.createJwt(user.getId())).thenReturn(jwt);
 
 		//when
-		GetTokenResponse result = getTokenUseCase.execute(username);
+		GetTokenResponse result = getTokenUseCase.execute(user.getName());
 
 		// then
 		assertNotNull(result);

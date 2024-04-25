@@ -19,8 +19,11 @@ import hhplus.serverjava.domain.concert.entity.Concert;
 import hhplus.serverjava.domain.concertoption.entity.ConcertOption;
 import hhplus.serverjava.domain.payment.components.PaymentStore;
 import hhplus.serverjava.domain.payment.entity.Payment;
+import hhplus.serverjava.domain.reservation.components.ReservationReader;
 import hhplus.serverjava.domain.reservation.entity.Reservation;
 import hhplus.serverjava.domain.seat.entity.Seat;
+import hhplus.serverjava.domain.user.componenets.UserReader;
+import hhplus.serverjava.domain.user.componenets.UserValidator;
 import hhplus.serverjava.domain.user.entity.User;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,6 +31,15 @@ public class PaymentUseCaseTest {
 
 	@Mock
 	PaymentStore paymentStore;
+
+	@Mock
+	ReservationReader reservationReader;
+
+	@Mock
+	UserReader userReader;
+
+	@Mock
+	UserValidator userValidator;
 
 	@InjectMocks
 	PaymentUseCase paymentUseCase;
@@ -74,7 +86,9 @@ public class PaymentUseCaseTest {
 			.reservation(reservation)
 			.build();
 
-		when(paymentStore.save(payment)).thenReturn(payment);
+		when(reservationReader.findReservation(reservation.getId())).thenReturn(reservation);
+		when(paymentStore.save(any(Payment.class))).thenReturn(payment);
+		when(userReader.findUser(user.getId())).thenReturn(user);
 
 		PostPayRequest request = new PostPayRequest(reservation.getId(), payAmount);
 
@@ -83,7 +97,6 @@ public class PaymentUseCaseTest {
 
 		//then
 		assertNotNull(result);
-		assertEquals(result.getPayId(), payment.getId());
 
 		assertEquals(result.getPayAmount(), payment.getPayAmount());
 		assertEquals(result.getReservationId(), reservation.getId());

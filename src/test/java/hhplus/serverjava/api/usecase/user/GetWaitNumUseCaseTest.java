@@ -48,7 +48,6 @@ public class GetWaitNumUseCaseTest {
 			mockUser.add(user);
 		}
 
-		when(userStore.save(testUser)).thenReturn(testUser);
 		when(userReader.findUser(userId)).thenReturn(testUser);
 		when(userReader.findUsersByStatus(User.State.PROCESSING)).thenReturn(mockUser);
 

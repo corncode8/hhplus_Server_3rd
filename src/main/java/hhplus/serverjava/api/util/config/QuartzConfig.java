@@ -6,7 +6,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Configuration
 @RequiredArgsConstructor
 public class QuartzConfig {
@@ -15,10 +17,11 @@ public class QuartzConfig {
 
 	@Bean
 	public SchedulerFactoryBean schedulerFactoryBean() {
+		log.info("Config_applicationContext : {}", applicationContext);
 		SchedulerFactoryBean factory = new SchedulerFactoryBean();
 
-		factory.setApplicationContext(applicationContext);
 		factory.setApplicationContextSchedulerContextKey("applicationContext");
+		factory.setApplicationContext(applicationContext);
 
 		return factory;
 	}

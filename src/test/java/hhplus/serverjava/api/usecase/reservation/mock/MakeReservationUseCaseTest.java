@@ -17,10 +17,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import hhplus.serverjava.api.reservation.request.PostReservationRequest;
 import hhplus.serverjava.api.reservation.response.PostReservationResponse;
 import hhplus.serverjava.api.reservation.usecase.MakeReservationUseCase;
+import hhplus.serverjava.api.seat.usecase.SeatReservedUseCase;
 import hhplus.serverjava.domain.concert.entity.Concert;
 import hhplus.serverjava.domain.concertoption.components.ConcertOptionReader;
+import hhplus.serverjava.domain.reservation.components.ReservationStore;
 import hhplus.serverjava.domain.seat.components.SeatReader;
 import hhplus.serverjava.domain.seat.entity.Seat;
+import hhplus.serverjava.domain.user.componenets.UserReader;
 import hhplus.serverjava.domain.user.entity.User;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,6 +33,15 @@ public class MakeReservationUseCaseTest {
 	ConcertOptionReader concertOptionReader;
 	@Mock
 	SeatReader seatReader;
+	@Mock
+	ReservationStore reservationStore;
+
+	@Mock
+	UserReader userReader;
+
+	@Mock
+	SeatReservedUseCase seatReservedUseCase;
+
 	@InjectMocks
 	MakeReservationUseCase makeReservationUseCase;
 
@@ -59,7 +71,8 @@ public class MakeReservationUseCaseTest {
 
 		PostReservationRequest request = new PostReservationRequest(testId, testDateTime.toString(), testSeatNum);
 
-		when(seatReader.findAvailableSeat(testId, testDateTime, Seat.State.AVAILABLE, 10)).thenReturn(seat);
+		when(seatReservedUseCase.setReserved(testId, testDateTime, 10)).thenReturn(seat);
+		when(userReader.findUser(user.getId())).thenReturn(user);
 		when(concertOptionReader.findConcert(testId)).thenReturn(concert);
 
 		//when

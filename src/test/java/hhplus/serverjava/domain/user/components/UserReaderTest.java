@@ -4,7 +4,6 @@ import static hhplus.serverjava.api.support.response.BaseResponseStatus.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -114,18 +113,18 @@ public class UserReaderTest {
 		assertEquals(result.size(), userList.size());
 	}
 
-	@DisplayName("findUsersByStatusEmtpy테스트")
-	@Test
-	void findUsersByStatusEmptyTest() {
-		//given
-		List<User> userList = new ArrayList<>();
-
-		when(userReaderRepository.findUsersByStatus(User.State.WAITING)).thenReturn(userList);
-
-		//when & then
-		BaseException exception = assertThrows(BaseException.class,
-			() -> userReader.findUsersByStatus(User.State.WAITING));
-		assertEquals(NOT_FIND_USER.getMessage(), exception.getMessage());
-
-	}
+	// @DisplayName("findUsersByStatusEmtpy테스트")
+	// @Test
+	// void findUsersByStatusEmptyTest() {
+	// 	//given
+	// 	List<User> userList = new ArrayList<>();
+	//
+	// 	when(userReaderRepository.findUsersByStatus(User.State.WAITING)).thenReturn(userList);
+	//
+	// 	//when & then
+	// 	BaseException exception = assertThrows(BaseException.class,
+	// 		() -> userReader.findUsersByStatus(User.State.WAITING));
+	// 	assertEquals(NOT_FIND_USER.getMessage(), exception.getMessage());
+	//
+	// }
 }

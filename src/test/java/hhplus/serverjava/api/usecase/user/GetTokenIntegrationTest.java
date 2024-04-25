@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
 import hhplus.serverjava.api.user.response.GetTokenResponse;
@@ -18,6 +19,7 @@ import hhplus.serverjava.domain.user.entity.User;
 
 @SpringBootTest
 @ActiveProfiles("dev")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class GetTokenIntegrationTest {
 
 	// 토큰을 생성 + 대기열 확인 통합 테스트

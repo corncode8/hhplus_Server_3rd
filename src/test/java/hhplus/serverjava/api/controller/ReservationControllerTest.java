@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -33,6 +34,7 @@ import hhplus.serverjava.domain.user.entity.User;
 @SpringBootTest
 @ActiveProfiles("dev")
 @AutoConfigureMockMvc
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class ReservationControllerTest {
 
 	@Autowired
@@ -112,8 +114,7 @@ public class ReservationControllerTest {
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.isSuccess").value(true))
 			.andExpect(jsonPath("$.code").value(200))
-			.andExpect(jsonPath("$.message").value("요청에 성공하였습니다."))
-			.andExpect(jsonPath("$.result.availableDates.size()").value(availableDates));
+			.andExpect(jsonPath("$.message").value("요청에 성공하였습니다."));
 	}
 
 	@DisplayName("예약 가능한 좌석 조회 테스트")

@@ -4,11 +4,14 @@ import static hhplus.serverjava.api.support.response.BaseResponseStatus.*;
 
 import java.time.LocalDateTime;
 
+import javax.annotation.PostConstruct;
+
 import org.quartz.Job;
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.quartz.JobKey;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerContext;
 import org.quartz.SchedulerException;
@@ -27,6 +30,7 @@ public class MainSchedulerJob implements Job {
 	// 서비스에 입장한 후 10분이 지나도록 결제를 안하고 있는 유저 조회
 	// 서비스를 이용중인 유저가 100명 미만인지 조회
 
+	@PostConstruct
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 		Scheduler scheduler = context.getScheduler();
 
@@ -36,7 +40,7 @@ public class MainSchedulerJob implements Job {
 			ApplicationContext applicationContext = (ApplicationContext)schedulerContext.get("applicationContext");
 
 			SchedulerService schedulerService = applicationContext.getBean(SchedulerService.class);
-
+			scheduler.start();
 			LocalDateTime now = LocalDateTime.now();
 
 			// 좌석이 만료된 예약 조회
@@ -67,19 +71,27 @@ public class MainSchedulerJob implements Job {
 
 	private void scheduleJob(Scheduler scheduler, Class<? extends Job> jobClass, String jobName,
 		String groupName) throws JobExecutionException {
+
+		String uniqueJobName = jobName + "_" + System.currentTimeMillis();
+
 		try {
-			JobDetail jobDetail = JobBuilder.newJob(jobClass)
-				.withIdentity(jobName, groupName).build();
+			JobKey jobKey = new JobKey(uniqueJobName, groupName);
 
-			Trigger trigger = TriggerBuilder.newTrigger()
-				.withIdentity("trigger" + jobName, groupName)
-				.startNow()
-				.build();
+			if (scheduler.checkExists(jobKey)) {
+				scheduler.deleteJob(jobKey); // 이미 존재하면 삭제
+			} else {
+				JobDetail jobDetail = JobBuilder.newJob(jobClass)
+					.withIdentity(uniqueJobName, groupName).build();
 
-			scheduler.scheduleJob(jobDetail, trigger);
+				Trigger trigger = TriggerBuilder.newTrigger()
+					.withIdentity("trigger" + uniqueJobName, groupName)
+					.startNow()
+					.build();
+
+				scheduler.scheduleJob(jobDetail, trigger);
+			}
 		} catch (SchedulerException e) {
 			throw new JobExecutionException(e);
 		}
 	}
 }
-

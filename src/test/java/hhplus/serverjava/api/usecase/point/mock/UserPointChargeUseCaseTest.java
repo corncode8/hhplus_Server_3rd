@@ -35,7 +35,7 @@ public class UserPointChargeUseCaseTest {
 		Long point = 200L;
 		User user = new User(userId, point);
 
-		when(userReader.findUser(userId)).thenReturn(user);
+		when(userReader.findByIdWithLock(userId)).thenReturn(user);
 
 		//when
 		UserPoint result = userPointChargeUseCase.charge(userId, 1000L);

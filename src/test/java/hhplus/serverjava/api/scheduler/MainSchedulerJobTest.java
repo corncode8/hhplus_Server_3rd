@@ -8,19 +8,15 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.quartz.JobBuilder;
-import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
-import org.quartz.Trigger;
-import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
-import hhplus.serverjava.api.support.scheduler.jobs.MainSchedulerJob;
 import hhplus.serverjava.domain.reservation.components.ReservationReader;
 import hhplus.serverjava.domain.reservation.components.ReservationStore;
 import hhplus.serverjava.domain.reservation.entity.Reservation;
@@ -33,6 +29,7 @@ import hhplus.serverjava.domain.user.entity.User;
 
 @SpringBootTest
 @ActiveProfiles("dev")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class MainSchedulerJobTest {
 
 	@Autowired
@@ -64,7 +61,9 @@ public class MainSchedulerJobTest {
 		// 스케줄러 초기화
 		scheduler = new StdSchedulerFactory().getScheduler();
 		scheduler.getContext().put("applicationContext", applicationContext);
-		scheduler.start();
+		if (!scheduler.isStarted()) {
+			scheduler.start();
+		}
 	}
 
 	@AfterEach
@@ -110,20 +109,9 @@ public class MainSchedulerJobTest {
 		user.setUpdatedAt(LocalDateTime.now().minusMinutes(15));
 		userStore.save(user);
 
-		//when
-		JobDetail jobDetail = JobBuilder.newJob(MainSchedulerJob.class)
-			.withIdentity("testJob", "testGroup1").build();
-		Trigger trigger = TriggerBuilder.newTrigger()
-			.withIdentity("testTrigger", "testGroup1")
-			.startNow()
-			.build();
-
-		scheduler.scheduleJob(jobDetail, trigger);
-		scheduler.triggerJob(jobDetail.getKey());
-
-		//then
+		//when & then
 		// 스케줄러가 일할 시간 부여
-		Thread.sleep(10000);
+		Thread.sleep(60000);
 
 		// seat이 만료되었다면 다시 AVAILABLE로 변했는지 검증
 		Seat updSeat = seatReader.findSeatById(seat.getId());

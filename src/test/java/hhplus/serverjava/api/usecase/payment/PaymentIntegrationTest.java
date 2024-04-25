@@ -8,8 +8,11 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
 import hhplus.serverjava.api.payment.request.PostPayRequest;
@@ -29,6 +32,7 @@ import hhplus.serverjava.domain.user.entity.User;
 
 @SpringBootTest
 @ActiveProfiles("dev")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class PaymentIntegrationTest {
 
 	@Autowired
@@ -45,8 +49,10 @@ public class PaymentIntegrationTest {
 	@Autowired
 	private PaymentUseCase paymentUseCase;
 
+	Scheduler scheduler;
+
 	@BeforeEach
-	void setUp() {
+	void setUp() throws SchedulerException {
 		User user = User.builder()
 			.name("paymentTestUser")
 			.point(50000L)
@@ -93,15 +99,11 @@ public class PaymentIntegrationTest {
 
 		PostPayRequest request = new PostPayRequest(testReservationId, payAmount);
 
-		User user = User.builder()
-			.name("testUser")
-			.point(5000000L)
-			.updatedAt(LocalDateTime.now())
-			.build();
-		userStore.save(user);
+		User newUser = new User(testReservationId, (long)payAmount, LocalDateTime.now(), "testname");
+		userStore.save(newUser);
 
 		//when
-		PostPayResponse result = paymentUseCase.execute(request, user.getId());
+		PostPayResponse result = paymentUseCase.execute(request, newUser.getId());
 
 		//then
 		assertNotNull(result);
@@ -118,16 +120,12 @@ public class PaymentIntegrationTest {
 
 		PostPayRequest request = new PostPayRequest(testReservationId, payAmount);
 
-		User user = User.builder()
-			.name("testUser")
-			.point(50L)
-			.updatedAt(LocalDateTime.now())
-			.build();
-		userStore.save(user);
+		User newUser = new User(testReservationId, 50L, LocalDateTime.now(), "testname");
+		userStore.save(newUser);
 
 		//when & then
 		BaseException exception = assertThrows(BaseException.class,
-			() -> paymentUseCase.execute(request, user.getId()));
+			() -> paymentUseCase.execute(request, newUser.getId()));
 		assertEquals(NOT_ENOUGH_POINT.getMessage(), exception.getMessage());
 	}
 }

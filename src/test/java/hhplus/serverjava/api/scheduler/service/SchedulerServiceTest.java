@@ -5,11 +5,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
 import hhplus.serverjava.api.support.scheduler.service.SchedulerService;
@@ -25,6 +25,7 @@ import hhplus.serverjava.domain.user.entity.User;
 
 @SpringBootTest
 @ActiveProfiles("dev")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class SchedulerServiceTest {
 
 	@Autowired
@@ -41,11 +42,6 @@ public class SchedulerServiceTest {
 	private SeatReader seatReader;
 	@Autowired
 	private SchedulerService schedulerService;
-
-	@BeforeEach
-	void setUp() {
-
-	}
 
 	@DisplayName("좌석이 만료된 예약 조회 테스트")
 	@Test
