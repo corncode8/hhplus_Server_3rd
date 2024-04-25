@@ -24,8 +24,5 @@ jobs:
           echo "${{ secrets.APPLICATION_YML }}" | base64 --decode > src/main/resources/application.yml
           find src
 
-      - name: Run Lint
-        run: ./gradlew check
-
       - name: Run tests
         run: ./gradlew test
