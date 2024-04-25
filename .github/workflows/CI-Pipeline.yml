@@ -59,4 +59,3 @@ jobs:
           export SHORT_SHA=$(echo ${{ github.sha }} | cut -c 1-8)
           docker build -t $NAME/$REPO:$SHORT_SHA -t $NAME/$REPO:latest -f Dockerfile .
           docker push $NAME/$REPO:$SHORT_SHA
-          
