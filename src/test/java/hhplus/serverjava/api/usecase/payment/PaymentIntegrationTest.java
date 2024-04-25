@@ -1,5 +1,20 @@
 package hhplus.serverjava.api.usecase.payment;
 
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
+
 import hhplus.serverjava.api.payment.request.PostPayRequest;
 import hhplus.serverjava.api.payment.response.PostPayResponse;
 import hhplus.serverjava.api.payment.usecase.PaymentUseCase;
@@ -14,118 +29,103 @@ import hhplus.serverjava.domain.seat.components.SeatStore;
 import hhplus.serverjava.domain.seat.entity.Seat;
 import hhplus.serverjava.domain.user.componenets.UserStore;
 import hhplus.serverjava.domain.user.entity.User;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-
-import java.time.LocalDateTime;
-
-import static hhplus.serverjava.api.support.response.BaseResponseStatus.NOT_ENOUGH_POINT;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("dev")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class PaymentIntegrationTest {
 
-    @Autowired
-    private UserStore userStore;
-    @Autowired
-    private ConcertStore concertStore;
-    @Autowired
-    private ConcertOptionStore concertOptionStore;
-    @Autowired
-    private SeatStore seatStore;
-    @Autowired
-    private ReservationStore reservationStore;
+	@Autowired
+	private UserStore userStore;
+	@Autowired
+	private ConcertStore concertStore;
+	@Autowired
+	private ConcertOptionStore concertOptionStore;
+	@Autowired
+	private SeatStore seatStore;
+	@Autowired
+	private ReservationStore reservationStore;
 
-    @Autowired
-    private PaymentUseCase paymentUseCase;
+	@Autowired
+	private PaymentUseCase paymentUseCase;
 
-    @BeforeEach
-    void setUp() {
-        User user = User.builder()
-                .name("paymentTestUser")
-                .point(50000L)
-                .updatedAt(LocalDateTime.now())
-                .build();
-        user.setProcessing();
-        userStore.save(user);
+	Scheduler scheduler;
 
-        Concert concert = Concert.builder()
-                .name("마크툽 콘서트")
-                .artist("마크툽")
-                .build();
-        concertStore.save(concert);
+	@BeforeEach
+	void setUp() throws SchedulerException {
+		User user = User.builder()
+			.name("paymentTestUser")
+			.point(50000L)
+			.updatedAt(LocalDateTime.now())
+			.build();
+		user.setProcessing();
+		userStore.save(user);
 
-        ConcertOption concertOption = ConcertOption.builder()
-                .concertAt(LocalDateTime.now())
-                .build();
-        concertOptionStore.save(concertOption);
+		Concert concert = Concert.builder()
+			.name("마크툽 콘서트")
+			.artist("마크툽")
+			.build();
+		concertStore.save(concert);
 
-        Seat seat = Seat.builder()
-                .price(50000)
-                .seatNum(15)
-                .build();
-        seatStore.save(seat);
+		ConcertOption concertOption = ConcertOption.builder()
+			.concertAt(LocalDateTime.now())
+			.build();
+		concertOptionStore.save(concertOption);
 
-        Reservation reservation = Reservation.builder()
-                .seatNum(seat.getSeatNum())
-                .concertArtist(concert.getArtist())
-                .concertName(concert.getName())
-                .reservedPrice(seat.getPrice())
-                .concertAt(concertOption.getConcertAt())
-                .user(user)
-                .seat(seat)
-                .build();
-        reservationStore.save(reservation);
-    }
+		Seat seat = Seat.builder()
+			.price(50000)
+			.seatNum(15)
+			.build();
+		seatStore.save(seat);
 
-    @DisplayName("결제 테스트")
-    @Test
-    void paymentTest() {
-        //given
-        Long testReservationId = 1L;
-        int payAmount = 50000;
+		Reservation reservation = Reservation.builder()
+			.seatNum(seat.getSeatNum())
+			.concertArtist(concert.getArtist())
+			.concertName(concert.getName())
+			.reservedPrice(seat.getPrice())
+			.concertAt(concertOption.getConcertAt())
+			.user(user)
+			.seat(seat)
+			.build();
+		reservationStore.save(reservation);
+	}
 
-        PostPayRequest request = new PostPayRequest(testReservationId, payAmount);
+	@DisplayName("결제 테스트")
+	@Test
+	void paymentTest() {
+		//given
+		Long testReservationId = 1L;
+		int payAmount = 50000;
 
-        User user = User.builder()
-                .name("testUser")
-                .point(5000000L)
-                .updatedAt(LocalDateTime.now())
-                .build();
-        userStore.save(user);
+		PostPayRequest request = new PostPayRequest(testReservationId, payAmount);
 
-        //when
-        PostPayResponse result = paymentUseCase.execute(request, user.getId());
+		User newUser = new User(testReservationId, (long)payAmount, LocalDateTime.now(), "testname");
+		userStore.save(newUser);
 
-        //then
-        assertNotNull(result);
-        assertEquals(payAmount, result.getPayAmount());
-        assertEquals(testReservationId, result.getPayId());
-    }
+		//when
+		PostPayResponse result = paymentUseCase.execute(request, newUser.getId());
 
-    @DisplayName("결제 테스트 실패 (잔액 부족)")
-    @Test
-    void paymentFailTest() {
-        //given
-        Long testReservationId = 1L;
-        int payAmount = 5000000;
+		//then
+		assertNotNull(result);
+		assertEquals(payAmount, result.getPayAmount());
+		assertEquals(testReservationId, result.getPayId());
+	}
 
-        PostPayRequest request = new PostPayRequest(testReservationId, payAmount);
+	@DisplayName("결제 테스트 실패 (잔액 부족)")
+	@Test
+	void paymentFailTest() {
+		//given
+		Long testReservationId = 1L;
+		int payAmount = 5000000;
 
-        User user = User.builder()
-                .name("testUser")
-                .point(50L)
-                .updatedAt(LocalDateTime.now())
-                .build();
-        userStore.save(user);
+		PostPayRequest request = new PostPayRequest(testReservationId, payAmount);
 
-        //when & then
-        BaseException exception = assertThrows(BaseException.class, () -> paymentUseCase.execute(request, user.getId()));
-        assertEquals(NOT_ENOUGH_POINT.getMessage(), exception.getMessage());
-    }
+		User newUser = new User(testReservationId, 50L, LocalDateTime.now(), "testname");
+		userStore.save(newUser);
+
+		//when & then
+		BaseException exception = assertThrows(BaseException.class,
+			() -> paymentUseCase.execute(request, newUser.getId()));
+		assertEquals(NOT_ENOUGH_POINT.getMessage(), exception.getMessage());
+	}
 }

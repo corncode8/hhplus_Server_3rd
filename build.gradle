@@ -1,57 +1,123 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '2.7.17'
-	id 'io.spring.dependency-management' version '1.1.4'
+    id 'java'
+    id 'org.springframework.boot' version '2.7.17'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id 'org.ec4j.editorconfig' version '0.1.0'
+    id 'checkstyle'
+//    id 'jacoco'
 }
+
+checkstyle {
+    maxWarnings = 20
+    configFile = file("${rootDir}/config/naver-checkstyle-rules.xml")
+    configProperties = ["suppressionFile": "${rootDir}/config/naver-checkstyle-suppressions.xml"]
+    toolVersion = "8.42"
+}
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+editorconfig {
+    excludes = ['build']
+}
+
+check.dependsOn editorconfigCheck // checkstyle이 설정 되어 있을 시, editorconfigCheck 후 checkstyle 진행
+
+//jacoco {
+//    toolVersion = "0.8.7"
+//    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
+//}
+
 
 group = 'hhplus'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '17'
+    sourceCompatibility = '17'
 }
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
 
-	// Spring Boot Starter
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // Spring Boot Starter
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-	// Lombok
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
 
-	// DB
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	runtimeOnly 'com.mysql:mysql-connector-j'
+    // DB
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'com.mysql:mysql-connector-j'
 
-	// Web
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+    // Web
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 
-	// jwt
-	implementation(group: 'io.jsonwebtoken', name: 'jjwt', version: '0.11.5')
-	implementation('io.jsonwebtoken:jjwt:0.9.1')
+    // jwt
+    implementation(group: 'io.jsonwebtoken', name: 'jjwt', version: '0.11.5')
+    implementation('io.jsonwebtoken:jjwt:0.9.1')
 
-	// Swagger
-	implementation ('org.springdoc:springdoc-openapi-ui:1.6.14')
+    // Swagger
+    implementation('org.springdoc:springdoc-openapi-ui:1.6.14')
 
-	// Quartz
-	implementation "org.springframework.boot:spring-boot-starter-quartz"
+    // Quartz
+    implementation 'org.springframework.boot:spring-boot-starter-quartz:3.2.3'
 }
 
 tasks.named('bootBuildImage') {
-	builder = 'paketobuildpacks/builder-jammy-base:latest'
+    builder = 'paketobuildpacks/builder-jammy-base:latest'
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
+
+//jacocoTestReport {
+//    reports {
+//        xml.required = false
+//        csv.required = false
+//        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+//    }
+//}
+
+//test {
+//    // finalizedBy : 이(test) 작업에 대해 주어진 종료자 작업을 추가
+//    finalizedBy jacocoTestReport // test 작업이 끝나고 jacocoTestReport를 실행
+//}
+//
+//jacocoTestReport {
+//    // dependsOn : 이 작업에 지정된 종속성을 추가
+//    dependsOn test // jacocoTestReport 에 test라는 종속성을 추가
+//    finalizedBy 'jacocoTestCoverageVerification'
+//}
+
+//jacocoTestCoverageVerification {
+//    violationRules {
+//        rule {
+//            enabled = true;
+//            element = 'CLASS'
+//
+//            limit {
+//                counter = 'BRANCH'
+//                value = 'COVEREDRATIO'
+//                minimum = 1.0  // 100%
+//            }
+//
+//            limit {
+//                counter = 'LINE'
+//                value = 'COVEREDRATIO'
+//                minimum = 0.5
+//            }
+//        }
+//
+//    }
+//}

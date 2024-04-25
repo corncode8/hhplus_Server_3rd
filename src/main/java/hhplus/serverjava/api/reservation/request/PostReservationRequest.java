@@ -1,15 +1,11 @@
 package hhplus.serverjava.api.reservation.request;
 
+import javax.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
-
 
 @Getter
 @Setter
@@ -17,12 +13,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class PostReservationRequest {
 
-    @NotNull
-    private Long concertOptionId;
+	@NotNull
+	private Long concertOptionId;
 
-    @NotNull
-    private String targetDate;
+	@NotNull
+	private String targetDate;
 
-    private int seatNum;
+	private int seatNum;
 
 }
