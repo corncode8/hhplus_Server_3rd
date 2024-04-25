@@ -18,6 +18,12 @@ jobs:
       - name: Permission to Gradlew
         run: chmod +x ./gradlew
 
+      - name: Set YML
+        run: |
+          mkdir -p src/main/resources
+          echo "${{ secrets.APPLICATION_YML }}" | base64 --decode > src/main/resources/application.yml
+          find src
+
       - name: Run Lint
         run: ./gradlew check
 
