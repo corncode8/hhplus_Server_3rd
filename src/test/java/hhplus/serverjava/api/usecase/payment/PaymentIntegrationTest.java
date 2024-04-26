@@ -7,17 +7,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import hhplus.serverjava.api.payment.request.PostPayRequest;
@@ -39,6 +38,7 @@ import hhplus.serverjava.domain.user.entity.User;
 @SpringBootTest
 @ActiveProfiles("test")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+// @checkstyle:off
 public class PaymentIntegrationTest {
 
 	@Autowired
@@ -55,18 +55,12 @@ public class PaymentIntegrationTest {
 	@Autowired
 	private PaymentUseCase paymentUseCase;
 
-	Scheduler scheduler;
-
-	private static MySQLContainer mySqlContainer = new MySQLContainer("mysql:8");
-
-	@AfterEach
-	void tearDown() {
-		mySqlContainer.stop();
-	}
+	@Container
+	private static GenericContainer mySqlContainer = new MySQLContainer("mysql:8.0")
+		.withReuse(true);
 
 	@BeforeEach
-	void setUp() throws SchedulerException {
-		mySqlContainer.start();
+	void setUp() {
 		User user = User.builder()
 			.name("paymentTestUser")
 			.point(50000L)

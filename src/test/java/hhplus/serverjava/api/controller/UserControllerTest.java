@@ -9,18 +9,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.time.LocalDateTime;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,7 +35,7 @@ import hhplus.serverjava.domain.user.entity.User;
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+// @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class UserControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
@@ -50,17 +49,9 @@ public class UserControllerTest {
 	@Autowired
 	private PointHistoryStore pointHistoryStore;
 
-	private static MySQLContainer mySqlContainer = new MySQLContainer("mysql:8");
-
-	@BeforeEach
-	void setUp() {
-		mySqlContainer.start();
-	}
-
-	@AfterEach
-	void tearDown() {
-		mySqlContainer.stop();
-	}
+	@Container
+	private static GenericContainer mySqlContainer = new MySQLContainer("mysql:8.0")
+		.withReuse(true);
 
 	@DisplayName("토큰 발급 테스트")
 	@Test

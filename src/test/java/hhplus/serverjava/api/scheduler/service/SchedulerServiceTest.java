@@ -6,15 +6,15 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import hhplus.serverjava.api.support.scheduler.service.SchedulerService;
@@ -48,17 +48,9 @@ public class SchedulerServiceTest {
 	@Autowired
 	private SchedulerService schedulerService;
 
-	private static MySQLContainer mySqlContainer = new MySQLContainer("mysql:8");
-
-	@BeforeEach
-	void setUp() {
-		mySqlContainer.start();
-	}
-
-	@AfterEach
-	void tearDown() {
-		mySqlContainer.stop();
-	}
+	@Container
+	private static GenericContainer mySqlContainer = new MySQLContainer("mysql:8.0")
+		.withReuse(true);
 
 	@DisplayName("좌석이 만료된 예약 조회 테스트")
 	@Test

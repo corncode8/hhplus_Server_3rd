@@ -8,15 +8,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import hhplus.serverjava.api.user.usecase.UserPointChargeUseCase;
@@ -28,7 +27,7 @@ import hhplus.serverjava.domain.user.infrastructure.UserJpaRepository;
 @Testcontainers
 @SpringBootTest
 @ActiveProfiles("test")
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+// @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class PointChargeIntegrationTest {
 
 	@Autowired
@@ -43,17 +42,9 @@ public class PointChargeIntegrationTest {
 	@Autowired
 	private UserPointChargeUseCase userPointChargeUseCase;
 
-	private static MySQLContainer mySqlContainer = new MySQLContainer("mysql:8");
-
-	@BeforeEach
-	void setUp() {
-		mySqlContainer.start();
-	}
-
-	@AfterEach
-	void tearDown() {
-		mySqlContainer.stop();
-	}
+	@Container
+	private static GenericContainer mySqlContainer = new MySQLContainer("mysql:8.0")
+		.withReuse(true);
 
 	/*
 	 * 테스트 시나리오 ( 비관적 락 동시성 테스트 )

@@ -16,7 +16,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import hhplus.serverjava.domain.reservation.components.ReservationReader;
@@ -58,16 +60,13 @@ public class MainSchedulerJobTest {
 	// Quartz Scheduler
 	private Scheduler scheduler;
 
-	private static MySQLContainer mySqlContainer = new MySQLContainer("mysql:8");
-
-	@AfterEach
-	void tearDown() {
-		mySqlContainer.stop();
-	}
+	@Container
+	private static GenericContainer mySqlContainer = new MySQLContainer("mysql:8.0")
+		.withReuse(true);
 
 	@BeforeEach
 	void setUp() throws SchedulerException {
-		mySqlContainer.start();
+
 		// 스케줄러 초기화
 		scheduler = new StdSchedulerFactory().getScheduler();
 		scheduler.getContext().put("applicationContext", applicationContext);

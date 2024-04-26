@@ -5,15 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.LocalDateTime;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import hhplus.serverjava.api.user.response.GetTokenResponse;
@@ -24,22 +24,23 @@ import hhplus.serverjava.domain.user.entity.User;
 @Testcontainers
 @SpringBootTest
 @ActiveProfiles("test")
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+// @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class GetTokenIntegrationTest {
+	// @checkstyle:off
 
 	// 토큰을 생성 + 대기열 확인 통합 테스트
-
 	@Autowired
 	private UserStore userStore;
 	@Autowired
 	private GetTokenUseCase getTokenUseCase;
 
-	private static MySQLContainer mySqlContainer = new MySQLContainer("mysql:8");
+	@Container
+	private static GenericContainer mySqlContainer = new MySQLContainer("mysql:8.0")
+		.withReuse(true);
 
 	// 150명 유저 생성 = 100명 -> 현재 서비스 이용중인 유저, 50명 -> 대기중인 유저
 	@BeforeEach
 	void setUp() {
-		mySqlContainer.start();
 		for (int i = 0; i < 150; i++) {
 			User user = User.builder()
 				.name("testUser" + i)
@@ -51,11 +52,6 @@ public class GetTokenIntegrationTest {
 			}
 			userStore.save(user);
 		}
-	}
-
-	@AfterEach
-	void tearDown() {
-		mySqlContainer.stop();
 	}
 
 	// 신규 유저 토큰 생성 후 대기번호 확인
