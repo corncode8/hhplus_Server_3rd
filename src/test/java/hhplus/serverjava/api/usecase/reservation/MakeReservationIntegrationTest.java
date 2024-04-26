@@ -52,7 +52,7 @@ public class MakeReservationIntegrationTest {
 	@Autowired
 	private MakeReservationUseCase makeReservationUseCase;
 
-	private MySQLContainer mySqlContainer = new MySQLContainer("mysql:8");
+	private static MySQLContainer mySqlContainer = new MySQLContainer("mysql:8");
 
 	@BeforeEach
 	void setUp() {

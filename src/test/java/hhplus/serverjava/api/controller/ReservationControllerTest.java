@@ -58,7 +58,7 @@ public class ReservationControllerTest {
 	@Autowired
 	private ConcertStore concertStore;
 
-	private MySQLContainer mySqlContainer = new MySQLContainer("mysql:8");
+	private static MySQLContainer mySqlContainer = new MySQLContainer("mysql:8");
 
 	@BeforeEach
 	void setUp() {

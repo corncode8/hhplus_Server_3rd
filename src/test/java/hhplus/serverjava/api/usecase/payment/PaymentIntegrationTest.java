@@ -57,7 +57,7 @@ public class PaymentIntegrationTest {
 
 	Scheduler scheduler;
 
-	private MySQLContainer mySqlContainer = new MySQLContainer("mysql:8");
+	private static MySQLContainer mySqlContainer = new MySQLContainer("mysql:8");
 
 	@AfterEach
 	void tearDown() {

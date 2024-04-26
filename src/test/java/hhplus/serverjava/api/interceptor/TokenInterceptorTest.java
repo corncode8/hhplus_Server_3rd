@@ -37,7 +37,7 @@ public class TokenInterceptorTest {
 	@Autowired
 	private GetTokenUseCase getTokenUseCase;
 
-	private MySQLContainer mySqlContainer = new MySQLContainer("mysql:8");
+	private static MySQLContainer mySqlContainer = new MySQLContainer("mysql:8");
 
 	@AfterEach
 	void tearDown() {

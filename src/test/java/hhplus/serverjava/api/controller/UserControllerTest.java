@@ -50,7 +50,7 @@ public class UserControllerTest {
 	@Autowired
 	private PointHistoryStore pointHistoryStore;
 
-	private MySQLContainer mySqlContainer = new MySQLContainer("mysql:8");
+	private static MySQLContainer mySqlContainer = new MySQLContainer("mysql:8");
 
 	@BeforeEach
 	void setUp() {

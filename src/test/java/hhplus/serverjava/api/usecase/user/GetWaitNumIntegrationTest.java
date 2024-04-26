@@ -32,7 +32,7 @@ public class GetWaitNumIntegrationTest {
 	@Autowired
 	private GetWaitNumUseCase getWaitNumUseCase;
 
-	private MySQLContainer mySqlContainer = new MySQLContainer("mysql:8");
+	private static MySQLContainer mySqlContainer = new MySQLContainer("mysql:8");
 
 	// 150명 유저 생성 = 100명 -> 현재 서비스 이용중인 유저, 50명 -> 대기중인 유저
 	@BeforeEach

@@ -48,7 +48,7 @@ public class SchedulerServiceTest {
 	@Autowired
 	private SchedulerService schedulerService;
 
-	private MySQLContainer mySqlContainer = new MySQLContainer("mysql:8");
+	private static MySQLContainer mySqlContainer = new MySQLContainer("mysql:8");
 
 	@BeforeEach
 	void setUp() {
