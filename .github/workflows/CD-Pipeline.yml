@@ -15,6 +15,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      docker:
+        image: docker:19.03.12-dind
+        options: --privileged
+        ports:
+          - 2375:2375
+
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
@@ -35,6 +42,11 @@ jobs:
 
       - name: Permission go Gradlew
         run: chmod +x ./gradlew
+
+      - name: Set up Docker environment
+        run: |
+          echo "DOCKER_HOST=tcp://localhost:2375" >> $GITHUB_ENV
+          sudo /etc/init.d/docker start
 
       - name: Set YML
         run: |
