@@ -3,7 +3,7 @@ spring:
     activate:
       on-profile: test
   datasource:
-    url: jdbc:tc:mysql:8.0:///hhplus
+    url: jdbc:tc:mysql:8.0:///test_container_test
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
     username: root
     password: password

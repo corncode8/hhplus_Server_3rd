@@ -47,7 +47,7 @@ repositories {
 }
 
 ext {
-    set('testcontainersVersion', "1.19.3")
+    set('testcontainersVersion', "1.17.4")
 }
 
 dependencies {
@@ -77,9 +77,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-quartz:3.2.3'
 
     // testcontainers
-    testImplementation 'org.testcontainers:testcontainers:1.19.3'
-    testImplementation 'org.testcontainers:junit-jupiter:1.19.3' // junit5를 이용한 확장을 위해 추가
-    testImplementation 'org.testcontainers:mysql' // MySQL 사용을 위해 추가
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'org.testcontainers:mysql'
 
     // test lombok
     testCompileOnly 'org.projectlombok:lombok'
