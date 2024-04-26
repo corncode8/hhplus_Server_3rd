@@ -46,6 +46,10 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    set('testcontainersVersion', "1.19.3")
+}
+
 dependencies {
 
     // Spring Boot Starter
@@ -71,6 +75,21 @@ dependencies {
 
     // Quartz
     implementation 'org.springframework.boot:spring-boot-starter-quartz:3.2.3'
+
+    // testcontainers
+    testImplementation 'org.testcontainers:testcontainers:1.19.3'
+    testImplementation 'org.testcontainers:junit-jupiter:1.19.3' // junit5를 이용한 확장을 위해 추가
+    testImplementation 'org.testcontainers:mysql' // MySQL 사용을 위해 추가
+
+    // test lombok
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.testcontainers:testcontainers-bom:${testcontainersVersion}"
+    }
 }
 
 tasks.named('bootBuildImage') {
@@ -93,7 +112,7 @@ tasks.named('test') {
 //    // finalizedBy : 이(test) 작업에 대해 주어진 종료자 작업을 추가
 //    finalizedBy jacocoTestReport // test 작업이 끝나고 jacocoTestReport를 실행
 //}
-//
+
 //jacocoTestReport {
 //    // dependsOn : 이 작업에 지정된 종속성을 추가
 //    dependsOn test // jacocoTestReport 에 test라는 종속성을 추가

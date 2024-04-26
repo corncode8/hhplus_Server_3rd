@@ -1,11 +1,23 @@
 package hhplus.serverjava.api.usecase.point;
 
-import java.time.LocalDateTime;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDateTime;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import hhplus.serverjava.api.user.usecase.UserPointChargeUseCase;
 import hhplus.serverjava.domain.user.componenets.UserReader;
@@ -13,8 +25,9 @@ import hhplus.serverjava.domain.user.componenets.UserStore;
 import hhplus.serverjava.domain.user.entity.User;
 import hhplus.serverjava.domain.user.infrastructure.UserJpaRepository;
 
+@Testcontainers
 @SpringBootTest
-@ActiveProfiles("dev")
+@ActiveProfiles("test")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class PointChargeIntegrationTest {
 
@@ -30,51 +43,63 @@ public class PointChargeIntegrationTest {
 	@Autowired
 	private UserPointChargeUseCase userPointChargeUseCase;
 
+	private MySQLContainer mySqlContainer = new MySQLContainer("mysql:8");
+
+	@BeforeEach
+	void setUp() {
+		mySqlContainer.start();
+	}
+
+	@AfterEach
+	void tearDown() {
+		mySqlContainer.stop();
+	}
+
 	/*
 	 * 테스트 시나리오 ( 비관적 락 동시성 테스트 )
 	 * 포인트를 0원 가지고 있는 유저가 55555원 충전 5번을 동시에 요청 -> (55555 * 5)원충전 성공
 	 */
-	// @DisplayName("포인트 충전 동시성 테스트")
-	// @Test
-	// void test() throws Exception {
-	// 	//given
-	// 	User user = saveTestUser();
-	//
-	// 	int threadCnt = 5;
-	// 	int point = 55555;
-	// 	AtomicInteger cnt = new AtomicInteger(0);
-	//
-	// 	User newUser = userReader.findUser(user.getId());
-	// 	Long userId = newUser.getId();
-	//
-	// 	ExecutorService executorService = Executors.newFixedThreadPool(threadCnt);
-	// 	CountDownLatch latch = new CountDownLatch(threadCnt);
-	//
-	// 	//when
-	// 	for (int i = 0; i < threadCnt; i++) {
-	// 		try {
-	// 			executorService.execute(() -> {
-	// 				userPointChargeUseCase.charge(userId, (long)point);
-	// 				cnt.addAndGet(point);
-	// 			});
-	// 		} finally {
-	// 			latch.countDown();
-	// 		}
-	// 	}
-	// 	latch.await();
-	//
-	// 	Thread.sleep(1000);
-	//
-	// 	//then
-	// 	User findUser = userReader.findUser(userId);
-	//
-	// 	// 성공한 횟수 * 충전 포인트 == 충전 포인트 * 스레드 갯수
-	// 	// assertEquals(cnt.intValue(), point * threadCnt);
-	//
-	// 	// 최종 유저 포인트 == 충전 포인트 * 스레드 갯수
-	// 	assertEquals(findUser.getPoint(), point * threadCnt);
-	//
-	// }
+	@DisplayName("포인트 충전 동시성 테스트")
+	@Test
+	void test() throws Exception {
+		//given
+		User user = saveTestUser();
+
+		int threadCnt = 5;
+		int point = 55555;
+		AtomicInteger cnt = new AtomicInteger(0);
+
+		User newUser = userReader.findUser(user.getId());
+		Long userId = newUser.getId();
+
+		ExecutorService executorService = Executors.newFixedThreadPool(threadCnt);
+		CountDownLatch latch = new CountDownLatch(threadCnt);
+
+		//when
+		for (int i = 0; i < threadCnt; i++) {
+			try {
+				executorService.execute(() -> {
+					userPointChargeUseCase.charge(userId, (long)point);
+					cnt.addAndGet(point);
+				});
+			} finally {
+				latch.countDown();
+			}
+		}
+		latch.await();
+
+		Thread.sleep(1000);
+
+		//then
+		User findUser = userReader.findUser(userId);
+
+		// 성공한 횟수 * 충전 포인트 == 충전 포인트 * 스레드 갯수
+		// assertEquals(cnt.intValue(), point * threadCnt);
+
+		// 최종 유저 포인트 == 충전 포인트 * 스레드 갯수
+		assertEquals(findUser.getPoint(), point * threadCnt);
+
+	}
 
 	private User saveTestUser() {
 		User user = User.builder()

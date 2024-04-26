@@ -1,10 +1,13 @@
 package hhplus.serverjava.api.usecase.payment;
 
-import static hhplus.serverjava.api.support.response.BaseResponseStatus.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.NOT_ENOUGH_POINT;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import hhplus.serverjava.api.payment.request.PostPayRequest;
 import hhplus.serverjava.api.payment.response.PostPayResponse;
@@ -30,8 +35,9 @@ import hhplus.serverjava.domain.seat.entity.Seat;
 import hhplus.serverjava.domain.user.componenets.UserStore;
 import hhplus.serverjava.domain.user.entity.User;
 
+@Testcontainers
 @SpringBootTest
-@ActiveProfiles("dev")
+@ActiveProfiles("test")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class PaymentIntegrationTest {
 
@@ -51,8 +57,16 @@ public class PaymentIntegrationTest {
 
 	Scheduler scheduler;
 
+	private MySQLContainer mySqlContainer = new MySQLContainer("mysql:8");
+
+	@AfterEach
+	void tearDown() {
+		mySqlContainer.stop();
+	}
+
 	@BeforeEach
 	void setUp() throws SchedulerException {
+		mySqlContainer.start();
 		User user = User.builder()
 			.name("paymentTestUser")
 			.point(50000L)

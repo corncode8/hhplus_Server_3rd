@@ -1,9 +1,11 @@
 package hhplus.serverjava.api.usecase.user;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.LocalDateTime;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,14 +13,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import hhplus.serverjava.api.user.response.GetTokenResponse;
 import hhplus.serverjava.api.user.usecase.GetTokenUseCase;
 import hhplus.serverjava.domain.user.componenets.UserStore;
 import hhplus.serverjava.domain.user.entity.User;
 
+@Testcontainers
 @SpringBootTest
-@ActiveProfiles("dev")
+@ActiveProfiles("test")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class GetTokenIntegrationTest {
 
@@ -29,9 +34,17 @@ public class GetTokenIntegrationTest {
 	@Autowired
 	private GetTokenUseCase getTokenUseCase;
 
+	private MySQLContainer mySqlContainer = new MySQLContainer("mysql:8");
+
+	@AfterEach
+	void tearDown() {
+		mySqlContainer.stop();
+	}
+
 	// 150명 유저 생성 = 100명 -> 현재 서비스 이용중인 유저, 50명 -> 대기중인 유저
 	@BeforeEach
 	void setUp() {
+		mySqlContainer.start();
 		for (int i = 0; i < 150; i++) {
 			User user = User.builder()
 				.name("testUser" + i)

@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.time.LocalDateTime;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,15 +17,18 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import hhplus.serverjava.api.user.response.GetTokenResponse;
 import hhplus.serverjava.api.user.usecase.GetTokenUseCase;
 import hhplus.serverjava.domain.user.componenets.UserStore;
 import hhplus.serverjava.domain.user.entity.User;
 
+@Testcontainers
 @SpringBootTest
-@ActiveProfiles("dev")
 @AutoConfigureMockMvc
+@ActiveProfiles("test")
 public class TokenInterceptorTest {
 	@Autowired
 	private MockMvc mockMvc;
@@ -33,9 +37,17 @@ public class TokenInterceptorTest {
 	@Autowired
 	private GetTokenUseCase getTokenUseCase;
 
+	private MySQLContainer mySqlContainer = new MySQLContainer("mysql:8");
+
+	@AfterEach
+	void tearDown() {
+		mySqlContainer.stop();
+	}
+
 	// 180명 유저 생성 = 100명 -> 서비스 이용중 유저, 80명 -> 대기중 유저
 	@BeforeEach
 	void setUp() {
+		mySqlContainer.start();
 		for (int i = 0; i < 180; i++) {
 			User user = User.builder()
 				.name("testUser" + i)
