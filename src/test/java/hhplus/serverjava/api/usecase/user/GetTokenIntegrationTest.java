@@ -36,11 +36,6 @@ public class GetTokenIntegrationTest {
 
 	private static MySQLContainer mySqlContainer = new MySQLContainer("mysql:8");
 
-	@AfterEach
-	void tearDown() {
-		mySqlContainer.stop();
-	}
-
 	// 150명 유저 생성 = 100명 -> 현재 서비스 이용중인 유저, 50명 -> 대기중인 유저
 	@BeforeEach
 	void setUp() {
@@ -56,6 +51,11 @@ public class GetTokenIntegrationTest {
 			}
 			userStore.save(user);
 		}
+	}
+
+	@AfterEach
+	void tearDown() {
+		mySqlContainer.stop();
 	}
 
 	// 신규 유저 토큰 생성 후 대기번호 확인
