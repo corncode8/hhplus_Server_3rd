@@ -45,7 +45,6 @@ jobs:
 
       - name: Set up Docker environment
         run: |
-          echo "DOCKER_HOST=tcp://localhost:2375" >> $GITHUB_ENV
           sudo /etc/init.d/docker start
 
       - name: Set YML
