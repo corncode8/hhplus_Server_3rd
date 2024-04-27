@@ -38,6 +38,12 @@
 
 [Truble Shooting](https://kiwi-somersault-cb9.notion.site/79c4cafbec32438980ce36fef7db642d?pvs=4)
 
+### 서버 환경 분리
+
+- `dev` 개발 환경
+- `stage` 사내 릴리즈 환경
+- `main` 운영 릴리즈 환경
+
 ### Git Branch 전략
 
 - `hotfix` 버그 수정
