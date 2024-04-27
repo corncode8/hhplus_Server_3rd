@@ -5,6 +5,13 @@ on: [ pull_request ]
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      docker:
+        image: docker:19.03.12-dind
+        options: --privileged
+        ports:
+          - 2375:2375
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -17,6 +24,10 @@ jobs:
 
       - name: Permission to Gradlew
         run: chmod +x ./gradlew
+
+      - name: Set up Docker environment
+        run: |
+          sudo /etc/init.d/docker start
 
       - name: Cache Gradle packages
         uses: actions/cache@v3
