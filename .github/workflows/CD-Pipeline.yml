@@ -11,6 +11,9 @@ on:
       - release/**
   workflow_dispatch:
 
+env:
+  PROFILE: prod
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -55,17 +58,40 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
-      - name: Login Docker
-        uses: docker/login-action@v1
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
 
-      - name: Build Docker image and Push
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
         env:
-          NAME: ${{ secrets.DOCKER_NAME }}
-          REPO: ${{ secrets.DOCKER_REPO_NAME }}
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: hhplus-prod
+          IMAGE_TAG: ${{ github.sha }}
         run: |
-          export SHORT_SHA=$(echo ${{ github.sha }} | cut -c 1-8)
-          docker build -t $NAME/$REPO:$SHORT_SHA -t $NAME/$REPO:latest -f Dockerfile .
-          docker push $NAME/$REPO:$SHORT_SHA
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: task-definition.json
+          container-name: app
+          image: ${{ steps.build-image.outputs.image }}
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: hhplus-prod
+          cluster: cluster-hhplus-prod
+          wait-for-service-stability: true
