@@ -1,14 +1,9 @@
 name: CD Pipeline
 
 on:
-  push:
-    branches:
-      - develop
-      - release/**
   pull_request:
     branches:
-      - develop
-      - release/**
+      - main
   workflow_dispatch:
 
 env:
