@@ -41,6 +41,7 @@ public class PaymentUseCase {
 			.payAmount((long)reservation.getReservedPrice())
 			.build();
 		paymentStore.save(payment);
+		// 유저 포인트 차감
 
 		// 예약 상태 PAID + 유저 상태 DONE
 		reservation.setPaid();

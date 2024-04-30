@@ -115,7 +115,7 @@ public class MakeReservationIntegrationTest {
 		Seat findSeat = seatReader.findSeatById(seat.getId());
 
 		// 전체 스레드 갯수 - 실패한 횟수 = 성공한 횟수
-		// assertEquals(threadCnt - failCnt.intValue(), successCnt.intValue());
+		assertEquals(threadCnt - failCnt.intValue(), successCnt.intValue());
 
 		// version == 성공한 횟수
 		assertEquals(successCnt.intValue(), findSeat.getVersion());

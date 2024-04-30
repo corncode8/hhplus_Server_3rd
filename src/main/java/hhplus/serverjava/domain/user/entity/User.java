@@ -72,6 +72,10 @@ public class User extends BaseEntity {
 		this.point += point;
 	}
 
+	public void usePoint(Long point) {
+		this.point -= point;
+	}
+
 	public void setUpdatedAt(LocalDateTime dateTime) {
 		this.updatedAt = dateTime;
 	}

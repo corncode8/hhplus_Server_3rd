@@ -34,9 +34,9 @@
 - 유저간 대기열을 요청 순서대로 정확하게 제공할 방법
 - 동시에 여러 사용자가 예약 요청을 했을 때, 좌석이 중복으로 배정 가능하지 않도록 해야함
 
-## 프로젝트 회고
+## 콘서트 예약 시나리오 동시성 분석
 
-[Truble Shooting](https://kiwi-somersault-cb9.notion.site/79c4cafbec32438980ce36fef7db642d?pvs=4)
+[동시성 분석](https://kiwi-somersault-cb9.notion.site/9eee7f7732214f91a171cee2c8c3f9f9?pvs=4)
 
 ### 서버 환경 분리
 
