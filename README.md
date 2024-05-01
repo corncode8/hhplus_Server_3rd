@@ -36,7 +36,7 @@
 
 ## 콘서트 예약 시나리오 동시성 분석
 
-[동시성 분석](https://kiwi-somersault-cb9.notion.site/9eee7f7732214f91a171cee2c8c3f9f9?pvs=4)
+[동시성 분석](https://www.notion.so/9eee7f7732214f91a171cee2c8c3f9f9)
 
 ### 서버 환경 분리
 
