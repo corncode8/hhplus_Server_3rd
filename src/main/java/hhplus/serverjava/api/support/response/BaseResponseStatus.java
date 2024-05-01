@@ -26,6 +26,7 @@ public enum BaseResponseStatus {
 
 	NOT_FIND_POINT_LIST(false, HttpStatus.NOT_FOUND.value(), "포인트 내역이 없습니다."),
 	NOT_ENOUGH_POINT(false, HttpStatus.NOT_FOUND.value(), "포인트가 부족합니다."),
+	CANNOT_REQUEST_SAMETIME(false, HttpStatus.NOT_FOUND.value(), "동시에 요청할 수 없습니다."),
 
 	EMPTY_JWT(false, HttpStatus.UNAUTHORIZED.value(), "JWT를 입력해주세요."),
 	INVALID_JWT(false, HttpStatus.UNAUTHORIZED.value(), "유효하지 않은 JWT입니다."),

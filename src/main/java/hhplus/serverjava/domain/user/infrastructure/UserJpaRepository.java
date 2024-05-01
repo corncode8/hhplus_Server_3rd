@@ -15,7 +15,7 @@ import hhplus.serverjava.domain.user.entity.User;
 public interface UserJpaRepository extends JpaRepository<User, Long> {
 	List<User> findUsersByStatus(User.State state);
 
+	@Lock(LockModeType.OPTIMISTIC)
 	@Query("select u from User u where u.id = :id")
-	@Lock(LockModeType.PESSIMISTIC_WRITE)
-	Optional<User> findByIdWithLock(@Param("id") Long id);
+	Optional<User> findById(@Param("id") Long id);
 }

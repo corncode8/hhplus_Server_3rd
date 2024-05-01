@@ -1,7 +1,8 @@
 package hhplus.serverjava.api.usecase.reservation.mock;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -80,12 +81,15 @@ public class MakeReservationUseCaseTest {
 
 		//then
 		assertNotNull(result);
+		// seat의 status = RESERVED
 		assertEquals(seat.getStatus(), Seat.State.RESERVED);
 		assertEquals(result.getConcertName(), concert.getName());
 		assertEquals(result.getConcertArtist(), concert.getArtist());
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		assertEquals(result.getReservationDate(), testDateTime.format(formatter));
+
+		// 5분 임시배정
 		assertEquals(result.getExpiredAt(), seat.getExpiredAt().format(formatter));
 
 		assertEquals(result.getReservationSeat(), testSeatNum);

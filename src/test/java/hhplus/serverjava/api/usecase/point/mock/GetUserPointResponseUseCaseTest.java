@@ -1,7 +1,8 @@
 package hhplus.serverjava.api.usecase.point.mock;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,13 +11,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import hhplus.serverjava.api.user.response.UserPoint;
+import hhplus.serverjava.api.user.response.UserPointResponse;
 import hhplus.serverjava.api.user.usecase.GetUserPointUseCase;
 import hhplus.serverjava.domain.user.componenets.UserReader;
 import hhplus.serverjava.domain.user.entity.User;
 
 @ExtendWith(MockitoExtension.class)
-public class GetUserPointUseCaseTest {
+public class GetUserPointResponseUseCaseTest {
 
 	@Mock
 	UserReader userReader;
@@ -35,7 +36,7 @@ public class GetUserPointUseCaseTest {
 		when(userReader.findUser(userId)).thenReturn(user);
 
 		//when
-		UserPoint result = getUserPointUseCase.execute(userId);
+		UserPointResponse result = getUserPointUseCase.execute(userId);
 
 		//then
 		assertNotNull(result);

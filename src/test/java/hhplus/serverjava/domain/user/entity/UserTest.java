@@ -75,4 +75,19 @@ public class UserTest {
 		//then
 		assertEquals(500 + 500, user.getPoint());
 	}
+
+	@DisplayName("usePoint테스트")
+	@Test
+	void usePointTest() {
+		//given
+		Long testId = 1L;
+		User user = new User(testId, 50000L);
+
+		//when
+		Long testPoint = 5000L;
+		user.usePoint(testPoint);
+
+		//then
+		assertEquals(50000 - 5000, user.getPoint());
+	}
 }

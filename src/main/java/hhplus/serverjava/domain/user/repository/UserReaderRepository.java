@@ -8,7 +8,7 @@ import hhplus.serverjava.domain.user.entity.User;
 public interface UserReaderRepository {
 	Optional<User> findUser(Long userId);
 
-	Optional<User> findByIdWithLock(Long id);
+	Optional<User> findById(Long id);
 
 	List<User> findUsersByStatus(User.State state);
 

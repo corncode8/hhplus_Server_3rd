@@ -20,8 +20,8 @@ public class UserCoreReaderRepository implements UserReaderRepository {
 	}
 
 	@Override
-	public Optional<User> findByIdWithLock(Long id) {
-		return userJpaRepository.findByIdWithLock(id);
+	public Optional<User> findById(Long id) {
+		return userJpaRepository.findById(id);
 	}
 
 	@Override

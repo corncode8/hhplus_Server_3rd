@@ -1,7 +1,8 @@
 package hhplus.serverjava.api.usecase.point.mock;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,14 +11,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import hhplus.serverjava.api.user.response.UserPoint;
+import hhplus.serverjava.api.user.response.UserPointResponse;
 import hhplus.serverjava.api.user.usecase.UserPointChargeUseCase;
 import hhplus.serverjava.domain.user.componenets.UserReader;
 import hhplus.serverjava.domain.user.componenets.UserStore;
 import hhplus.serverjava.domain.user.entity.User;
 
 @ExtendWith(MockitoExtension.class)
-public class UserPointChargeUseCaseTest {
+public class UserPointResponseChargeUseCaseTest {
 
 	@Mock
 	UserStore userStore;
@@ -35,10 +36,10 @@ public class UserPointChargeUseCaseTest {
 		Long point = 200L;
 		User user = new User(userId, point);
 
-		when(userReader.findByIdWithLock(userId)).thenReturn(user);
+		when(userReader.findUser(userId)).thenReturn(user);
 
 		//when
-		UserPoint result = userPointChargeUseCase.charge(userId, 1000L);
+		UserPointResponse result = userPointChargeUseCase.charge(userId, 1000L);
 
 		//then
 		assertNotNull(result);

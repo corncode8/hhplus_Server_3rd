@@ -1,6 +1,6 @@
 package hhplus.serverjava.api.user;
 
-import static hhplus.serverjava.api.support.response.BaseResponseStatus.*;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.FAIL_FIND_QUEUE;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -19,7 +19,7 @@ import hhplus.serverjava.api.user.request.PatchUserRequest;
 import hhplus.serverjava.api.user.response.GetTokenResponse;
 import hhplus.serverjava.api.user.response.GetUserResponse;
 import hhplus.serverjava.api.user.response.PointHistoryDto;
-import hhplus.serverjava.api.user.response.UserPoint;
+import hhplus.serverjava.api.user.response.UserPointResponse;
 import hhplus.serverjava.api.user.usecase.GetPointHistoryUseCase;
 import hhplus.serverjava.api.user.usecase.GetTokenUseCase;
 import hhplus.serverjava.api.user.usecase.GetUserPointUseCase;
@@ -83,10 +83,10 @@ public class UserController {
 	 */
 	@Operation(summary = "잔액 충전")
 	@PatchMapping("/point/{userId}/charge")
-	public BaseResponse<UserPoint> chargePoint(@PathVariable("userId") Long userId,
+	public BaseResponse<UserPointResponse> chargePoint(@PathVariable("userId") Long userId,
 		@Valid @RequestBody PatchUserRequest request) {
 
-		UserPoint charge = userPointChargeUseCase.charge(userId, request.getAmount());
+		UserPointResponse charge = userPointChargeUseCase.charge(userId, request.getAmount());
 
 		return new BaseResponse<>(charge);
 	}
@@ -98,9 +98,9 @@ public class UserController {
 	 */
 	@Operation(summary = "잔액 조회")
 	@GetMapping("/point/{userId}/account")
-	public BaseResponse<UserPoint> point(@PathVariable("userId") Long userId) {
+	public BaseResponse<UserPointResponse> point(@PathVariable("userId") Long userId) {
 
-		UserPoint execute = getUserPointUseCase.execute(userId);
+		UserPointResponse execute = getUserPointUseCase.execute(userId);
 
 		return new BaseResponse<>(execute);
 	}

@@ -2,8 +2,6 @@ package hhplus.serverjava.domain.user.componenets;
 
 import static hhplus.serverjava.api.support.response.BaseResponseStatus.NOT_FIND_USER;
 
-import java.util.List;
-
 import org.springframework.stereotype.Component;
 
 import hhplus.serverjava.api.support.exceptions.BaseException;
@@ -13,22 +11,30 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class UserReader {
+public class UserPoint {
+
 	private final UserReaderRepository userReaderRepository;
 
-	public User findUser(Long userId) {
-		return userReaderRepository.findUser(userId)
+	public Long getPoint(Long id) {
+		User user = userReaderRepository.findById(id)
 			.orElseThrow(() -> new BaseException(NOT_FIND_USER));
+
+		return user.getPoint();
 	}
 
-	public List<User> findUsersByStatus(User.State state) {
-		List<User> users = userReaderRepository.findUsersByStatus(state);
+	public User pointCharge(Long id, Long point) {
+		User user = userReaderRepository.findById(id)
+			.orElseThrow(() -> new BaseException(NOT_FIND_USER));
+		user.sumPoint(point);
 
-		//        if (users.isEmpty()) {
-		//            throw new BaseException(NOT_FIND_USER);
-		//        }
-
-		return userReaderRepository.findUsersByStatus(state);
+		return user;
 	}
 
+	public User pointUse(Long id, Long point) {
+		User user = userReaderRepository.findById(id)
+			.orElseThrow(() -> new BaseException(NOT_FIND_USER));
+		user.usePoint(point);
+
+		return user;
+	}
 }

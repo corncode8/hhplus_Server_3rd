@@ -1,8 +1,10 @@
 package hhplus.serverjava.domain.user.components;
 
-import static hhplus.serverjava.api.support.response.BaseResponseStatus.*;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.NOT_FIND_USER;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
@@ -48,37 +50,6 @@ public class UserReaderTest {
 	@DisplayName("findUser_NotFound_테스트")
 	@Test
 	void findUserNotFoundTest() {
-		//given
-		Long testId = 1L;
-		User user = new User(testId, 500L);
-
-		when(userReaderRepository.findUser(testId)).thenReturn(Optional.empty());
-
-		//when & then
-		BaseException exception = assertThrows(BaseException.class, () -> userReader.findUser(testId));
-		assertEquals(NOT_FIND_USER.getMessage(), exception.getMessage());
-	}
-
-	@DisplayName("findByIdWithLock테스트")
-	@Test
-	void findByIdWithLockTest() {
-		//given
-		Long testId = 1L;
-		User user = new User(testId, 500L);
-
-		when(userReaderRepository.findUser(testId)).thenReturn(Optional.of(user));
-
-		//when
-		User result = userReader.findUser(testId);
-
-		//then
-		assertNotNull(result);
-		assertEquals(result.getPoint(), user.getPoint());
-	}
-
-	@DisplayName("findByIdWithLock_NotFound_테스트")
-	@Test
-	void findByIdWithLockNotFoundTest() {
 		//given
 		Long testId = 1L;
 		User user = new User(testId, 500L);

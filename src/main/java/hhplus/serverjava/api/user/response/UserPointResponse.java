@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserPoint {
+public class UserPointResponse {
 
 	private Long userId;
 	private Long point;

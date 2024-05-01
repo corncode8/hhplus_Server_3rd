@@ -57,6 +57,7 @@ public class MakeReservationIntegrationTest {
 
 	/*
 	 * 테스트 시나리오 ( 동시성 테스트 )
+	 * 다수의 유저가 동시에 하나의 좌석을 선점하려는 경우 한명의 유저만 성공
 	 * 5명이 동시에 좌석 예약 -> 한명만 성공 나머지는 실패
 	 */
 	@DisplayName("예약 낙관적 락 테스트")
@@ -117,7 +118,7 @@ public class MakeReservationIntegrationTest {
 		// 전체 스레드 갯수 - 실패한 횟수 = 성공한 횟수
 		assertEquals(threadCnt - failCnt.intValue(), successCnt.intValue());
 
-		// version == 성공한 횟수
+		// version은 성공한 횟수만큼 증가
 		assertEquals(successCnt.intValue(), findSeat.getVersion());
 
 		// 전체 스레드 갯수 - 실패한 횟수

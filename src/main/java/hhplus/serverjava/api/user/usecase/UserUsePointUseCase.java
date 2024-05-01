@@ -2,7 +2,7 @@ package hhplus.serverjava.api.user.usecase;
 
 import static hhplus.serverjava.api.support.response.BaseResponseStatus.CANNOT_REQUEST_SAMETIME;
 
-import org.springframework.dao.OptimisticLockingFailureException;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,22 +12,22 @@ import hhplus.serverjava.domain.user.componenets.UserPoint;
 import hhplus.serverjava.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 
+// @checkstyle:off
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class UserPointChargeUseCase {
+public class UserUsePointUseCase {
 
 	private final UserPoint userPoint;
 
-	// 포인트 충전
-	public UserPointResponse charge(Long userId, Long amount) {
+	// 포인트 사용
+	public UserPointResponse use(Long userId, Long amount) {
 		try {
-			User user = userPoint.pointCharge(userId, amount);
+			User user = userPoint.pointUse(userId, amount);
 
 			return new UserPointResponse(user.getId(), user.getPoint());
-		} catch (OptimisticLockingFailureException e) {
+		} catch (ObjectOptimisticLockingFailureException e) {
 			throw new BaseException(CANNOT_REQUEST_SAMETIME);
 		}
-
 	}
 }

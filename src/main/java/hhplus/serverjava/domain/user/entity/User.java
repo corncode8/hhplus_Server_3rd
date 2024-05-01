@@ -1,5 +1,7 @@
 package hhplus.serverjava.domain.user.entity;
 
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.NOT_ENOUGH_POINT;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +14,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Version;
 
+import hhplus.serverjava.api.support.exceptions.BaseException;
 import hhplus.serverjava.domain.common.BaseEntity;
 import hhplus.serverjava.domain.pointhistory.entity.PointHistory;
 import hhplus.serverjava.domain.reservation.entity.Reservation;
@@ -35,6 +39,9 @@ public class User extends BaseEntity {
 
 	@Column(nullable = false, length = 100)
 	private String name;
+
+	@Version
+	private Long version;
 
 	@Enumerated(value = EnumType.STRING)
 	@Column(nullable = false, length = 10)
@@ -73,6 +80,9 @@ public class User extends BaseEntity {
 	}
 
 	public void usePoint(Long point) {
+		if (this.point - point < 0) {
+			throw new BaseException(NOT_ENOUGH_POINT);
+		}
 		this.point -= point;
 	}
 
