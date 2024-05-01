@@ -1,4 +1,4 @@
-package hhplus.serverjava.api.usecase.user;
+package hhplus.serverjava.api.usecase.point;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -32,7 +32,7 @@ import hhplus.serverjava.domain.user.infrastructure.UserJpaRepository;
 @SpringBootTest
 @ActiveProfiles("test")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-public class UserPointIntegrationTest {
+public class PointIntegrationTest {
 
 	@Autowired
 	private UserPointChargeUseCase userPointChargeUseCase;
