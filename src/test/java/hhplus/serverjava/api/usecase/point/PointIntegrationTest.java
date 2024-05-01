@@ -118,7 +118,7 @@ public class PointIntegrationTest {
 	 * 테스트 시나리오 ( 동시성 테스트 )
 	 * 1명의 유저가 동시에 5번 포인트 사용 요청
 	 * */
-	@DisplayName("charge 동시성 테스트")
+	@DisplayName("use 동시성 테스트")
 	@Test
 	void useTest() throws InterruptedException {
 		//given
