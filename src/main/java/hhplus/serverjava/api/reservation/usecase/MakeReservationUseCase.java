@@ -48,7 +48,7 @@ public class MakeReservationUseCase {
 
 			// 좌석 예약상태로 변경, 임시 배정시간 5분 Set
 			Seat seat = seatReservedUseCase.setReserved(request.getConcertOptionId(), parse, request.getSeatNum());
-			
+
 			// 예약 생성
 			Reservation reservation = ReservationCreator.create(
 				concert.getName(), concert.getArtist(), parse, seat.getSeatNum(), seat.getPrice(), user, seat

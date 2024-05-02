@@ -44,7 +44,7 @@ public class Seat {
 	@Column(nullable = false, length = 10)
 	private State status = State.AVAILABLE;
 
-	private LocalDateTime expiredAt;
+	private LocalDateTime expiredAt = LocalDateTime.now();
 
 	@Version
 	private Long version;
@@ -86,6 +86,7 @@ public class Seat {
 
 	public void setAvailable() {
 		this.status = State.AVAILABLE;
+		this.expiredAt = LocalDateTime.now();
 	}
 
 	public void setExpiredAt(LocalDateTime dateTime) {

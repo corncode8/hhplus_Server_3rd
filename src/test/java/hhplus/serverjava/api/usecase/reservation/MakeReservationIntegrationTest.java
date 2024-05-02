@@ -68,10 +68,8 @@ public class MakeReservationIntegrationTest {
 		LocalDateTime testDateTime = LocalDateTime.of(2024, 4, 11, 15, 30);
 
 		List<User> user = Arrays.asList(
-			saveTestUser(),
-			saveTestUser(),
-			saveTestUser(),
-			saveTestUser(),
+			saveTestUser(), saveTestUser(),
+			saveTestUser(), saveTestUser(),
 			saveTestUser()
 		);
 
@@ -87,7 +85,7 @@ public class MakeReservationIntegrationTest {
 		AtomicInteger successCnt = new AtomicInteger(0);
 		AtomicInteger failCnt = new AtomicInteger(0);
 
-		int threadCnt = 5;
+		int threadCnt = user.size();
 		ExecutorService executorService = Executors.newFixedThreadPool(threadCnt);
 		CountDownLatch latch = new CountDownLatch(threadCnt);
 
@@ -100,7 +98,7 @@ public class MakeReservationIntegrationTest {
 						makeReservationUseCase.makeReservation(user.get(idx).getId(), request);
 						successCnt.incrementAndGet();
 					} catch (Exception e) {
-						System.out.println("ExceptionEE = " + e.getMessage());
+						System.out.println("Exception = " + e.getMessage());
 						failCnt.incrementAndGet();
 					}
 				});
@@ -119,7 +117,7 @@ public class MakeReservationIntegrationTest {
 		assertEquals(threadCnt - failCnt.intValue(), successCnt.intValue());
 
 		// version은 성공한 횟수만큼 증가
-		assertEquals(successCnt.intValue(), findSeat.getVersion());
+		assertEquals(1, findSeat.getVersion());
 
 		// 전체 스레드 갯수 - 실패한 횟수
 		assertEquals(threadCnt - successCnt.intValue(), failCnt.intValue());
