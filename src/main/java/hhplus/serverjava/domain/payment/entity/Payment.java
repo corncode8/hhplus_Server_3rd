@@ -38,4 +38,13 @@ public class Payment extends BaseEntity {
 		this.payAmount = payAmount;
 		this.reservation = reservation;
 	}
+
+	public Payment(Long payAmount, Reservation reservation) {
+		this.payAmount = payAmount;
+		this.reservation = reservation;
+	}
+
+	public static Payment create(Long payAmount, Reservation reservation) {
+		return new Payment(payAmount, reservation);
+	}
 }

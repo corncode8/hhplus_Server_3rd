@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import hhplus.serverjava.api.payment.request.PostPayRequest;
 import hhplus.serverjava.api.payment.response.PostPayResponse;
+import hhplus.serverjava.domain.payment.components.PaymentCreator;
 import hhplus.serverjava.domain.payment.components.PaymentStore;
 import hhplus.serverjava.domain.payment.entity.Payment;
 import hhplus.serverjava.domain.reservation.components.ReservationReader;
@@ -27,23 +28,20 @@ public class PaymentUseCase {
 	public PostPayResponse execute(PostPayRequest request, Long userId) {
 		Reservation reservation = reservationReader.findReservation(request.getReservationId());
 
-		User jwtUser = userReader.findUser(userId);
+		User user = userReader.findUser(userId);
 
-		User user = reservation.getUser();
-
-		userValidator.validUser(jwtUser, user);
+		// 임시 배정된 좌석 존재 여부 + 만료되었는지 확인
 
 		// 잔액 검증
 		userValidator.isValidUserPoint(request.getPayAmount(), user.getPoint());
 
-		Payment payment = Payment.builder()
-			.reservation(reservation)
-			.payAmount((long)reservation.getReservedPrice())
-			.build();
+		// 결제
+		Payment payment = PaymentCreator.create((long)request.getPayAmount(), reservation);
 		paymentStore.save(payment);
 		// 유저 포인트 차감
+		user.usePoint((long)request.getPayAmount());
 
-		// 예약 상태 PAID + 유저 상태 DONE
+		// 예약 완료 처리 + 유저 상태 DONE
 		reservation.setPaid();
 
 		return new PostPayResponse(payment);
