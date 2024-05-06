@@ -1,6 +1,6 @@
 package hhplus.serverjava.domain.concertoption.components;
 
-import static hhplus.serverjava.api.support.response.BaseResponseStatus.*;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.NOT_FOUND_CONCERT_OPTION;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -31,12 +31,8 @@ public class ConcertOptionReader {
 	}
 
 	public ConcertOption findConcertOption(Long concertId, LocalDateTime concertAt) {
-		log.info("Searching for ConcertOption with concertId: {} and concertAt: {}", concertId, concertAt);
 		return concertOptionReaderRepository.findConcertOption(concertId, concertAt)
-			.orElseThrow(() -> {
-				log.error("No ConcertOption found for concertId: {} and concertAt: {}", concertId, concertAt);
-				return new BaseException(NOT_FOUND_CONCERT_OPTION);
-			});
+			.orElseThrow(() -> new BaseException(NOT_FOUND_CONCERT_OPTION));
 	}
 
 	public Concert findConcert(Long concertOptionId) {
