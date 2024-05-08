@@ -1,6 +1,6 @@
 package hhplus.serverjava.domain.reservation.components;
 
-import static hhplus.serverjava.api.support.response.BaseResponseStatus.*;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.INVALID_RESERVATION;
 
 import java.time.LocalDateTime;
 import java.util.List;

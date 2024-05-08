@@ -54,6 +54,8 @@ public enum BaseResponseStatus {
 
 	SCHEDULER_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "스케줄러 오류 발생"),
 	WAIT_QUEUE_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "대기열 오류 발생"),
+	WAIT_QUEUE_EMPTY(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "대기열에 유저가 없습니다."),
+	INTERCEPTOR_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "인터셉터 오류 발생"),
 
 	UNEXPECTED_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "예상치 못한 에러가 발생했습니다.");
 

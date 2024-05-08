@@ -16,10 +16,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
 import hhplus.serverjava.domain.reservation.components.ReservationReader;
 import hhplus.serverjava.domain.reservation.components.ReservationStore;
@@ -63,6 +66,15 @@ public class MainSchedulerJobTest {
 	@Container
 	private static GenericContainer mySqlContainer = new MySQLContainer("mysql:8.0")
 		.withReuse(true);
+	@Container
+	private static GenericContainer redisContainer = new GenericContainer(DockerImageName.parse("redis:latest"))
+		.withExposedPorts(6379);
+
+	@DynamicPropertySource
+	static void registerPgProperties(DynamicPropertyRegistry registry) {
+		registry.add("spring.redis.host", () -> redisContainer.getHost());
+		registry.add("spring.redis.port", () -> String.valueOf(redisContainer.getMappedPort(6379)));
+	}
 
 	@BeforeEach
 	void setUp() throws SchedulerException {
@@ -84,7 +96,7 @@ public class MainSchedulerJobTest {
 
 	@DisplayName("Quartz MainSchedulerJob 테스트")
 	@Test
-	void mainSchedulerJobTest() throws SchedulerException, InterruptedException {
+	void mainSchedulerJobTest() throws InterruptedException {
 		//given
 
 		// 좌석이 만료된 예약 조회
@@ -117,6 +129,8 @@ public class MainSchedulerJobTest {
 		user.setProcessing();
 		user.setUpdatedAt(LocalDateTime.now().minusMinutes(15));
 		userStore.save(user);
+		System.out.println("LocalDateTime.now() = " + LocalDateTime.now());
+		System.out.println("user.getUpdatedAt() = " + user.getUpdatedAt());
 
 		//when & then
 		// 스케줄러가 일할 시간 부여

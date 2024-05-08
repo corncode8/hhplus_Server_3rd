@@ -1,6 +1,7 @@
 package hhplus.serverjava.domain.user.componenets;
 
-import static hhplus.serverjava.api.support.response.BaseResponseStatus.*;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.NOT_ENOUGH_POINT;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.NOT_VALID_USER;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -9,7 +10,9 @@ import org.springframework.stereotype.Component;
 
 import hhplus.serverjava.api.support.exceptions.BaseException;
 import hhplus.serverjava.domain.user.entity.User;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 public class UserValidator {
 	public void isValidUserPoint(int price, Long balance) {

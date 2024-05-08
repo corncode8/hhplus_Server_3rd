@@ -1,6 +1,6 @@
 package hhplus.serverjava.api.support.scheduler.jobs;
 
-import static hhplus.serverjava.api.support.response.BaseResponseStatus.*;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.SCHEDULER_ERROR;
 
 import java.time.LocalDateTime;
 
@@ -57,8 +57,8 @@ public class MainSchedulerJob implements Job {
 
 			// 서비스를 이용중인 유저가 100명 미만이라면
 			// 유저를 서비스에 입장시키는 스케줄러 동작
-			if (schedulerService.findWorkingUserNumValidation(now)) {
-				scheduleJob(scheduler, EnterServiceUsersJob.class, "EnterServiceUsersJob", "jobGroup3");
+			if (schedulerService.findWorkingUserNumValidationV2()) {
+				scheduleJob(scheduler, EnterServiceUsersJob.class, "EnterServiceUsersJobV2", "jobGroup3");
 			}
 
 		} catch (SchedulerException e) {

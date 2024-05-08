@@ -17,7 +17,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
 import hhplus.serverjava.api.support.exceptions.BaseException;
-import hhplus.serverjava.domain.common.BaseEntity;
 import hhplus.serverjava.domain.pointhistory.entity.PointHistory;
 import hhplus.serverjava.domain.reservation.entity.Reservation;
 import lombok.AccessLevel;
@@ -28,7 +27,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User extends BaseEntity {
+public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id", nullable = false, updatable = false)
@@ -113,5 +112,9 @@ public class User extends BaseEntity {
 		this.name = name;
 		this.point = point;
 		this.updatedAt = updatedAt;
+	}
+
+	public static User create(String name, Long point, LocalDateTime updatedAt) {
+		return new User(name, point, updatedAt);
 	}
 }

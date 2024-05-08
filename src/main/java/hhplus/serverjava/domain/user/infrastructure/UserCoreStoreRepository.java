@@ -1,5 +1,7 @@
 package hhplus.serverjava.domain.user.infrastructure;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Repository;
 
 import hhplus.serverjava.domain.user.entity.User;
@@ -14,6 +16,11 @@ public class UserCoreStoreRepository implements UserStoreRepository {
 	@Override
 	public User save(User user) {
 		return userJpaRepository.save(user);
+	}
+
+	@Override
+	public Optional<User> findUser(Long userId) {
+		return userJpaRepository.findById(userId);
 	}
 
 }

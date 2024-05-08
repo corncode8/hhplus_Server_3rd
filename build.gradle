@@ -76,6 +76,10 @@ dependencies {
     // Quartz
     implementation 'org.springframework.boot:spring-boot-starter-quartz:3.2.3'
 
+    // redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.redisson:redisson-spring-boot-starter:3.18.0'
+
     // testcontainers
     testImplementation 'org.testcontainers:junit-jupiter'
     testImplementation 'org.testcontainers:mysql'

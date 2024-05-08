@@ -19,6 +19,7 @@ public class BaseEntity {
 	private LocalDateTime createdAt;
 
 	@UpdateTimestamp
-	@Column(name = "updatedAt", nullable = false, updatable = false)
+	@Column(name = "updatedAt", nullable = false)
 	private LocalDateTime updatedAt;
+
 }

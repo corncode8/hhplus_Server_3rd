@@ -1,8 +1,10 @@
 package hhplus.serverjava.domain.reservation.components;
 
-import static hhplus.serverjava.api.support.response.BaseResponseStatus.*;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.INVALID_RESERVATION;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
