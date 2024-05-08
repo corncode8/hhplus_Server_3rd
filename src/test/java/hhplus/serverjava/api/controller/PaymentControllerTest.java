@@ -74,7 +74,7 @@ public class PaymentControllerTest {
 			.build();
 		reservationStore.save(reservation);
 
-		PostPayRequest request = new PostPayRequest(reservation.getId(), reservation.getReservedPrice());
+		PostPayRequest request = new PostPayRequest(reservation.getId(), reservation.getReservedPrice(), 1L);
 
 		mockMvc.perform(post("/api/payment")
 				.header("Authorization", jwt)   // 토큰 추가
@@ -112,7 +112,7 @@ public class PaymentControllerTest {
 			.build();
 		reservationStore.save(reservation);
 
-		PostPayRequest request = new PostPayRequest(reservation.getId(), reservation.getReservedPrice());
+		PostPayRequest request = new PostPayRequest(reservation.getId(), reservation.getReservedPrice(), 1L);
 
 		mockMvc.perform(post("/api/payment")
 				.header("Authorization", jwt)   // 토큰 추가

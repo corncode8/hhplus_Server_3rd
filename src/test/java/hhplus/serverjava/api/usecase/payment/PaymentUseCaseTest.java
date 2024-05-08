@@ -1,7 +1,9 @@
 package hhplus.serverjava.api.usecase.payment;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
 
@@ -90,7 +92,7 @@ public class PaymentUseCaseTest {
 		when(paymentStore.save(any(Payment.class))).thenReturn(payment);
 		when(userReader.findUser(user.getId())).thenReturn(user);
 
-		PostPayRequest request = new PostPayRequest(reservation.getId(), payAmount);
+		PostPayRequest request = new PostPayRequest(reservation.getId(), payAmount, concert.getId());
 
 		//when
 		PostPayResponse result = paymentUseCase.execute(request, user.getId());

@@ -42,6 +42,8 @@ public interface SchedulerService {
    */
 	Boolean findWorkingUserNumValidation(LocalDateTime now);
 
+	Boolean findWorkingUserNumValidationV2();
+
 	/*
   서비스를 이용중인 유저가 N명 미만인 만큼
   대기중인 유저 입장
@@ -49,4 +51,6 @@ public interface SchedulerService {
   @return Boolean
    */
 	void enterServiceUser();
+
+	void enterServiceUserV2();
 }

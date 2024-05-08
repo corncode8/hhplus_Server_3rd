@@ -16,4 +16,5 @@ public class PostPayRequest {
 	private Long reservationId;
 	@NotNull
 	private int payAmount;
+	private Long concertId;
 }

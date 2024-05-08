@@ -105,7 +105,7 @@ public class PaymentIntegrationTest {
 		Long testReservationId = 1L;
 		int payAmount = 50000;
 
-		PostPayRequest request = new PostPayRequest(testReservationId, payAmount);
+		PostPayRequest request = new PostPayRequest(testReservationId, payAmount, 1L);
 
 		User newUser = new User(testReservationId, (long)payAmount, LocalDateTime.now(), "testname");
 		userStore.save(newUser);
@@ -126,7 +126,7 @@ public class PaymentIntegrationTest {
 		Long testReservationId = 1L;
 		int payAmount = 5000000;
 
-		PostPayRequest request = new PostPayRequest(testReservationId, payAmount);
+		PostPayRequest request = new PostPayRequest(testReservationId, payAmount, 1L);
 
 		User newUser = new User(testReservationId, 50L, LocalDateTime.now(), "testname");
 		userStore.save(newUser);

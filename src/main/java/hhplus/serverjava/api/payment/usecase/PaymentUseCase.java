@@ -8,6 +8,7 @@ import hhplus.serverjava.api.payment.response.PostPayResponse;
 import hhplus.serverjava.domain.payment.components.PaymentCreator;
 import hhplus.serverjava.domain.payment.components.PaymentStore;
 import hhplus.serverjava.domain.payment.entity.Payment;
+import hhplus.serverjava.domain.queue.components.RedisQueueManager;
 import hhplus.serverjava.domain.reservation.components.ReservationReader;
 import hhplus.serverjava.domain.reservation.entity.Reservation;
 import hhplus.serverjava.domain.user.componenets.UserReader;
@@ -24,6 +25,7 @@ public class PaymentUseCase {
 	private final PaymentStore paymentStore;
 	private final UserValidator userValidator;
 	private final ReservationReader reservationReader;
+	private final RedisQueueManager redisQueueManager;
 
 	public PostPayResponse execute(PostPayRequest request, Long userId) {
 		Reservation reservation = reservationReader.findReservation(request.getReservationId());
@@ -43,6 +45,8 @@ public class PaymentUseCase {
 
 		// 예약 완료 처리 + 유저 상태 DONE
 		reservation.setPaid();
+
+		redisQueueManager.popFromWorkingQueue(request.getConcertId(), user.getId());
 
 		return new PostPayResponse(payment);
 	}

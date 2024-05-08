@@ -1,6 +1,6 @@
 package hhplus.serverjava.api.support.scheduler.jobs;
 
-import static hhplus.serverjava.api.support.response.BaseResponseStatus.*;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.SCHEDULER_ERROR;
 
 import java.time.LocalDateTime;
 
@@ -19,12 +19,13 @@ public class ExpireUserJob implements Job {
 	public void execute(JobExecutionContext context) {
 		// 서비스에 입장한 후 10분이 지나 결제를 안 한 유저 만료 처리
 		try {
+			log.info("서비스에 입장한 후 10분이 지나 결제를 안 한 유저 만료 처리");
 			SchedulerContext schedulerContext = context.getScheduler().getContext();
 
 			ApplicationContext applicationContext = (ApplicationContext)schedulerContext.get("applicationContext");
-
+			log.info("applicationContext : {}", applicationContext);
 			SchedulerService schedulerService = applicationContext.getBean(SchedulerService.class);
-
+			log.info("schedulerService : {}", schedulerService);
 			LocalDateTime now = LocalDateTime.now();
 
 			// 유저 만료 처리

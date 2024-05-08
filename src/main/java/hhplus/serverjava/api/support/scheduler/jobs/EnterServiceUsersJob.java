@@ -1,6 +1,6 @@
 package hhplus.serverjava.api.support.scheduler.jobs;
 
-import static hhplus.serverjava.api.support.response.BaseResponseStatus.*;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.SCHEDULER_ERROR;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -24,7 +24,7 @@ public class EnterServiceUsersJob implements Job {
 
 			SchedulerService schedulerService = applicationContext.getBean(SchedulerService.class);
 
-			schedulerService.enterServiceUser();
+			schedulerService.enterServiceUserV2();
 
 		} catch (SchedulerException e) {
 			log.error("EnterServiceUsersJob Error");
