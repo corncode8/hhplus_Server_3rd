@@ -41,6 +41,8 @@ import hhplus.serverjava.domain.user.entity.User;
 @ActiveProfiles("test")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class SchedulerServiceTest {
+	// @checkstyle:off
+
 	@Autowired
 	private ReservationStore reservationStore;
 	@Autowired

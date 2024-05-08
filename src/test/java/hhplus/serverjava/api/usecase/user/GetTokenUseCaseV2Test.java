@@ -56,7 +56,6 @@ public class GetTokenUseCaseV2Test {
 	}
 
 	private final String WAITING_KEY = "waiting:concert:";
-	private final String WORKING_KEY = "working:concert:";
 
 	@DisplayName("토큰 생성 Usecase 테스트")
 	@Test

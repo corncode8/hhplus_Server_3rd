@@ -147,7 +147,7 @@ public class ShedulerServiceImpl implements SchedulerService {
 				List<String> userList = redisQueueManager.popUserFromWatingQueue(concert.getId(), enterNum);
 
 				// waitingQueue에서 제거된 유저 WORKING으로 변경 후 WorkingQueue에 추가
-				int i = redisQueueManager.addWorkingQueue(concert.getId(), userList);
+				redisQueueManager.addWorkingQueue(concert.getId(), userList);
 			}
 		}
 	}
