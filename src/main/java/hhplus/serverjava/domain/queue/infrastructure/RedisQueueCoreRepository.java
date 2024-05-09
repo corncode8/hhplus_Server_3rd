@@ -37,7 +37,7 @@ public class RedisQueueCoreRepository implements RedisQueueRepository {
 
 		String key = WAITING_KEY + concertId;
 		zSetOperations.add(key, userId.toString(), System.currentTimeMillis());
-		redisTemplate.expire(key, 5, TimeUnit.HOURS);
+		redisTemplate.expire(key, 5, TimeUnit.DAYS);
 
 		Long rank = zSetOperations.rank(key, userId.toString());
 		return rank;
@@ -69,7 +69,7 @@ public class RedisQueueCoreRepository implements RedisQueueRepository {
 		String key = WORKING_KEY + concertId;
 
 		zSetOperations.add(key, userId.toString(), System.currentTimeMillis());
-		redisTemplate.expire(key, 10, TimeUnit.MINUTES);
+		redisTemplate.expire(key, 5, TimeUnit.DAYS);
 
 		return userId;
 	}

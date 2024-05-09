@@ -37,7 +37,7 @@ public class RedisQueueManager {
 	 * 사용자를 대기열에 추가하고 TTL을 설정
 	 * @param concertId concert ID
 	 * @param userId user ID
-	 * @return user의 rank (0부터 시작, 없으면 -1 반환)
+	 * @return user의 rank
 	 */
 	public Long addQueue(Long concertId, Long userId) {
 		return redisQueueCoreRepository.addWaitingQueue(concertId, userId);
@@ -59,7 +59,7 @@ public class RedisQueueManager {
 	}
 
 	/**
-	 * WorkingQueue에 있는 유저의 숫자를 조회
+	 * WorkingQueue에 있는 유저의 수를 조회
 	 * @param concertId concert ID
 	 * @return WorkingQueue에 있는 유저의 수
 	 */
@@ -82,7 +82,7 @@ public class RedisQueueManager {
 	}
 
 	/**
-	 * 사용자의 상태를 변경
+	 * 사용자의 상태를 변경 (WAITING -> PROCESSING)
 	 * @param userId user ID
 	 */
 	public void setUserStatus(String userId) {

@@ -12,7 +12,7 @@ import hhplus.serverjava.domain.seat.entity.Seat;
 
 public interface SeatJpaRepository extends JpaRepository<Seat, Long> {
 	// @checkstyle:off
-	@Query("select s from Seat s where s.concertOption.concert.id = :concertId " +
+	@Query("select s from Seat s where s.concert.id = :concertId " +
 		"and s.concertOption.concertAt = :targetDate " +
 		"and s.status = :state")
 	List<Seat> findAvailableSeats(@Param("concertId") Long concertId, @Param("targetDate") LocalDateTime targetDate,

@@ -12,9 +12,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Version;
 
 import hhplus.serverjava.domain.concert.entity.Concert;
@@ -26,6 +28,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name = "Seat", indexes = {
+	@Index(name = "idx_seat", columnList = "concertOption_id, seatNum")
+})
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Seat {

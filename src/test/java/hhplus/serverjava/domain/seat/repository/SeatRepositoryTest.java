@@ -58,12 +58,18 @@ public class SeatRepositoryTest {
 		int seatNum = 48125;
 
 		//when
+		long startTime = System.currentTimeMillis();
 		Optional<Seat> seat = seatJpaRepository.findAvailableSeat(
 			concertOption.getId(),
 			targetDate,
 			Seat.State.AVAILABLE,
 			seatNum
 		);
+		long endTime = System.currentTimeMillis();
+
+		// 실행 시간 출력
+		System.out.println("Execution time: " + (endTime - startTime) + "ms");
+
 		//then
 		Seat findSeat = seat.orElseThrow(() -> new BaseException(INVALID_SEAT));
 		assertEquals(seatNum, findSeat.getSeatNum());
