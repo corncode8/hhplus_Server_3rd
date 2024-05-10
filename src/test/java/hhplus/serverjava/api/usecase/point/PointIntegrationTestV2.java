@@ -24,9 +24,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-import hhplus.serverjava.api.user.usecase.UserPointChargeUseCase;
 import hhplus.serverjava.api.user.usecase.UserPointChargeUseCaseV2;
-import hhplus.serverjava.api.user.usecase.UserUsePointUseCase;
 import hhplus.serverjava.api.user.usecase.UserUsePointUseCaseV2;
 import hhplus.serverjava.domain.user.componenets.UserReader;
 import hhplus.serverjava.domain.user.componenets.UserStore;
@@ -37,12 +35,8 @@ import hhplus.serverjava.domain.user.infrastructure.UserJpaRepository;
 @SpringBootTest
 @ActiveProfiles("test")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-public class PointIntegrationTest {
+public class PointIntegrationTestV2 {
 
-	@Autowired
-	private UserPointChargeUseCase userPointChargeUseCase;
-	@Autowired
-	private UserUsePointUseCase userUsePointUseCase;
 	@Autowired
 	private UserPointChargeUseCaseV2 userPointChargeUseCaseV2;
 	@Autowired
@@ -85,8 +79,9 @@ public class PointIntegrationTest {
 	/*
 	 * 테스트 시나리오 ( 동시성 테스트 )
 	 * 1명의 유저가 동시에 5번 충전 요청
+	 * 모두 충전되어야 한다
 	 * */
-	@DisplayName("charge 동시성 테스트")
+	@DisplayName("charge 동시성 테스트 (분산락)")
 	@Test
 	void chargeTest() throws InterruptedException {
 		//given
@@ -104,10 +99,10 @@ public class PointIntegrationTest {
 			try {
 				executorService.execute(() -> {
 					try {
-						userPointChargeUseCase.charge(1L, chargePoint);
+						userPointChargeUseCaseV2.charge(1L, chargePoint);
 						successCnt.incrementAndGet();
 					} catch (Exception e) {
-						System.out.println("ExceptionEE = " + e.getMessage());
+						System.out.println("Exception E = " + e.getMessage());
 						failCnt.incrementAndGet();
 					}
 				});
@@ -121,26 +116,28 @@ public class PointIntegrationTest {
 
 		//then
 		User findUser = userReader.findUser(1L);
+		System.out.println("findUser.getPoint() = " + findUser.getPoint());
+		System.out.println("successCnt = " + successCnt);
+		System.out.println("failCnt = " + failCnt);
 
-		// 전체 스레드 갯수 - 실패한 횟수 = 성공한 횟수
-		assertEquals(threadCnt - failCnt.intValue(), successCnt.intValue());
+		// 모두 성공
+		assertEquals(threadCnt, successCnt.intValue());
+		assertEquals(0, failCnt.intValue());
 
-		// version == 성공한 횟수
-		assertEquals(successCnt.intValue(), findUser.getVersion());
-
-		// 한 건만 충전 성공
-		assertEquals(5000 + 5000, findUser.getPoint());
+		// 충전 금액 검증 -> 초기 유저 포인트 + (충전 포인트 * 스레드 갯수)
+		assertEquals(5000 + (chargePoint * threadCnt), findUser.getPoint());
 	}
 
 	/*
 	 * 테스트 시나리오 ( 동시성 테스트 )
 	 * 1명의 유저가 동시에 5번 포인트 사용 요청
+	 * 모두 사용되어야 한다
 	 * */
 	@DisplayName("use 동시성 테스트")
 	@Test
 	void useTest() throws InterruptedException {
 		//given
-		Long usePoint = 5000L;
+		Long usePoint = 500L;
 
 		AtomicInteger successCnt = new AtomicInteger(0);
 		AtomicInteger failCnt = new AtomicInteger(0);
@@ -154,59 +151,7 @@ public class PointIntegrationTest {
 			try {
 				executorService.execute(() -> {
 					try {
-						userUsePointUseCase.use(1L, usePoint);
-						successCnt.incrementAndGet();
-					} catch (Exception e) {
-						System.out.println("ExceptionEE = " + e.getMessage());
-						failCnt.incrementAndGet();
-					}
-				});
-			} finally {
-				latch.countDown();
-			}
-		}
-		latch.await();
-
-		Thread.sleep(1000);
-
-		//then
-		User findUser = userReader.findUser(1L);
-
-		// 전체 스레드 갯수 - 실패한 횟수 = 성공한 횟수
-		assertEquals(threadCnt - failCnt.intValue(), successCnt.intValue());
-
-		// version == 성공한 횟수
-		assertEquals(successCnt.intValue(), findUser.getVersion());
-
-		// 한 건만 사용 성공
-		assertEquals(5000 - 5000, findUser.getPoint());
-	}
-
-	/*
-	 * 테스트 시나리오 ( 동시성 테스트 )
-	 * 1명의 유저가 동시에 5번 포인트 충전 및 차감 요청
-	 * 가장 먼저 요청된 작업만 성공
-	 * */
-	@DisplayName("충전 및 차감 동시성 테스트")
-	@Test
-	void test() throws InterruptedException {
-		//given
-		Long point = 4000L;
-
-		AtomicInteger successCnt = new AtomicInteger(0);
-		AtomicInteger failCnt = new AtomicInteger(0);
-
-		int threadCnt = 5;
-		ExecutorService executorService = Executors.newFixedThreadPool(threadCnt);
-		CountDownLatch latch = new CountDownLatch(threadCnt);
-
-		//when
-		for (int i = 0; i < threadCnt; i++) {
-			try {
-				executorService.execute(() -> {
-					try {
-						userUsePointUseCase.use(1L, point);
-						userPointChargeUseCase.charge(1L, point);
+						userUsePointUseCaseV2.use(1L, usePoint);
 						successCnt.incrementAndGet();
 					} catch (Exception e) {
 						System.out.println("Exception E = " + e.getMessage());
@@ -224,10 +169,11 @@ public class PointIntegrationTest {
 		//then
 		User findUser = userReader.findUser(1L);
 
-		// 전체 스레드 갯수 - 실패한 횟수 = 성공한 횟수
-		assertEquals(threadCnt - failCnt.intValue(), successCnt.intValue());
+		// 모두 성공
+		assertEquals(threadCnt, successCnt.intValue());
+		assertEquals(threadCnt - successCnt.intValue(), failCnt.intValue());
 
-		// 사용, 차감 한번씩 실행
-		assertEquals(2L, findUser.getVersion());
+		// 모두 사용 금액 검증 -> 초기 유저 포인트 - (사용 포인트 * 스레드 갯수)
+		assertEquals(5000 - (usePoint * threadCnt), findUser.getPoint());
 	}
 }

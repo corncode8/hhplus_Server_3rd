@@ -15,9 +15,7 @@ public @interface DistributedLock {
 	/**
 	 * 락의 이름
 	 */
-	// String key();
-
-	LockType value();
+	String key();
 
 	/**
 	 * 락의 시간 단위

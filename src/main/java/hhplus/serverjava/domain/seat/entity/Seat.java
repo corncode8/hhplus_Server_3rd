@@ -29,7 +29,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "Seat", indexes = {
-	@Index(name = "idx_seat", columnList = "concertOption_id, seatNum")
+	@Index(name = "idx_seat", columnList = "concertOption_id, seatNum, status")
 })
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

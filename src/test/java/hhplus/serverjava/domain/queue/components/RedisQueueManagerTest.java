@@ -7,8 +7,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,7 +24,6 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
 import hhplus.serverjava.domain.queue.infrastructure.RedisQueueCoreRepository;
-import hhplus.serverjava.domain.user.componenets.UserReader;
 import hhplus.serverjava.domain.user.componenets.UserStore;
 import hhplus.serverjava.domain.user.entity.User;
 
@@ -48,12 +45,6 @@ public class RedisQueueManagerTest {
 
 	@Autowired
 	private UserStore userStore;
-
-	@Autowired
-	private UserReader userReader;
-
-	@Autowired
-	EntityManager em;
 
 	@Container
 	private static GenericContainer mySqlContainer = new MySQLContainer("mysql:8.0")

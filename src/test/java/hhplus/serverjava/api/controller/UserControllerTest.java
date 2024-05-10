@@ -16,11 +16,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -52,6 +55,15 @@ public class UserControllerTest {
 	@Container
 	private static GenericContainer mySqlContainer = new MySQLContainer("mysql:8.0")
 		.withReuse(true);
+	@Container
+	private static GenericContainer redisContainer = new GenericContainer(DockerImageName.parse("redis:latest"))
+		.withExposedPorts(6379);
+
+	@DynamicPropertySource
+	static void registerPgProperties(DynamicPropertyRegistry registry) {
+		registry.add("spring.redis.host", () -> redisContainer.getHost());
+		registry.add("spring.redis.port", () -> String.valueOf(redisContainer.getMappedPort(6379)));
+	}
 
 	@DisplayName("토큰 발급 테스트")
 	@Test

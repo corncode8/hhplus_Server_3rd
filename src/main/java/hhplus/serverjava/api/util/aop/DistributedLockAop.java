@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class DistributedLockAop {
 	private static final String REDIS_LOCK_PREFIX = "LOCK:";
-	
+
 	private final RedissonClient redissonClient;
 	private final AopForTransaction aopForTransaction;
 
@@ -36,10 +36,11 @@ public class DistributedLockAop {
 		String key = REDIS_LOCK_PREFIX + CustomSpringELParser.getDynamicValue(
 			signature.getParameterNames(),
 			joinPoint.getArgs(),
-			distributedLock.value().toString()
+			distributedLock.key().toString()
 		);
 		// 락의 이름으로 RLock 인스턴스를 가져온다.
 		RLock rLock = redissonClient.getLock(key);
+		log.info("rLock : {}", rLock.getName());
 
 		try {
 			// 정의된 waitTime까지 획득을 시도한다, 정의된 leaseTime이 지나면 잠금을 해제한다.
@@ -49,9 +50,10 @@ public class DistributedLockAop {
 				distributedLock.timeUnit()
 			);
 			if (!available) {
+				log.info("분산락 획득 실패");
 				return false;
 			}
-
+			log.info("분산락 획득 성공!");
 			// DistributedLock 어노테이션이 선언된 메서드를 별도의 트랜잭션으로 실행한다.
 			return aopForTransaction.precees(joinPoint);
 		} catch (InterruptedException e) {
