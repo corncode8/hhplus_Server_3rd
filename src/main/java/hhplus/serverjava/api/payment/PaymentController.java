@@ -1,6 +1,6 @@
 package hhplus.serverjava.api.payment;
 
-import static hhplus.serverjava.api.support.response.BaseResponseStatus.*;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.NOT_FIND_USER;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -45,7 +45,7 @@ public class PaymentController {
 			throw new BaseException(NOT_FIND_USER);
 		}
 
-		PostPayResponse execute = paymentUseCase.execute(postRequest, userId);
+		PostPayResponse execute = paymentUseCase.pay(postRequest, userId);
 
 		return new BaseResponse<>(execute);
 	}

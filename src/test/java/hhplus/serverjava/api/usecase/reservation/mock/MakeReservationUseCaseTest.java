@@ -72,7 +72,7 @@ public class MakeReservationUseCaseTest {
 
 		PostReservationRequest request = new PostReservationRequest(testId, testDateTime.toString(), testSeatNum);
 
-		when(seatReservedUseCase.setReserved(testId, testDateTime, 10)).thenReturn(seat);
+		// when(seatReservedUseCase.setReserved(testId, testDateTime, 10)).thenReturn(seat);
 		when(userReader.findUser(user.getId())).thenReturn(user);
 		when(concertOptionReader.findConcert(testId)).thenReturn(concert);
 

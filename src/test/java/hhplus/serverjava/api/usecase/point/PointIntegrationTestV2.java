@@ -24,8 +24,8 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-import hhplus.serverjava.api.user.usecase.UserPointChargeUseCaseV2;
-import hhplus.serverjava.api.user.usecase.UserUsePointUseCaseV2;
+import hhplus.serverjava.api.user.usecase.v2.UserPointChargeUseCaseV2;
+import hhplus.serverjava.api.user.usecase.v2.UserUsePointUseCaseV2;
 import hhplus.serverjava.domain.user.componenets.UserReader;
 import hhplus.serverjava.domain.user.componenets.UserStore;
 import hhplus.serverjava.domain.user.entity.User;

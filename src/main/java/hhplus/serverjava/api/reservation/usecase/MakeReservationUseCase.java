@@ -18,6 +18,7 @@ import hhplus.serverjava.domain.concertoption.components.ConcertOptionReader;
 import hhplus.serverjava.domain.reservation.components.ReservationCreator;
 import hhplus.serverjava.domain.reservation.components.ReservationStore;
 import hhplus.serverjava.domain.reservation.entity.Reservation;
+import hhplus.serverjava.domain.seat.components.SeatReader;
 import hhplus.serverjava.domain.seat.entity.Seat;
 import hhplus.serverjava.domain.user.componenets.UserReader;
 import hhplus.serverjava.domain.user.entity.User;
@@ -31,6 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MakeReservationUseCase {
 
 	private final UserReader userReader;
+	private final SeatReader seatReader;
 	private final SeatReservedUseCase seatReservedUseCase;
 	private final ReservationStore reservationStore;
 	private final ConcertOptionReader concertOptionReader;
@@ -46,8 +48,10 @@ public class MakeReservationUseCase {
 			// findConcert
 			Concert concert = concertOptionReader.findConcert(request.getConcertOptionId());
 
-			// 좌석 예약상태로 변경, 임시 배정시간 5분 Set
-			Seat seat = seatReservedUseCase.setReserved(request.getConcertOptionId(), parse, request.getSeatNum());
+			// 예약 가능한 좌석 조회
+			Seat seat = seatReader.findAvailableSeat(
+				request.getConcertOptionId(), parse, Seat.State.AVAILABLE, request.getSeatNum()
+			);
 
 			// 예약 생성
 			Reservation reservation = ReservationCreator.create(
@@ -56,6 +60,8 @@ public class MakeReservationUseCase {
 
 			reservationStore.save(reservation);
 
+			// 좌석 선점
+			seatReservedUseCase.setReserved(seat);
 			return new PostReservationResponse(reservation, seat);
 		} catch (OptimisticLockingFailureException e) {
 			throw new BaseException(RESERVED_SEAT);

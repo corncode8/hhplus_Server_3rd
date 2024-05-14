@@ -1,4 +1,4 @@
-package hhplus.serverjava.api.user.usecase;
+package hhplus.serverjava.api.user.usecase.v2;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

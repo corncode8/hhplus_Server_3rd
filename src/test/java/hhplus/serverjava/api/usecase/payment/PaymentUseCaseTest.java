@@ -95,7 +95,7 @@ public class PaymentUseCaseTest {
 		PostPayRequest request = new PostPayRequest(reservation.getId(), payAmount, concert.getId());
 
 		//when
-		PostPayResponse result = paymentUseCase.execute(request, user.getId());
+		PostPayResponse result = paymentUseCase.pay(request, user.getId());
 
 		//then
 		assertNotNull(result);

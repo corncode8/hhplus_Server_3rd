@@ -45,6 +45,8 @@ public enum BaseResponseStatus {
 	INVALID_DATE(false, HttpStatus.BAD_REQUEST.value(), "형식에 맞지 않는 날짜 양식입니다."),
 	NOT_FOUND_CONCERT_OPTION(false, HttpStatus.BAD_REQUEST.value(), "찾을 수 없는 콘서트 일정입니다."),
 
+	NOT_FOUND_PAYMENT(false, HttpStatus.NOT_FOUND.value(), "찾을 수 없는 결제내역 입니다."),
+
 	/**
 	 * 500 :  Database, Server 오류
 	 */
