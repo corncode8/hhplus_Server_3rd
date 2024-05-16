@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import hhplus.serverjava.api.support.exceptions.BaseException;
-import hhplus.serverjava.domain.seat.components.SeatReader;
 import hhplus.serverjava.domain.seat.components.SeatValidator;
 import hhplus.serverjava.domain.seat.entity.Seat;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class SeatReservedUseCase {
 
-	private final SeatReader seatReader;
 	private final SeatValidator seatValidator;
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
