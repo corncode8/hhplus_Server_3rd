@@ -13,7 +13,7 @@ import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.stereotype.Component;
 
-import hhplus.serverjava.api.support.scheduler.jobs.MainSchedulerJob;
+import hhplus.serverjava.api.support.scheduler.jobs.EventPublishJob;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,7 +38,7 @@ public class EventPublishScheduler {
 
 		// 메인 스케줄러 Job과 트리거 설정
 		// 메인 스케줄러는 1분마다 실행
-		JobDetail jobDetail = JobBuilder.newJob(MainSchedulerJob.class)
+		JobDetail jobDetail = JobBuilder.newJob(EventPublishJob.class)
 			.withIdentity(uniqueJobName, "group2").build();
 
 		Trigger trigger = TriggerBuilder.newTrigger()
@@ -49,6 +49,7 @@ public class EventPublishScheduler {
 				.repeatForever())
 			.build();
 		JobKey jobKey = new JobKey(uniqueJobName, "group2");
+
 		if (scheduler.checkExists(jobKey)) {
 			scheduler.deleteJob(jobKey); // 이미 존재하면 삭제
 		} else {
