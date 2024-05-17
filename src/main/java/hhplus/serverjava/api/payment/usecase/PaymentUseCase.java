@@ -5,7 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import hhplus.serverjava.api.payment.request.PostPayRequest;
 import hhplus.serverjava.api.payment.response.PostPayResponse;
-import hhplus.serverjava.api.reservation.usecase.ReservationPaidUpdateUseCase;
+import hhplus.serverjava.api.reservation.usecase.ReservationStatusUpdateUseCase;
 import hhplus.serverjava.domain.eventhistory.event.EventHistorySave;
 import hhplus.serverjava.domain.payment.PaymentEventPublisher;
 import hhplus.serverjava.domain.payment.components.PaymentCreator;
@@ -34,12 +34,13 @@ public class PaymentUseCase {
 	private final RedisQueueManager redisQueueManager;
 	private final PaymentEventPublisher eventPublisher;
 	private final ReservationValidator reservationValidator;
-	private final ReservationPaidUpdateUseCase reservationPaidUpdateUseCase;
+	private final ReservationStatusUpdateUseCase reservationStatusUpdateUseCase;
 
 	public PostPayResponse pay(PostPayRequest request, Long userId) {
-		Reservation reservation = reservationReader.findReservation(request.getReservationId());
 
 		User user = userReader.findUser(userId);
+
+		Reservation reservation = reservationReader.findReservation(request.getReservationId());
 
 		// 임시 배정된 좌석 존재 여부 + 만료되었는지 확인
 		reservationValidator.validate(reservation);
@@ -52,7 +53,7 @@ public class PaymentUseCase {
 		paymentStore.save(payment);
 
 		// 예약 상태 변경
-		reservationPaidUpdateUseCase.setPaid(reservation);
+		reservationStatusUpdateUseCase.setPaid(reservation);
 
 		redisQueueManager.popFromWorkingQueue(request.getConcertId(), user.getId());
 

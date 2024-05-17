@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ReservationPaidUpdateUseCase {
+public class ReservationStatusUpdateUseCase {
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void setPaid(Reservation reservation) {
