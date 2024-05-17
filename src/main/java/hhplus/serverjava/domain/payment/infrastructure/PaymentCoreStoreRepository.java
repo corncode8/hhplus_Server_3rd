@@ -3,7 +3,7 @@ package hhplus.serverjava.domain.payment.infrastructure;
 import org.springframework.stereotype.Repository;
 
 import hhplus.serverjava.domain.payment.entity.Payment;
-import hhplus.serverjava.domain.payment.reservation.PaymentStoreRepository;
+import hhplus.serverjava.domain.payment.repository.PaymentStoreRepository;
 import lombok.RequiredArgsConstructor;
 
 @Repository

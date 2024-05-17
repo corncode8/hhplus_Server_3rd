@@ -63,10 +63,6 @@ public enum BaseResponseStatus {
 	WAIT_QUEUE_EMPTY(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "대기열에 유저가 없습니다."),
 	INTERCEPTOR_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "인터셉터 오류 발생"),
 
-	CREATE_ERROR_EVENT_HISTORY(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "EventHistory 생성중 오류가 발생했습니다."),
-
-	SEND_ERROR_DATA(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "데이터 전송중 오류가 발생했습니다."),
-
 	UNEXPECTED_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "예상치 못한 에러가 발생했습니다.");
 
 	private final boolean isSuccess;

@@ -6,11 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 import hhplus.serverjava.api.payment.request.PostPayRequest;
 import hhplus.serverjava.api.payment.response.PostPayResponse;
 import hhplus.serverjava.api.reservation.usecase.ReservationStatusUpdateUseCase;
-import hhplus.serverjava.domain.eventhistory.event.EventHistorySave;
-import hhplus.serverjava.domain.payment.PaymentEventPublisher;
 import hhplus.serverjava.domain.payment.components.PaymentCreator;
 import hhplus.serverjava.domain.payment.components.PaymentStore;
 import hhplus.serverjava.domain.payment.entity.Payment;
+import hhplus.serverjava.domain.payment.event.PaymentEventService;
+import hhplus.serverjava.domain.payment.event.PaymentSuccessEvent;
 import hhplus.serverjava.domain.queue.components.RedisQueueManager;
 import hhplus.serverjava.domain.reservation.components.ReservationReader;
 import hhplus.serverjava.domain.reservation.components.ReservationValidator;
@@ -32,7 +32,7 @@ public class PaymentUseCase {
 	private final UserValidator userValidator;
 	private final ReservationReader reservationReader;
 	private final RedisQueueManager redisQueueManager;
-	private final PaymentEventPublisher eventPublisher;
+	private final PaymentEventService eventPublisher;
 	private final ReservationValidator reservationValidator;
 	private final ReservationStatusUpdateUseCase reservationStatusUpdateUseCase;
 
@@ -58,7 +58,7 @@ public class PaymentUseCase {
 		redisQueueManager.popFromWorkingQueue(request.getConcertId(), user.getId());
 
 		// 예약 성공 이벤트 발행
-		eventPublisher.success(new EventHistorySave(payment.getId()));
+		eventPublisher.eventPublish(new PaymentSuccessEvent(payment.getId()));
 
 		return new PostPayResponse(payment);
 	}

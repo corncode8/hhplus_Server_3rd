@@ -1,4 +1,4 @@
-package hhplus.serverjava.domain.payment.reservation;
+package hhplus.serverjava.domain.payment.repository;
 
 import java.util.Optional;
 

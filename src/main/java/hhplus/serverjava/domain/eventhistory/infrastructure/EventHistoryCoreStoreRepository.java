@@ -1,5 +1,7 @@
 package hhplus.serverjava.domain.eventhistory.infrastructure;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Repository;
 
 import hhplus.serverjava.domain.eventhistory.entity.EventHistory;
@@ -15,5 +17,10 @@ public class EventHistoryCoreStoreRepository implements EventHistoryStoreReposit
 	@Override
 	public EventHistory save(EventHistory eventHistory) {
 		return eventHistoryJPARepository.save(eventHistory);
+	}
+
+	@Override
+	public Optional<EventHistory> findEventHistory(Long eventHistoryId) {
+		return eventHistoryJPARepository.findById(eventHistoryId);
 	}
 }

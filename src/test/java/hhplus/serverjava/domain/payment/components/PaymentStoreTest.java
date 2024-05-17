@@ -1,7 +1,8 @@
 package hhplus.serverjava.domain.payment.components;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import hhplus.serverjava.domain.payment.entity.Payment;
-import hhplus.serverjava.domain.payment.reservation.PaymentStoreRepository;
+import hhplus.serverjava.domain.payment.repository.PaymentStoreRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class PaymentStoreTest {

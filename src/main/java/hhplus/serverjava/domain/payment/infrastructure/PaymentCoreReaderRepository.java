@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import hhplus.serverjava.domain.payment.entity.Payment;
-import hhplus.serverjava.domain.payment.reservation.PaymentReaderRepository;
+import hhplus.serverjava.domain.payment.repository.PaymentReaderRepository;
 import lombok.RequiredArgsConstructor;
 
 @Repository

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import hhplus.serverjava.domain.eventhistory.components.EventHistoryReader;
 import hhplus.serverjava.domain.eventhistory.entity.EventHistory;
-import hhplus.serverjava.domain.payment.PaymentEventPublisher;
-import hhplus.serverjava.domain.payment.event.PaymentDataSendEvent;
+import hhplus.serverjava.domain.payment.event.DataSendEvent;
+import hhplus.serverjava.domain.payment.event.PaymentEventService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class EventPublishServiceImpl implements EventPublishService {
 
-	private final PaymentEventPublisher eventPublisher;
+	private final PaymentEventService eventPublisher;
 	private final EventHistoryReader eventHistoryReader;
 
 	@Override
@@ -26,8 +26,8 @@ public class EventPublishServiceImpl implements EventPublishService {
 		List<EventHistory> eventHistories = eventHistoryReader.failEventList(fiveMinutesAgo);
 
 		for (EventHistory eventHistory : eventHistories) {
-			eventPublisher.paymentDataSendEvent(
-				new PaymentDataSendEvent(eventHistory.getId(), eventHistory.getActorId()));
+			eventPublisher.eventPublish(
+				new DataSendEvent(eventHistory.getId(), eventHistory.getActorId()));
 		}
 	}
 }
