@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import hhplus.serverjava.domain.eventhistory.components.EventHistoryReader;
 import hhplus.serverjava.domain.eventhistory.entity.EventHistory;
 import hhplus.serverjava.domain.payment.event.DataSendEvent;
-import hhplus.serverjava.domain.payment.event.PaymentEventService;
+import hhplus.serverjava.domain.payment.event.PaymentEventPublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class EventPublishServiceImpl implements EventPublishService {
 
-	private final PaymentEventService eventPublisher;
+	private final PaymentEventPublisher eventPublisher;
 	private final EventHistoryReader eventHistoryReader;
 
 	@Override

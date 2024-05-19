@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class PaymentEventService {
+public class PaymentEventPublisher {
 
 	private final ApplicationEventPublisher applicationEventPublisher;
 

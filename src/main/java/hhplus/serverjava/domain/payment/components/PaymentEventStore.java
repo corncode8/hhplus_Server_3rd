@@ -5,6 +5,7 @@ import static hhplus.serverjava.api.support.response.BaseResponseStatus.NOT_FOUN
 import org.springframework.stereotype.Component;
 
 import hhplus.serverjava.api.support.exceptions.BaseException;
+import hhplus.serverjava.api.util.JsonUtil;
 import hhplus.serverjava.domain.eventhistory.entity.EventHistory;
 import hhplus.serverjava.domain.eventhistory.repository.EventHistoryStoreRepository;
 import hhplus.serverjava.domain.payment.event.DataSendEvent;
@@ -17,12 +18,12 @@ public class PaymentEventStore {
 
 	private final EventHistoryStoreRepository repository;
 
-	public EventHistory publishEvent(PaymentSuccessEvent event) {
+	public EventHistory saveEvent(PaymentSuccessEvent event) {
 		EventHistory eventHistory = EventHistory.builder()
 			.published(false)
 			.actor(event.getActor())
-			.actorId(event.getPaymentId())
-			.eventChannel(event.getEventChannel())
+			.actorId(event.getPayment().getId())
+			.jsonData(JsonUtil.toJson(event.getPayment()))
 			.build();
 		return repository.save(eventHistory);
 	}

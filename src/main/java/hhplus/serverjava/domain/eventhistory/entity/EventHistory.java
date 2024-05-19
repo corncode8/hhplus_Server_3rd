@@ -39,7 +39,7 @@ public class EventHistory {
 	private Long actorId;
 
 	@Column(nullable = false)
-	private eventChannel eventChannel;
+	private String jsonData;
 
 	@Column(nullable = true)
 	private String reason;
@@ -56,19 +56,15 @@ public class EventHistory {
 		this.reason = reason;
 	}
 
-	public enum eventChannel {
-		PAYMENT, RESERVATION, USER
-	}
-
 	public enum Actor {
 		PAY, MAKE_RESERVATION
 	}
 
 	@Builder
-	public EventHistory(Boolean published, Actor actor, Long actorId, EventHistory.eventChannel eventChannel) {
+	public EventHistory(Boolean published, Actor actor, Long actorId, String jsonData) {
 		this.published = published;
 		this.actor = actor;
 		this.actorId = actorId;
-		this.eventChannel = eventChannel;
+		this.jsonData = jsonData;
 	}
 }

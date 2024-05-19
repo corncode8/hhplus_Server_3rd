@@ -33,11 +33,8 @@ public class EventPublishScheduler {
 		String uniqueJobName = jobName + "_" + System.currentTimeMillis();
 		String uniqueTriggerName = triggerName + "_" + System.currentTimeMillis();
 
-		// 스케줄러 팩토리를 통해 스케줄러 인스턴스 생성
 		scheduler = StdSchedulerFactory.getDefaultScheduler();
 
-		// 메인 스케줄러 Job과 트리거 설정
-		// 메인 스케줄러는 1분마다 실행
 		JobDetail jobDetail = JobBuilder.newJob(EventPublishJob.class)
 			.withIdentity(uniqueJobName, "group2").build();
 

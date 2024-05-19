@@ -12,13 +12,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PaymentSuccessEventListener {
 
-	private final PaymentEventService eventPublisher;
+	private final PaymentEventPublisher eventPublisher;
 	private final PaymentEventStore paymentEventStore;
 
 	@TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
 	public void eventHistoreySaveHandler(PaymentSuccessEvent event) {
 
-		EventHistory eventHistory = paymentEventStore.publishEvent(event);
+		EventHistory eventHistory = paymentEventStore.saveEvent(event);
 
 		eventPublisher.eventPublish(new DataSendEvent(eventHistory.getId(), eventHistory.getActorId()));
 	}

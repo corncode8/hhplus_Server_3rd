@@ -83,6 +83,12 @@ dependencies {
     // Retry
     implementation("org.springframework.retry:spring-retry")
 
+    // gson
+    implementation 'com.google.code.gson:gson:2.9.0'
+
+    // guava
+    implementation 'com.google.guava:guava:33.0.0-jre'
+
     // Testcontainers
     testImplementation 'org.testcontainers:junit-jupiter'
     testImplementation 'org.testcontainers:mysql'
