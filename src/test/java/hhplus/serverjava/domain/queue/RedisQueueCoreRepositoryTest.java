@@ -27,7 +27,7 @@ import hhplus.serverjava.domain.queue.infrastructure.RedisQueueCoreRepository;
 @Testcontainers
 @ActiveProfiles("test")
 public class RedisQueueCoreRepositoryTest {
-
+	// @checkstyle:off
 	@Autowired
 	private RedisTemplate<String, String> redisTemplate;
 

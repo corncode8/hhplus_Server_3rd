@@ -14,15 +14,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class EventHistoryCoreReaderRepository implements EventHistoryReaderRepository {
 
-	private final EventHistoryJPARepository eventHistoryJPARepository;
+	private final EventHistoryJpaRepository eventHistoryJpaRepository;
 
 	@Override
 	public Optional<EventHistory> findEventHistory(Long eventHistoryId) {
-		return eventHistoryJPARepository.findById(eventHistoryId);
+		return eventHistoryJpaRepository.findById(eventHistoryId);
 	}
 
 	@Override
 	public List<EventHistory> failEventList(LocalDateTime now) {
-		return eventHistoryJPARepository.failEventList(now);
+		return eventHistoryJpaRepository.failEventList(now);
 	}
 }

@@ -3,7 +3,6 @@ package hhplus.serverjava.api.support.scheduler.service;
 import java.time.LocalDateTime;
 
 public interface SchedulerService {
-
 	/*
    좌석이 만료된 예약 확인
    @param now

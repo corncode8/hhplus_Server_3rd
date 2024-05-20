@@ -21,7 +21,7 @@ public class DataSendListener {
 	@Async
 	@Retryable(maxAttempts = 2)
 	@TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-	public void PaymentDataSendhandler(DataSendEvent event) {
+	public void paymentDataSendhandler(DataSendEvent event) {
 		EventHistory eventHistory = paymentEventService.findEvent(event.getEventId());
 
 		try {

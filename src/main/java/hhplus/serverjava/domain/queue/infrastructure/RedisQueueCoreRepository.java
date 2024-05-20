@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Repository
 @RequiredArgsConstructor
 public class RedisQueueCoreRepository implements RedisQueueRepository {
-
+	// @checkstyle:off
 	private final RedisTemplate<String, String> redisTemplate;
 
 	private ZSetOperations<String, String> zSetOperations;

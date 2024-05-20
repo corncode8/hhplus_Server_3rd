@@ -21,6 +21,7 @@ public class TokenInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws
 		Exception {
 		Long userId = jwtService.getUserId();
+		request.setAttribute("userId", userId);
 
 		log.info("==== " + userId + "번 유저 Interceptor 진입 ====");
 

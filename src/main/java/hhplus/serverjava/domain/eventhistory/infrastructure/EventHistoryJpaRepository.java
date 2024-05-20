@@ -9,9 +9,8 @@ import org.springframework.data.repository.query.Param;
 
 import hhplus.serverjava.domain.eventhistory.entity.EventHistory;
 
-public interface EventHistoryJPARepository extends JpaRepository<EventHistory, Long> {
+public interface EventHistoryJpaRepository extends JpaRepository<EventHistory, Long> {
 
-	@Query("select e from EventHistory e where e.createdAt < :now " +
-		"and e.published = false")
+	@Query("select e from EventHistory e where e.createdAt < :now " + "and e.published = false")
 	List<EventHistory> failEventList(@Param("now") LocalDateTime now);
 }

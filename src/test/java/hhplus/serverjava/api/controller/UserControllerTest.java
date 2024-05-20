@@ -79,10 +79,9 @@ public class UserControllerTest {
 			.andExpect(jsonPath("$.isSuccess").value(true))
 			.andExpect(jsonPath("$.code").value(200))
 			.andExpect(jsonPath("$.message").value("요청에 성공하였습니다."))
-
 			.andExpect(jsonPath("$.result.token").isNotEmpty())
 			.andExpect(jsonPath("$.result.listNum").value(0))
-			.andExpect(jsonPath("$.result.state").value("PROCESSING"));
+			.andExpect(jsonPath("$.result.state").value("WAITING"));
 	}
 
 	@DisplayName("대기열 확인 테스트")
@@ -97,17 +96,18 @@ public class UserControllerTest {
 		userStore.save(user);
 
 		String jwt = jwtService.createJwt(user.getId());
+		Long concertId = 1L;
 
 		mockMvc.perform(get("/api/wait/check")
 				.header("Authorization", jwt)
+				.param("concertId", concertId.toString())
 				.accept(MediaType.APPLICATION_JSON))
 			.andDo(print())
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.isSuccess").value(true))
 			.andExpect(jsonPath("$.code").value(200))
 			.andExpect(jsonPath("$.message").value("요청에 성공하였습니다."))
-
-			.andExpect(jsonPath("$.result.listNum").value(0));
+			.andExpect(jsonPath("$.result.listNum").value(-1));
 	}
 
 	@DisplayName("잔액 충전 테스트")

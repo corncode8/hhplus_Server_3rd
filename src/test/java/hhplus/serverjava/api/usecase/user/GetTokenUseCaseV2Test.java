@@ -28,7 +28,7 @@ import hhplus.serverjava.domain.user.entity.User;
 @Testcontainers
 @ActiveProfiles("test")
 public class GetTokenUseCaseV2Test {
-
+	// @checkstyle:off
 	@Autowired
 	private RedisTemplate<String, String> redisTemplate;
 

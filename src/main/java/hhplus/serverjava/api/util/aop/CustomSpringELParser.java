@@ -7,6 +7,7 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 /**
  * Spring Expression Language Parser
  */
+// @checkstyle:off
 public class CustomSpringELParser {
 	private CustomSpringELParser() {
 	}

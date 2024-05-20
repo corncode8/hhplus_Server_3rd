@@ -12,15 +12,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class EventHistoryCoreStoreRepository implements EventHistoryStoreRepository {
 
-	private final EventHistoryJPARepository eventHistoryJPARepository;
+	private final EventHistoryJpaRepository eventHistoryJpaRepository;
 
 	@Override
 	public EventHistory save(EventHistory eventHistory) {
-		return eventHistoryJPARepository.save(eventHistory);
+		return eventHistoryJpaRepository.save(eventHistory);
 	}
 
 	@Override
 	public Optional<EventHistory> findEventHistory(Long eventHistoryId) {
-		return eventHistoryJPARepository.findById(eventHistoryId);
+		return eventHistoryJpaRepository.findById(eventHistoryId);
 	}
 }

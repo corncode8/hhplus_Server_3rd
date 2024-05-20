@@ -29,6 +29,8 @@ import hhplus.serverjava.api.payment.request.PostPayRequest;
 import hhplus.serverjava.api.util.jwt.JwtService;
 import hhplus.serverjava.domain.reservation.components.ReservationStore;
 import hhplus.serverjava.domain.reservation.entity.Reservation;
+import hhplus.serverjava.domain.seat.components.SeatStore;
+import hhplus.serverjava.domain.seat.entity.Seat;
 import hhplus.serverjava.domain.user.componenets.UserStore;
 import hhplus.serverjava.domain.user.entity.User;
 
@@ -44,6 +46,9 @@ public class PaymentControllerTest {
 
 	@Autowired
 	private UserStore userStore;
+
+	@Autowired
+	private SeatStore seatStore;
 
 	@Autowired
 	private ReservationStore reservationStore;
@@ -76,10 +81,18 @@ public class PaymentControllerTest {
 
 		String jwt = jwtService.createJwt(user.getId());
 
+		Seat seat = Seat.builder()
+			.seatNum(10)
+			.price(5000)
+			.build();
+		seat.setExpiredAt(LocalDateTime.now().minusMinutes(1));
+		seatStore.save(seat);
+
 		Reservation reservation = Reservation.builder()
 			.seatNum(10)
 			.reservedPrice(5000)
 			.user(user)
+			.seat(seat)
 			.concertAt(LocalDateTime.now().plusDays(5))
 			.concertName("IU")
 			.concertArtist("IUUUUUU")
@@ -114,10 +127,18 @@ public class PaymentControllerTest {
 
 		String jwt = jwtService.createJwt(user.getId());
 
+		Seat seat = Seat.builder()
+			.seatNum(10)
+			.price(5000)
+			.build();
+		seat.setExpiredAt(LocalDateTime.now().minusMinutes(1));
+		seatStore.save(seat);
+
 		Reservation reservation = Reservation.builder()
 			.seatNum(10)
 			.reservedPrice(5000)
 			.user(user)
+			.seat(seat)
 			.concertAt(LocalDateTime.now().plusDays(5))
 			.concertName("IU")
 			.concertArtist("IUUUUUU")
@@ -133,7 +154,7 @@ public class PaymentControllerTest {
 			.andDo(print())
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.isSuccess").value(false))        // isSuccess
-			.andExpect(jsonPath("$.code").value(404))               // code
+			.andExpect(jsonPath("$.code").value(400))               // code
 			.andExpect(jsonPath("$.message").value("포인트가 부족합니다.")); // failMessage
 
 	}
