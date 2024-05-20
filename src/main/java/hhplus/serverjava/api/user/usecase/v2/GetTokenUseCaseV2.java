@@ -1,4 +1,4 @@
-package hhplus.serverjava.api.user.usecase;
+package hhplus.serverjava.api.user.usecase.v2;
 
 import static hhplus.serverjava.api.support.response.BaseResponseStatus.FAIL_NEW_TOKEN;
 

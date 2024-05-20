@@ -30,6 +30,7 @@ import hhplus.serverjava.domain.concert.components.ConcertStore;
 import hhplus.serverjava.domain.concert.entity.Concert;
 import hhplus.serverjava.domain.concertoption.components.ConcertOptionStore;
 import hhplus.serverjava.domain.concertoption.entity.ConcertOption;
+import hhplus.serverjava.domain.reservation.components.ReservationReader;
 import hhplus.serverjava.domain.reservation.components.ReservationStore;
 import hhplus.serverjava.domain.reservation.entity.Reservation;
 import hhplus.serverjava.domain.seat.components.SeatStore;
@@ -54,6 +55,8 @@ public class PaymentIntegrationTest {
 	private SeatStore seatStore;
 	@Autowired
 	private ReservationStore reservationStore;
+	@Autowired
+	private ReservationReader reservationReader;
 
 	@Autowired
 	private PaymentUseCase paymentUseCase;
@@ -123,12 +126,15 @@ public class PaymentIntegrationTest {
 		userStore.save(newUser);
 
 		//when
-		PostPayResponse result = paymentUseCase.execute(request, newUser.getId());
+		PostPayResponse result = paymentUseCase.pay(request, newUser.getId());
 
 		//then
 		assertNotNull(result);
 		assertEquals(payAmount, result.getPayAmount());
 		assertEquals(testReservationId, result.getPayId());
+
+		Reservation reservation = reservationReader.findReservation(result.getReservationId());
+		System.out.println("reservation.getStatus() = " + reservation.getStatus());
 	}
 
 	@DisplayName("결제 테스트 실패 (잔액 부족)")
@@ -145,7 +151,7 @@ public class PaymentIntegrationTest {
 
 		//when & then
 		BaseException exception = assertThrows(BaseException.class,
-			() -> paymentUseCase.execute(request, newUser.getId()));
+			() -> paymentUseCase.pay(request, newUser.getId()));
 		assertEquals(NOT_ENOUGH_POINT.getMessage(), exception.getMessage());
 	}
 }

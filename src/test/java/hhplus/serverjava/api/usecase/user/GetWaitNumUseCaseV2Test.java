@@ -21,7 +21,7 @@ import org.testcontainers.utility.DockerImageName;
 
 import hhplus.serverjava.api.user.request.GetWaitNumRequest;
 import hhplus.serverjava.api.user.response.GetUserResponse;
-import hhplus.serverjava.api.user.usecase.GetWaitNumUseCaseV2;
+import hhplus.serverjava.api.user.usecase.v2.GetWaitNumUseCaseV2;
 
 @SpringBootTest
 @Testcontainers

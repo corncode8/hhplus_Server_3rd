@@ -21,7 +21,7 @@ import org.testcontainers.utility.DockerImageName;
 
 import hhplus.serverjava.api.user.request.GetTokenRequest;
 import hhplus.serverjava.api.user.response.GetTokenResponse;
-import hhplus.serverjava.api.user.usecase.GetTokenUseCaseV2;
+import hhplus.serverjava.api.user.usecase.v2.GetTokenUseCaseV2;
 import hhplus.serverjava.domain.user.entity.User;
 
 @SpringBootTest

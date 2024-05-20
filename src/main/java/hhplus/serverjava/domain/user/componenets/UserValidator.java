@@ -15,10 +15,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 public class UserValidator {
-	public void isValidUserPoint(int price, Long balance) {
-		if (price > balance) {
+	public void isValidUserPoint(int price, User user) {
+		if (price > user.getPoint()) {
 			throw new BaseException(NOT_ENOUGH_POINT);
 		}
+		user.usePoint((long)price);
 	}
 
 	// 서비스에 입장한 후 10분이 지나도록 결제도 안하고 있는지 확인
