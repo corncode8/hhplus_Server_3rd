@@ -38,8 +38,8 @@ public class EventHistory {
 	@Column(nullable = false)
 	private Long actorId;
 
-	@Column(nullable = false)
-	private String jsonData;
+	// @Column(nullable = false)
+	// private String jsonData;
 
 	@Column(nullable = true)
 	private String reason;
@@ -61,10 +61,9 @@ public class EventHistory {
 	}
 
 	@Builder
-	public EventHistory(Boolean published, Actor actor, Long actorId, String jsonData) {
+	public EventHistory(Boolean published, Actor actor, Long actorId) {
 		this.published = published;
 		this.actor = actor;
 		this.actorId = actorId;
-		this.jsonData = jsonData;
 	}
 }

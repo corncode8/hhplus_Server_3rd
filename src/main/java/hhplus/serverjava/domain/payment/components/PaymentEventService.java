@@ -5,7 +5,7 @@ import static hhplus.serverjava.api.support.response.BaseResponseStatus.NOT_FOUN
 import org.springframework.stereotype.Component;
 
 import hhplus.serverjava.api.support.exceptions.BaseException;
-import hhplus.serverjava.api.util.JsonUtil;
+import hhplus.serverjava.domain.eventhistory.components.EventHistoryReader;
 import hhplus.serverjava.domain.eventhistory.entity.EventHistory;
 import hhplus.serverjava.domain.eventhistory.repository.EventHistoryStoreRepository;
 import hhplus.serverjava.domain.payment.event.DataSendEvent;
@@ -14,16 +14,21 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class PaymentEventStore {
+public class PaymentEventService {
 
 	private final EventHistoryStoreRepository repository;
+
+	private final EventHistoryReader historyReader;
+
+	public EventHistory findEvent(Long eventId) {
+		return historyReader.findEvent(eventId);
+	}
 
 	public EventHistory saveEvent(PaymentSuccessEvent event) {
 		EventHistory eventHistory = EventHistory.builder()
 			.published(false)
 			.actor(event.getActor())
 			.actorId(event.getPayment().getId())
-			.jsonData(JsonUtil.toJson(event.getPayment()))
 			.build();
 		return repository.save(eventHistory);
 	}

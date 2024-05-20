@@ -18,18 +18,16 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class ReservationValidator {
 
-	private final ReservationReader reservationReader;
-
 	public void validate(Reservation reservation) {
 		Seat seat = reservation.getSeat();
 
 		// 좌석이 만료되었는지 확인
-		if (seat.getExpiredAt().isBefore(LocalDateTime.now())) {
+		if (!LocalDateTime.now().isAfter(seat.getExpiredAt())) {
 			throw new BaseException(PAY_EXPIRED_SEAT);
 		}
 
 		// 좌석이 선점되었는지 확인
-		if (seat.getStatus().equals(Seat.State.AVAILABLE)) {
+		if (!seat.getStatus().equals(Seat.State.AVAILABLE)) {
 			throw new BaseException(PAY_INVALID_SEAT);
 		}
 

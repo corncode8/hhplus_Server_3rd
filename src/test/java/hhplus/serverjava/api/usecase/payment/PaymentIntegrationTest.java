@@ -12,10 +12,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.event.RecordApplicationEvents;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
@@ -35,16 +37,20 @@ import hhplus.serverjava.domain.reservation.components.ReservationStore;
 import hhplus.serverjava.domain.reservation.entity.Reservation;
 import hhplus.serverjava.domain.seat.components.SeatStore;
 import hhplus.serverjava.domain.seat.entity.Seat;
+import hhplus.serverjava.domain.user.componenets.UserReader;
 import hhplus.serverjava.domain.user.componenets.UserStore;
 import hhplus.serverjava.domain.user.entity.User;
 
 @Testcontainers
 @SpringBootTest
 @ActiveProfiles("test")
+@RecordApplicationEvents
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 // @checkstyle:off
 public class PaymentIntegrationTest {
 
+	@Autowired
+	private UserReader userReader;
 	@Autowired
 	private UserStore userStore;
 	@Autowired
@@ -57,6 +63,8 @@ public class PaymentIntegrationTest {
 	private ReservationStore reservationStore;
 	@Autowired
 	private ReservationReader reservationReader;
+	@Autowired
+	private ApplicationEventPublisher applicationEventPublisher;
 
 	@Autowired
 	private PaymentUseCase paymentUseCase;
@@ -78,7 +86,7 @@ public class PaymentIntegrationTest {
 	void setUp() {
 		User user = User.builder()
 			.name("paymentTestUser")
-			.point(50000L)
+			.point(500000L)
 			.updatedAt(LocalDateTime.now())
 			.build();
 		user.setProcessing();
@@ -99,6 +107,7 @@ public class PaymentIntegrationTest {
 			.price(50000)
 			.seatNum(15)
 			.build();
+		seat.setExpiredAt(LocalDateTime.now().minusMinutes(1));
 		seatStore.save(seat);
 
 		Reservation reservation = Reservation.builder()
@@ -122,19 +131,24 @@ public class PaymentIntegrationTest {
 
 		PostPayRequest request = new PostPayRequest(testReservationId, payAmount, 1L);
 
-		User newUser = new User(testReservationId, (long)payAmount, LocalDateTime.now(), "testname");
-		userStore.save(newUser);
+		User user = userReader.findUser(1L);
 
 		//when
-		PostPayResponse result = paymentUseCase.pay(request, newUser.getId());
+		PostPayResponse result = paymentUseCase.pay(request, user.getId());
 
 		//then
 		assertNotNull(result);
 		assertEquals(payAmount, result.getPayAmount());
 		assertEquals(testReservationId, result.getPayId());
 
+		// 예약 상태 변경
 		Reservation reservation = reservationReader.findReservation(result.getReservationId());
-		System.out.println("reservation.getStatus() = " + reservation.getStatus());
+		assertEquals(Reservation.State.PAID, reservation.getStatus());
+
+		// 유저 잔액 차감
+		User findUser = userReader.findUser(1L);
+		assertEquals(user.getPoint() - payAmount, findUser.getPoint());
+
 	}
 
 	@DisplayName("결제 테스트 실패 (잔액 부족)")
