@@ -1,7 +1,5 @@
 package hhplus.serverjava.api.user;
 
-import static hhplus.serverjava.api.support.response.BaseResponseStatus.FAIL_FIND_QUEUE;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -13,17 +11,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import hhplus.serverjava.api.support.exceptions.BaseException;
 import hhplus.serverjava.api.support.response.BaseResponse;
+import hhplus.serverjava.api.user.request.GetTokenRequest;
+import hhplus.serverjava.api.user.request.GetWaitNumRequest;
 import hhplus.serverjava.api.user.request.PatchUserRequest;
 import hhplus.serverjava.api.user.response.GetTokenResponse;
 import hhplus.serverjava.api.user.response.GetUserResponse;
 import hhplus.serverjava.api.user.response.PointHistoryDto;
 import hhplus.serverjava.api.user.response.UserPointResponse;
 import hhplus.serverjava.api.user.usecase.GetPointHistoryUseCase;
-import hhplus.serverjava.api.user.usecase.GetTokenUseCase;
 import hhplus.serverjava.api.user.usecase.GetUserPointUseCase;
 import hhplus.serverjava.api.user.usecase.UserPointChargeUseCase;
+import hhplus.serverjava.api.user.usecase.v2.GetTokenUseCaseV2;
+import hhplus.serverjava.api.user.usecase.v2.GetWaitNumUseCaseV2;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -37,22 +37,23 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class UserController {
 
-	private final GetTokenUseCase getTokenUseCase;
+	private final GetTokenUseCaseV2 getTokenUseCase;
+	private final GetWaitNumUseCaseV2 getWaitNumUseCase;
 	private final GetPointHistoryUseCase getPointHistoryUseCase;
 	private final GetUserPointUseCase getUserPointUseCase;
 	private final UserPointChargeUseCase userPointChargeUseCase;
 
 	/**
 	 * 토큰 발급 API
-	 * [GET] /api/wait
+	 * [GET] /api/token
 	 * @return BaseResponse<GetTokenResponse>
 	 */
 	@Operation(summary = "토큰 발급")
-	@GetMapping("/wait")
-	public BaseResponse<GetTokenResponse> getToken(@RequestParam String username) {
+	@GetMapping("/token")
+	public BaseResponse<GetTokenResponse> getToken(GetTokenRequest request) {
 
 		// 유저 생성 + 토큰 발급
-		GetTokenResponse execute = getTokenUseCase.execute(username);
+		GetTokenResponse execute = getTokenUseCase.execute(request);
 
 		return new BaseResponse<>(execute);
 	}
@@ -64,16 +65,13 @@ public class UserController {
 	 */
 	@Operation(summary = "대기열 확인")
 	@GetMapping("/wait/check")
-	public BaseResponse<GetUserResponse> checkQueue(HttpServletRequest request) {
+	public BaseResponse<GetUserResponse> checkQueue(HttpServletRequest request, @RequestParam Long concertId) {
 
 		// Interceptor에서 유저의 현재 대기열 정보 확인
-		Long waitNum = (Long)request.getAttribute("waitNum");
+		Long userId = (Long)request.getAttribute("userId");
+		GetUserResponse execute = getWaitNumUseCase.execute(new GetWaitNumRequest(concertId, userId));
 
-		if (waitNum == null) {
-			throw new BaseException(FAIL_FIND_QUEUE);
-		}
-
-		return new BaseResponse<>(new GetUserResponse(waitNum));
+		return new BaseResponse<>(execute);
 	}
 
 	/**

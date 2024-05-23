@@ -1,7 +1,6 @@
 package hhplus.serverjava.domain.queue.components;
 
 import static hhplus.serverjava.api.support.response.BaseResponseStatus.NOT_FIND_USER;
-import static hhplus.serverjava.api.support.response.BaseResponseStatus.WAIT_QUEUE_EMPTY;
 
 import java.util.List;
 
@@ -51,11 +50,10 @@ public class RedisQueueManager {
 	 */
 	public List<String> popUserFromWatingQueue(Long concertId, long enterNum) {
 		List<String> popUserList = redisQueueCoreRepository.popWaitingQueue(concertId, enterNum);
-		if (!popUserList.isEmpty()) {
-			return popUserList;
-		} else {
-			throw new BaseException(WAIT_QUEUE_EMPTY);
-		}
+		log.info("popUserListSize : {}", popUserList.size());
+
+		return popUserList;
+
 	}
 
 	/**
