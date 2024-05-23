@@ -1,9 +1,11 @@
 package hhplus.serverjava.domain.concert.components;
 
-import static hhplus.serverjava.api.support.response.BaseResponseStatus.*;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.EMPTY_CONCERT;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.NOT_FIND_CONCERT;
 
 import java.util.List;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import hhplus.serverjava.api.support.exceptions.BaseException;
@@ -22,6 +24,7 @@ public class ConcertReader {
 			.orElseThrow(() -> new BaseException(NOT_FIND_CONCERT));
 	}
 
+	@Cacheable(value = "concertList", key = "#state", cacheManager = "cacheManager")
 	public List<Concert> findConcertList(Concert.State state) {
 		List<Concert> concertList = concertReaderRepository.findConcertList(state);
 

@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,6 +35,9 @@ public class Concert extends BaseEntity {
 
 	@Column(nullable = false, length = 50)
 	private String artist;
+
+	@Enumerated(value = EnumType.STRING)
+	@Column(nullable = false, length = 10)
 	private State status = State.SHOWING;
 
 	@OneToMany(mappedBy = "concert")
