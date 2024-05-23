@@ -41,7 +41,8 @@ public class GetWaitNumIntegrationTest {
 		.withReuse(true);
 	@Container
 	private static GenericContainer redisContainer = new GenericContainer(DockerImageName.parse("redis:latest"))
-		.withExposedPorts(6379);
+		.withExposedPorts(6379)
+		.withReuse(true);
 
 	@DynamicPropertySource
 	static void registerPgProperties(DynamicPropertyRegistry registry) {

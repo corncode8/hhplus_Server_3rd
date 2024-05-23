@@ -27,7 +27,7 @@ import hhplus.serverjava.api.user.usecase.v2.GetWaitNumUseCaseV2;
 @Testcontainers
 @ActiveProfiles("test")
 public class GetWaitNumUseCaseV2Test {
-
+	// @checkstyle:off
 	@Autowired
 	private RedisTemplate<String, String> redisTemplate;
 
@@ -41,7 +41,8 @@ public class GetWaitNumUseCaseV2Test {
 		.withReuse(true);
 	@Container
 	private static GenericContainer redisContainer = new GenericContainer(DockerImageName.parse("redis:latest"))
-		.withExposedPorts(6379);
+		.withExposedPorts(6379)
+		.withReuse(true);
 
 	@DynamicPropertySource
 	static void registerPgProperties(DynamicPropertyRegistry registry) {
@@ -61,7 +62,7 @@ public class GetWaitNumUseCaseV2Test {
 	@Test
 	void executeTest() {
 		//given
-		Long concertId = 1L;
+		Long concertId = 7L;
 		Long userId = 1L;
 		String key = WAITING_KEY + concertId;
 

@@ -38,7 +38,7 @@ import hhplus.serverjava.domain.user.infrastructure.UserJpaRepository;
 @ActiveProfiles("test")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class PointIntegrationTest {
-
+	// @checkstyle:off
 	@Autowired
 	private UserPointChargeUseCase userPointChargeUseCase;
 	@Autowired
@@ -59,7 +59,8 @@ public class PointIntegrationTest {
 		.withReuse(true);
 	@Container
 	private static GenericContainer redisContainer = new GenericContainer(DockerImageName.parse("redis:latest"))
-		.withExposedPorts(6379);
+		.withExposedPorts(6379)
+		.withReuse(true);
 
 	@DynamicPropertySource
 	static void registerPgProperties(DynamicPropertyRegistry registry) {

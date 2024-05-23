@@ -36,7 +36,7 @@ import hhplus.serverjava.domain.user.infrastructure.UserJpaRepository;
 @ActiveProfiles("test")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class PointIntegrationTestV2 {
-
+	// @checkstyle:off
 	@Autowired
 	private UserPointChargeUseCaseV2 userPointChargeUseCaseV2;
 	@Autowired

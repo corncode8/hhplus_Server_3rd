@@ -107,7 +107,7 @@ public class RedisQueueCoreRepositoryTest {
 	@Test
 	void popWaitingQueue() {
 		//given
-		Long concertId = 1L;
+		Long concertId = 10L;
 		long enterNum = 20;
 
 		String key = WAITING_KEY + concertId;
@@ -185,3 +185,4 @@ public class RedisQueueCoreRepositoryTest {
 		assertEquals(18, zSetOperations.size(key));
 	}
 }
+

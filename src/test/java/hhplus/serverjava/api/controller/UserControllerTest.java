@@ -57,7 +57,8 @@ public class UserControllerTest {
 		.withReuse(true);
 	@Container
 	private static GenericContainer redisContainer = new GenericContainer(DockerImageName.parse("redis:latest"))
-		.withExposedPorts(6379);
+		.withExposedPorts(6379)
+		.withReuse(true);
 
 	@DynamicPropertySource
 	static void registerPgProperties(DynamicPropertyRegistry registry) {
@@ -71,7 +72,7 @@ public class UserControllerTest {
 		//given
 		String newUsername = "testUser";
 
-		mockMvc.perform(get("/api/wait")
+		mockMvc.perform(get("/api/token")
 				.accept(MediaType.APPLICATION_JSON)
 				.param("username", newUsername))
 			.andDo(print())

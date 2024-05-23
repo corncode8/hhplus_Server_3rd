@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -31,7 +30,6 @@ import hhplus.serverjava.domain.user.entity.User;
 @SpringBootTest
 @Testcontainers
 @ActiveProfiles("test")
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class RedisQueueManagerTest {
 	// @checkstyle:off
 	@Autowired
@@ -73,7 +71,7 @@ public class RedisQueueManagerTest {
 	@Test
 	void findUserRankTest() {
 		//given
-		Long concertId = 1L;
+		Long concertId = 6L;
 
 		// userId 1 ~ 10 까지 대기열에 추가
 		for (int i = 0; i < 10; i++) {
@@ -103,7 +101,7 @@ public class RedisQueueManagerTest {
 	void addQueueTest() {
 		//given
 		Long concertId = 1L;
-		String key = "waiting:concert:" + concertId;
+		String key = WAITING_KEY + concertId;
 
 		//when
 		for (int i = 0; i < 10; i++) {
@@ -120,7 +118,7 @@ public class RedisQueueManagerTest {
 	@Test
 	void popUserFromQueueTest() {
 		//given
-		Long concertId = 1L;
+		Long concertId = 2L;
 		long enterNum = 3;
 
 		// Queue에 20명 진입
@@ -141,7 +139,7 @@ public class RedisQueueManagerTest {
 	@Test
 	void findWorkingUserNumTest() {
 		//given
-		Long concertId = 1L;
+		Long concertId = 3L;
 		String key = WORKING_KEY + concertId;
 
 		for (int i = 0; i < 10; i++) {
@@ -160,7 +158,7 @@ public class RedisQueueManagerTest {
 	@Test
 	void addWorkingQueueTest() {
 		//given
-		Long concertId = 1L;
+		Long concertId = 4L;
 		List<String> userList = new ArrayList<>();
 		int listNum = 10;
 		setUser(listNum);
@@ -195,7 +193,7 @@ public class RedisQueueManagerTest {
 	@Test
 	void popFromWoringQueueTest() {
 		//given
-		Long concertId = 1L;
+		Long concertId = 5L;
 		String key = WORKING_KEY + concertId;
 
 		for (int i = 0; i < 5; i++) {
@@ -209,6 +207,7 @@ public class RedisQueueManagerTest {
 		Long size = zSetOperations.size(key);
 
 		assertNotNull(size);
+		System.out.println("size = " + size);
 		assertEquals(5 - 1, size);
 	}
 }
