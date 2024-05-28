@@ -1,6 +1,8 @@
 package hhplus.serverjava.domain.seat.components;
 
-import static hhplus.serverjava.api.support.response.BaseResponseStatus.*;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.EMPTY_SEAT_RESERVATION;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.INVALID_SEAT;
+import static hhplus.serverjava.api.support.response.BaseResponseStatus.INVALID_SEAT_RESERVATION;
 
 import java.time.LocalDateTime;
 import java.util.List;

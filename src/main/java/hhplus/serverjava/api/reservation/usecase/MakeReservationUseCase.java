@@ -57,7 +57,6 @@ public class MakeReservationUseCase {
 			Reservation reservation = ReservationCreator.create(
 				concert.getName(), concert.getArtist(), parse, seat.getSeatNum(), seat.getPrice(), user, seat
 			);
-
 			reservationStore.save(reservation);
 
 			// 좌석 선점

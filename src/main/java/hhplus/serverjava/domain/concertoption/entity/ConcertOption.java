@@ -14,6 +14,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+
 import hhplus.serverjava.domain.concert.entity.Concert;
 import hhplus.serverjava.domain.seat.entity.Seat;
 import lombok.AccessLevel;
@@ -30,6 +35,8 @@ public class ConcertOption {
 	@Column(name = "concertOption_id", nullable = false, updatable = false)
 	private Long id;
 
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	private LocalDateTime concertAt;
 
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -15,7 +15,7 @@ import hhplus.serverjava.domain.seat.entity.Seat;
 import lombok.RequiredArgsConstructor;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 public class FindAvailableSeatsUseCase {
 
